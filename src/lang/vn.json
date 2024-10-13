@@ -1,0 +1,66 @@
+{
+    "common": {
+        "select_lang": "Ngôn ngữ"
+    },
+    "error": {
+        "login": {
+            "post_login": "Lỗi khi đăng nhâp: "
+        }
+    },
+    "auth": {
+        "time_out": {
+            "title": "Đã hết phiên đăng nhập",
+            "text": "Vui lòng đăng nhập lại"
+        }
+    },
+    "login": {
+        "title": "ĐĂNG NHẬP",
+        "buttons": {
+            "login": "Đăng nhập",
+            "forgot_password": "Quên mật khẩu"
+        },
+        "input_text": {
+            "username": "Tên đăng nhập",
+            "username_placeholder": "Nhập tên đăng nhập của bạn.",
+            "password": "Mật khẩu",
+            "password_placeholder": "Nhập mật khẩu của bạn."
+        },
+        "check_box": {
+            "remember": "Ghi nhớ đăng nhập"
+        },
+        "messages": {
+            "none_account": "",
+            "login_fail": {
+                "title": "Đăng nhập không thành công.",
+                "text": "Vui lòng đăng nhập lại."
+            },
+            "login_fail_server": {
+                "title": "Hệ thống đang gặp sự cố.",
+                "text": "Vui lòng đăng nhập lại sau."
+            },
+            "login_success": {
+                "title": "Đăng nhập thành công.",
+                "text": "Chào mùng bạn trở lại."
+            },
+            "validate": {
+                "username_required": "Tên đăng nhập còn trống.",
+                "password_required": "Mật khẩu còn trống."
+            }
+        }
+    },
+    "home": {
+        "buttons": {
+            "logout": "Đăng xuất"
+        },
+        "menu_item": {
+            "staff": "Nhân viên",
+            "activitive": "Hoạt động",
+            "position": "Chức vụ",
+            "payroll": "Bảng lương",
+            "job_structure": "Sơ đồ tổ chức",
+            "chart": "Sơ đồ tổ chức",
+            "site": "Vị trí",
+            "documentation": "Tài liệu"
+        }
+    }
+}

@@ -22,7 +22,7 @@ pnpm install
 pnpm dev
 ```
 
-### Format code 
+### Format code
 
 ```sh
 pnpm format

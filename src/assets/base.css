@@ -1,86 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-/* color palette from <https://github.com/vuejs/theme> */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 :root {
-    --vt-c-white: #ffffff;
-    --vt-c-white-soft: #f8f8f8;
-    --vt-c-white-mute: #f2f2f2;
+    --color-background: #1693a5;
+    --color-header: #45b5c4;
+    --color-sidebar: #7ececa;
+    --color-main: #a0ded6;
+    --color-component: #c7ede8;
 
-    --vt-c-black: #181818;
-    --vt-c-black-soft: #222222;
-    --vt-c-black-mute: #282828;
+    --color-border: #041d21;
 
-    --vt-c-indigo: #2c3e50;
-
-    --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-    --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-    --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-    --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-    --vt-c-text-light-1: var(--vt-c-indigo);
-    --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-    --vt-c-text-dark-1: var(--vt-c-white);
-    --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
 }
 
-/* semantic color variables for this project */
-:root {
-    --color-background: var(--vt-c-white);
-    --color-background-soft: var(--vt-c-white-soft);
-    --color-background-mute: var(--vt-c-white-mute);
-
-    --color-border: var(--vt-c-divider-light-2);
-    --color-border-hover: var(--vt-c-divider-light-1);
-
-    --color-heading: var(--vt-c-text-light-1);
-    --color-text: var(--vt-c-text-light-1);
-
-    --section-gap: 160px;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: var(--vt-c-black);
-        --color-background-soft: var(--vt-c-black-soft);
-        --color-background-mute: var(--vt-c-black-mute);
-
-        --color-border: var(--vt-c-divider-dark-2);
-        --color-border-hover: var(--vt-c-divider-dark-1);
-
-        --color-heading: var(--vt-c-text-dark-1);
-        --color-text: var(--vt-c-text-dark-2);
-    }
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+* {
     margin: 0;
-    font-weight: normal;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+}
+
+html {
+    font-size: 16px;
+    font-weight: 600;
 }
 
 body {
-    min-height: 100vh;
-    color: var(--color-text);
-    background: var(--color-background);
-    transition:
-        color 0.5s,
-        background-color 0.5s;
-    line-height: 1.6;
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 15px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(90deg, rgba(22, 147, 165, 1) 0%, rgba(199, 237, 232, 1) 100%);
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+    overflow-x: hidden;
+    color: black;
 }
-
-.material-symbols-outlined {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24
+#app {
+    height: 100vh;
+    background-color: var(--bg-color);
 }

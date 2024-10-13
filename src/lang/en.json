@@ -1,0 +1,66 @@
+{
+    "common": {
+        "select_lang": "Language"
+    },
+    "error": {
+        "login": {
+            "post_login": "Error when login: "
+        }
+    },
+    "auth": {
+        "time_out": {
+            "title": "Session has expired",
+            "text": "Please log in again"
+        }
+    },
+    "login": {
+        "title": "LOGIN",
+        "buttons": {
+            "login": "Login",
+            "forgot_password": "Forgot password"
+        },
+        "input_text": {
+            "username": "Username",
+            "username_placeholder": "Enter your username.",
+            "password": "Password",
+            "password_placeholder": "Enter your password."
+        },
+        "check_box": {
+            "remember": "Remember login"
+        },
+        "messages": {
+            "none_account": "",
+            "login_fail": {
+                "title": "Login unsuccessful.",
+                "text": "Please try to log in again."
+            },
+            "login_fail_server": {
+                "title": "System is currently experiencing issues.",
+                "text": "Please try to log in later."
+            },
+            "login_success": {
+                "title": "Login successful.",
+                "text": "Welcome back."
+            },
+            "validate": {
+                "username_required": "Username is required.",
+                "password_required": "Password is required."
+            }
+        }
+    },
+    "home": {
+        "buttons": {
+            "logout": "Logout"
+        },
+        "menu_item": {
+            "staff": "Staff",
+            "activitive": "Activities",
+            "position": "Position",
+            "payroll": "Payroll",
+            "job_structure": "Organizational Chart",
+            "chart": "Organizational Chart",
+            "site": "Location",
+            "documentation": "Documentation"
+        }
+    }
+}
