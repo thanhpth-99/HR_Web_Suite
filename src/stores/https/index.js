@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const https = axios.create({
-    baseURL: 'https://api.example.com',
+    baseURL: 'http://localhost:1687/api/v1/',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
