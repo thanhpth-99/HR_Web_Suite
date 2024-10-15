@@ -43,3 +43,19 @@ body {
     height: 100vh;
     background-color: var(--bg-color);
 }
+
+.table td,
+th {
+    white-space: nowrap;
+}
+
+.locked {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
