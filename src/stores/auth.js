@@ -1,32 +1,39 @@
-import router from '@/router'
 import { defineStore } from 'pinia'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
-    //const token = ref(null)
-    const token = ref('aaaaa')
+    const accessToken = ref(sessionStorage.getItem('accessToken') || null)
+    const refreshToken = ref(sessionStorage.getItem('refreshToken') || null)
     let inactivityTimer
 
-    const setToken = (newToken) => {
-        token.value = newToken
+    const TIMER_ACTIVITY = 600000 // 10 minutes
+
+    const setToken = (newAccessToken, newRefreshToken) => {
+        accessToken.value = newAccessToken
+        refreshToken.value = newRefreshToken
+
+        sessionStorage.setItem('accessToken', newAccessToken)
+        sessionStorage.setItem('refreshToken', newRefreshToken)
+
         setupInactivityTimer()
     }
 
     const clearToken = () => {
-        token.value = null
+        accessToken.value = null
+        refreshToken.value = null
+
+        sessionStorage.removeItem('accessToken')
+        sessionStorage.removeItem('refreshToken')
+
         clearTimeout(inactivityTimer)
     }
 
     const setupInactivityTimer = () => {
         inactivityTimer = setTimeout(() => {
             clearToken()
-            Swal.fire({
-                title: t('auth.time_out.title'),
-                text: t('auth.time_out.text'),
-                icon: 'warning',
-            })
             router.push('/pages/login')
-        }, 300000)
+        }, TIMER_ACTIVITY)
     }
 
     const resetInactivityTimer = () => {
@@ -45,5 +52,5 @@ export const useAuthStore = defineStore('auth', () => {
         window.removeEventListener('keypress', resetInactivityTimer)
     })
 
-    return { token, setToken, clearToken }
+    return { accessToken, refreshToken, setToken, clearToken }
 })

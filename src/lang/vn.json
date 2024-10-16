@@ -25,9 +25,6 @@
             "password": "Mật khẩu",
             "password_placeholder": "Nhập mật khẩu của bạn."
         },
-        "check_box": {
-            "remember": "Ghi nhớ đăng nhập"
-        },
         "messages": {
             "none_account": "",
             "login_fail": {

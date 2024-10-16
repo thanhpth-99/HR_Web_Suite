@@ -81,12 +81,12 @@
                 <div class="row w-100 h-100 d-flex align-items-center justify-content-end">
                     <div class="col-auto p-0 ms-3">
                         <div class="border border-dark rounded-circle">
-                            <i class="fa-solid fa-user p-3 fs-4 rounded-circle"></i>
+                            <i class="fa-solid fa-user p-2 fs-5 rounded-circle"></i>
                         </div>
                     </div>
                     <div class="col-auto p-0 ms-3">
                         <div class="border border-dark rounded-circle position-relative">
-                            <i class="fa-solid fa-bell p-3 fs-4 rounded-circle"></i>
+                            <i class="fa-solid fa-bell p-2 fs-5 rounded-circle"></i>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                             >
@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-auto p-0 ms-3">
                         <div class="border border-dark rounded-circle">
-                            <i class="fa-solid fa-gear p-3 fs-4 rounded-circle"></i>
+                            <i class="fa-solid fa-gear p-2 fs-5 rounded-circle"></i>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@ const btnControlSidebar_Click = () => {
 aside {
     height: 100%;
     width: 260px;
-    padding: 0.88rem 1rem;
+    padding: 0.88rem 0.88rem;
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
     z-index: 100;

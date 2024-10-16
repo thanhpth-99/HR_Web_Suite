@@ -1,5 +1,5 @@
 const importAll = (r) => Object.keys(r).map((key) => key.replace('../views/', '').replace('.vue', '').split('/'))
-
+//Cắt các path thành các mảng views/pages/home/index.vue -> ['pages', 'home'. 'index']
 const pages = importAll(import.meta.glob('../views/**/*.vue'))
 
 const childrenFilter = (p) => ~p.indexOf('^')
