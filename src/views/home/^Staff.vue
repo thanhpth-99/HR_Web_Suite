@@ -20,7 +20,7 @@
             </div>
             <div class="col-12">
                 <div class="table-responsive">
-                    <table class="table table-success table-striped">
+                    <table class="table table-light table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col" class="locked">Mã nhân viên</th>
@@ -51,8 +51,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Phân trang -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item" :class="{ disabled: currentPage === 1 }">
@@ -85,7 +83,6 @@ const search = ref('')
 const currentPage = ref(1)
 const perPage = ref(10)
 const filteredStaffs = ref([])
-const { t, locale } = useI18n()
 const staffs = ref([])
 
 onMounted(() => {
@@ -121,7 +118,6 @@ const filterStaffs = () => {
     }
     currentPage.value = 1 // Reset về trang đầu sau khi tìm kiếm
 }
-
 const getStaffs = async () => {
     const response = await get('employees')
     staffs.value = response.data
