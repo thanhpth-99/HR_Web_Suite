@@ -21,7 +21,7 @@
                             <img src="@/assets/images/logo.png" class="w-25" alt="Logo" />
                         </div>
                         <h2 class="text-center mb-4 fw-bold">{{ $t('login.title') }}</h2>
-                        <form class="row g-3 needs-validation" novalidate @submit.prevent="btnLogin_Click">
+                        <div class="row g-3">
                             <div class="mb-3">
                                 <label for="username" class="form-label fw-bold">{{
                                     $t('login.input_text.username')
@@ -29,10 +29,10 @@
                                 <input
                                     type="text"
                                     class="form-control"
+                                    :class="{ 'is-invalid': error.username }"
                                     id="username"
                                     v-model="username"
                                     :placeholder="$t('login.input_text.username_placeholder')"
-                                    required
                                 />
                                 <div class="invalid-feedback">
                                     {{ $t('login.messages.validate.username_required') }}
@@ -45,42 +45,29 @@
                                 <input
                                     type="password"
                                     class="form-control"
+                                    :class="{ 'is-invalid': error.password }"
                                     id="password"
                                     v-model="password"
                                     :placeholder="$t('login.input_text.password_placeholder')"
-                                    required
+                                    @keypress.enter="btnLogin_Click"
                                 />
                                 <div class="invalid-feedback">
                                     {{ $t('login.messages.validate.password_required') }}
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        value=""
-                                        id="remember"
-                                        v-model="isRemember"
-                                    />
-                                    <label class="form-check-label" for="remember">
-                                        {{ $t('login.check_box.remember') }}
-                                    </label>
-                                </div>
-                            </div>
                             <div class="row d-flex justify-content-center align-items-center">
-                                <button type="submit" class="btn btn-primary w-50">
+                                <button type="button" class="btn btn-primary w-50" @click="btnLogin_Click">
                                     {{ $t('login.buttons.login') }}
                                 </button>
                             </div>
-                        </form>
+                        </div>
                         <div class="row mt-3">
                             <router-link to="/pages/forgot_password" class="text-center text-decoration-none">
                                 {{ $t('login.buttons.forgot_password') }}
                             </router-link>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-0 col-md-6">
                         <img src="@/assets/images/banner.png" class="w-100" alt="Banner" />
                     </div>
                 </div>
@@ -89,61 +76,98 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useValidation } from '@/stores/mixin/validate_form'
 import { useAuthStore } from '@/stores/auth'
-import { post } from '@/stores/https'
 import router from '@/router'
+import { post } from '@/stores/https'
+import { useCookie } from '@/stores/mixin/cookie'
 
 const { t, locale } = useI18n()
 const { validateForm } = useValidation()
+const { getCookie, setCookie } = useCookie()
 const authStore = useAuthStore()
 
 const username = ref('')
 const password = ref('')
-const isRemember = ref(false)
 const language = ref('vn')
 
+const error = reactive({
+    username: '',
+    password: ''
+})
+
 const btnLogin_Click = async () => {
-    if (validateForm()) {
-        try {
-            const loginInfo = {
-                username: username.value,
-                password: password.value,
-            }
-
-            const response = await post('auth/login', loginInfo)
-            const accessToken = response.data.accessToken
-            authStore.setToken(accessToken)
-
+    if (!validate()) {
+        await Swal.fire({
+            title: t('login.messages.login_fail.title'),
+            text: t('login.messages.login_fail.text'),
+            icon: 'error',
+            timer: 1500,
+        })
+        return
+    }
+    try {
+        const loginInfo = {
+            username: username.value,
+            password: password.value,
+        }
+        const response = await post('/api/v1/auth/login', loginInfo)
+        if (response.success) {
+            authStore.setToken(response.data.accessToken, response.data.refreshToken)
             Swal.fire({
                 title: t('login.messages.login_success.title'),
                 text: t('login.messages.login_success.text'),
                 icon: 'success',
                 timer: 1500,
             })
-            router.push('/home/activity')
-        } catch (error) {
+            router.push('/pages/home')
+        } else {
             Swal.fire({
-                title: t('login.messages.login_fail_server.title'),
-                text: t('login.messages.login_fail_server.text'),
+                title: t('login.messages.login_fail.title'),
+                text: t('login.messages.login_fail.text'),
                 icon: 'error',
                 timer: 1500,
             })
-            console.error(t('error.login'), error)
         }
-    } else {
-        Swal.fire({
-            title: t('login.messages.login_fail.title'),
-            text: t('login.messages.login_fail.text'),
+    } catch (error) {
+        await Swal.fire({
+            title: t('login.messages.login_fail_server.title'),
+            text: t('login.messages.login_fail_server.text'),
             icon: 'error',
             timer: 1500,
         })
+        console.error('Error during login:', error)
     }
 }
 const selectLanguage_Change = () => {
     locale.value = language.value
+    setCookie('HRMWebSuitLanguage', language.value, 30)
 }
+const validate = () => {
+    const formRule = {
+        username: {
+            required: true,
+        },
+        password: {
+            required: true,
+        },
+    }
+    const formData = {
+        username: username.value,
+        password: password.value,
+    }
+    Object.assign(error, validateForm(formRule, formData))
+    for (let key in error) {
+        if (error[key] !== false) return false
+    }
+    return true
+}
+onMounted(() => {
+    const lang = getCookie('HRMWebSuitLanguage')
+    language.value = lang || 'vn'
+    locale.value = lang || 'vn'
+})
 </script>
 <style scope></style>

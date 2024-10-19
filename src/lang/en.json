@@ -25,9 +25,6 @@
             "password": "Password",
             "password_placeholder": "Enter your password."
         },
-        "check_box": {
-            "remember": "Remember login"
-        },
         "messages": {
             "none_account": "",
             "login_fail": {

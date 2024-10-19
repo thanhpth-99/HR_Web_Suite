@@ -7,13 +7,13 @@ const router = createRouter({
     routes: routes,
 })
 
-const permiseURL = ['/', '/pages/login', '/pages/register']
+const permitURL = ['/', '/pages/login', '/pages/register']
 
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
-    const isAuthenticated = !!authStore.token
-    if (!permiseURL.includes(to.path) && !isAuthenticated) {
-        next('/page/login')
+    const isAuthenticated = !!authStore.accessToken
+    if (!permitURL.includes(to.path) && !isAuthenticated) {
+        next('/pages/login')
     } else {
         next()
     }

@@ -13,6 +13,17 @@
             "text": "Vui lòng đăng nhập lại"
         }
     },
+    "component": {
+        "header": {
+            "title": {
+                "setting": "Cài đặt"
+            },
+            "buttons": {
+                "save": "Lưu",
+                "cancel": "Hủy"
+            }
+        }
+    },
     "login": {
         "title": "ĐĂNG NHẬP",
         "buttons": {
@@ -24,9 +35,6 @@
             "username_placeholder": "Nhập tên đăng nhập của bạn.",
             "password": "Mật khẩu",
             "password_placeholder": "Nhập mật khẩu của bạn."
-        },
-        "check_box": {
-            "remember": "Ghi nhớ đăng nhập"
         },
         "messages": {
             "none_account": "",

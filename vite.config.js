@@ -16,7 +16,7 @@ export default defineConfig({
         },
     },
     server: {
-        port: 1688,
+        port: 1668,
         open: true,
     },
     optimizeDeps: {
