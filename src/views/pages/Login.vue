@@ -76,20 +76,21 @@
     </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useValidation } from '@/stores/mixin/validate_form'
 import { useAuthStore } from '@/stores/auth'
 import router from '@/router'
 import { post } from '@/stores/https'
+import { useCookie } from '@/stores/mixin/cookie'
 
 const { t, locale } = useI18n()
 const { validateForm } = useValidation()
+const { getCookie, setCookie } = useCookie()
 const authStore = useAuthStore()
 
 const username = ref('')
 const password = ref('')
-const isRemember = ref(false)
 const language = ref('vn')
 
 const error = reactive({
@@ -121,7 +122,7 @@ const btnLogin_Click = async () => {
                 icon: 'success',
                 timer: 1500,
             })
-            router.push('/home')
+            router.push('/pages/home')
         } else {
             Swal.fire({
                 title: t('login.messages.login_fail.title'),
@@ -142,6 +143,7 @@ const btnLogin_Click = async () => {
 }
 const selectLanguage_Change = () => {
     locale.value = language.value
+    setCookie('HRMWebSuitLanguage', language.value, 30)
 }
 const validate = () => {
     const formRule = {
@@ -162,5 +164,10 @@ const validate = () => {
     }
     return true
 }
+onMounted(() => {
+    const lang = getCookie('HRMWebSuitLanguage')
+    language.value = lang || 'vn'
+    locale.value = lang || 'vn'
+})
 </script>
 <style scope></style>

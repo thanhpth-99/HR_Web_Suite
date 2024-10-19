@@ -13,6 +13,17 @@
             "text": "Vui lòng đăng nhập lại"
         }
     },
+    "component": {
+        "header": {
+            "title": {
+                "setting": "Cài đặt"
+            },
+            "buttons": {
+                "save": "Lưu",
+                "cancel": "Hủy"
+            }
+        }
+    },
     "login": {
         "title": "ĐĂNG NHẬP",
         "buttons": {

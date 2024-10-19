@@ -5,7 +5,7 @@ const pages = importAll(import.meta.glob('../views/**/*.vue'))
 const childrenFilter = (p) => ~p.indexOf('^')
 
 const generateRoute = (path) => {
-    if (path[0].toLowerCase().startsWith('index' && path.length > 1)) {
+    if (path[0].toLowerCase().startsWith('index') && path.length > 1) {
         path.shift()
     }
 
