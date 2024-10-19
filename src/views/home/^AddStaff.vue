@@ -1,4 +1,8 @@
 <template>
+    <div class="d-flex align-items-center">
+        <router-link to="/home/staff" class="btn btn-primary me-2">Back</router-link>
+        <h5 class="mb-0">Employees</h5>
+    </div>
     <div class="container">
         <form>
             <div class="form-section">
@@ -100,7 +104,7 @@
 import SlimSelect from 'slim-select'
 import { onMounted, reactive, ref, nextTick } from 'vue'
 import { post, get } from '@/stores/https'
-import router from '@/router';
+import router from '@/router'
 
 onMounted(async () => {
     await getAllStaff()
@@ -171,8 +175,8 @@ const saveStaff = async () => {
 const getAllStaff = async () => {
     const response = await get('employees')
     const listNhanSu = response.data
- maNhanSuFinal.value = listNhanSu[listNhanSu.length - 1].maNhanVien
-    console.log(listNhanSu);
+    maNhanSuFinal.value = listNhanSu[listNhanSu.length - 1].maNhanVien
+    console.log(listNhanSu)
 }
 
 const getAllPhongBan = async () => {
