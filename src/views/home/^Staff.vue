@@ -132,9 +132,9 @@
                                                             />
                                                             <div v-else>
                                                                 <img
-                                                                src="https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-11.jpg"
-                                                                class="img-fluid"
-                                                            />
+                                                                    src="https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-11.jpg"
+                                                                    class="img-fluid"
+                                                                />
                                                             </div>
                                                         </div>
                                                         <div class="employee-info px-3 py-0 flex-grow-1">

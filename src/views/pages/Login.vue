@@ -25,9 +25,15 @@
                             <div class="mb-3">
                                 <label for="username" class="form-label fw-bold">{{
                                     $t('login.input_text.username')
-                                    }}</label>
-                                <input type="text" class="form-control" id="username" v-model="username"
-                                    :placeholder="$t('login.input_text.username_placeholder')" required />
+                                }}</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    v-model="username"
+                                    :placeholder="$t('login.input_text.username_placeholder')"
+                                    required
+                                />
                                 <div class="invalid-feedback">
                                     {{ $t('login.messages.validate.username_required') }}
                                 </div>
@@ -35,17 +41,28 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-bold">{{
                                     $t('login.input_text.password')
-                                    }}</label>
-                                <input type="password" class="form-control" id="password" v-model="password"
-                                    :placeholder="$t('login.input_text.password_placeholder')" required />
+                                }}</label>
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    v-model="password"
+                                    :placeholder="$t('login.input_text.password_placeholder')"
+                                    required
+                                />
                                 <div class="invalid-feedback">
                                     {{ $t('login.messages.validate.password_required') }}
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="remember"
-                                        v-model="isRemember" />
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="remember"
+                                        v-model="isRemember"
+                                    />
                                     <label class="form-check-label" for="remember">
                                         {{ $t('login.check_box.remember') }}
                                     </label>
