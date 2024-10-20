@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex align-items-center">
-        <router-link to="/home/staff" class="btn btn-primary me-2">Back</router-link>
+        <router-link to="" @click="$router.go(-1)" class="btn btn-primary me-2">Back</router-link>
         <h5 class="mb-0">Employees</h5>
     </div>
     <div class="container">
@@ -143,7 +143,7 @@ const createSlimSelect = () => {
 
 const saveStaff = async () => {
     try {
-        const response = await post('employees', staff)
+        const response = await post('/api/v1/employees', staff)
         if (response.success) {
             Swal.fire({
                 title: 'Thành công',
@@ -173,7 +173,7 @@ const saveStaff = async () => {
 }
 
 const getAllStaff = async () => {
-    const response = await get('employees')
+    const response = await get('/api/v1/employees')
     const listNhanSu = response.data
     maNhanSuFinal.value = listNhanSu[listNhanSu.length - 1].maNhanVien
     console.log(listNhanSu)

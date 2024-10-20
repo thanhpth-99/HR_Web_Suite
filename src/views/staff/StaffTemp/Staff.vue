@@ -1,10 +1,10 @@
 <template>
-    <div class="container-fluid mt-3" style="overflow-x: auto">
+    <div class="container-fluid mt-3 bg-light" style="overflow-x: auto">
         <div class="row">
             <div class="head-menu border-0 border-bottom border-secondary-subtle col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <router-link to="/home/addstaff" class="btn btn-primary me-2">New</router-link>
+                        <router-link to="/staff/stafftemp/addstaff" class="btn btn-primary me-2">New</router-link>
                         <h5 class="mb-0">Employees</h5>
                     </div>
 
@@ -107,7 +107,7 @@
                                                 </td>
                                                 <td>{{ nhanVien.hoTen }}</td>
                                                 <td>{{ nhanVien.dienThoai }}</td>
-                                                <td>{{ nhanVien.email }}</td>
+                                                <td>hoangha@gmail.com</td>
                                                 <td><i class="fas fa-clock"></i></td>
                                                 <td></td>
                                                 <td>{{ nhanVien.maChucVu }}</td>
@@ -196,62 +196,7 @@ const listPhongBan = ref([])
 const startItem = computed(() => (currentPage.value - 1) * perPage.value + 1)
 const endItem = computed(() => Math.min(currentPage.value * perPage.value, filteredStaffs.value.length))
 const phongBanFilter = ref([])
-
-const getSkillClass = (skill) => {
-    const classes = {
-        Python: 'bg-purple text-white',
-        ERP: 'bg-blue text-white',
-        // Add more skill-specific classes here
-    }
-    return classes[skill] || 'bg-light text-dark'
-}
-
-const employees = ref([
-    {
-        id: 1,
-        name: 'Administrator',
-        email: 'quynhngadauthi2003@gmail.com',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: false,
-        position: '',
-    },
-    {
-        id: 2,
-        name: 'CAM QUỐC BẢO LONG',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: true,
-        position: '',
-    },
-    {
-        id: 3,
-        name: 'Cao Thục Nhi',
-        position: 'BUSINESS ANALYST',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: true,
-    },
-    {
-        id: 4,
-        name: 'Administrator',
-        email: 'quynhngadauthi2003@gmail.com',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: false,
-        position: '',
-    },
-    {
-        id: 5,
-        name: 'CAM QUỐC BẢO LONG',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: true,
-        position: '',
-    },
-    {
-        id: 6,
-        name: 'Cao Thục Nhi',
-        position: 'BUSINESS ANALYST',
-        avatar: 'https://cdn.ketnoibongda.vn/upload/images/team/cdc1d7e2-d4b9-48c9-93fe-0ea5e97311d1-2023-09-21.jpeg',
-        status: true,
-    },
-])
+const slimSelectInstance = ref('')
 
 onMounted(async () => {
     await getStaffs()
@@ -269,7 +214,7 @@ const getAllPhongBan = async () => {
 }
 
 const createSlimSelect = () => {
-    const slimSelectInstance = new SlimSelect({
+    slimSelectInstance.value = new SlimSelect({
         select: '#phongBanSelect',
         closeOnSelect: false,
         onChange: () => filterStaffByPhongBan(), // Gọi hàm lọc khi có sự thay đổi
@@ -297,7 +242,7 @@ const filterStaffBySearchQuery = () => {
 }
 
 const getStaffs = async () => {
-    const response = await get('employees')
+    const response = await get('/api/v1/employees')
     staffs.value = response.data
     filteredStaffs.value = staffs.value
     totalPages.value = Math.ceil(filteredStaffs.value.length / perPage.value)
@@ -315,6 +260,7 @@ const paginatedStaffs = computed(() => {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: white !important;
 }
 .head-menu {
     padding: 0.88rem 1rem;
