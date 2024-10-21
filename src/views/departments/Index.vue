@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Aside />
         <article>
             <!--  Start Header  -->
             <Header />

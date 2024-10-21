@@ -2,18 +2,22 @@
     <div class="head-menu border-0 border-bottom border-secondary-subtle col-12">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <router-link class="btn btn-primary me-2">New</router-link>
-                <h5 class="mb-0">Departments</h5>
+                <router-link to="/staff/addstaff/addstaff" class="btn btn-primary me-2">New</router-link>
+                <h5 class="mb-0">Employees</h5>
             </div>
             <div class="input-group w-25">
-                <input type="text" class="form-control" placeholder="Search..." v-model="searchQuery"/>
-                <span class="input-group-text" @click="$emit('search',searchQuery)">
+                <input type="text" class="form-control" placeholder="Search..." v-model="searchQuery" />
+                <span class="input-group-text" @click="$emit('search', searchQuery)">
                     <i class="fas fa-search"></i>
                 </span>
             </div>
             <div class="pagination d-flex justify-content-center align-items-center">
                 <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-                <button class="btn btn-secondary rounded-0 mx-1" :disabled="currentPage === 1" @click="$emit('prevPage')">
+                <button
+                    class="btn btn-secondary rounded-0 mx-1"
+                    :disabled="currentPage === 1"
+                    @click="$emit('prevPage')"
+                >
                     &lt;&lt;
                 </button>
                 <button
@@ -55,7 +59,6 @@
 <script setup>
 import { ref, computed } from 'vue'
 const searchQuery = ref('')
-
 
 const props = defineProps({
     activeTab: {

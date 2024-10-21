@@ -76,5 +76,13 @@ const filterDepartmentBySearchQuery = (query) => {
         const truongPhong = phongBan.truongPhong ? phongBan.truongPhong.toLowerCase() : ''
         return tenPhongBan.includes(query) || truongPhong.includes(query)
     })
+    if (filteredDepartments.value.length === 0) {
+        Swal.fire({
+            title: 'Không tìm thấy phòng ban',
+            text: 'Không tìm thấy phòng ban trên',
+            icon: 'error',
+            timer: 1500,
+        })
+    }
 }
 </script>

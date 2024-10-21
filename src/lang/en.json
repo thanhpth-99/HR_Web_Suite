@@ -51,6 +51,7 @@
         },
         "menu_item": {
             "staff": "Staff",
+            "department": "Department",
             "activitive": "Activities",
             "position": "Position",
             "payroll": "Payroll",

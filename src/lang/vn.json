@@ -62,6 +62,7 @@
         },
         "menu_item": {
             "staff": "Nhân viên",
+            "department": "Phòng ban",
             "activitive": "Hoạt động",
             "position": "Chức vụ",
             "payroll": "Bảng lương",
