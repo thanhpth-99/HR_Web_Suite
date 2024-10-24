@@ -1,10 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 
-const isShow = ref(true)
+const emit = defineEmits(['toggle-sidebar']);
+const isShow = ref(true);
+
 const btnControlSidebar_Click = () => {
-    isShow.value = !isShow.value
-}
+  isShow.value = !isShow.value;
+  emit('toggle-sidebar', isShow.value);
+};
+emit('toggle-sidebar', isShow.value);
 </script>
 <template>
     <aside class="position-fixed top-0 start-0" :class="{ close: !isShow }">
@@ -86,7 +90,7 @@ const btnControlSidebar_Click = () => {
 <style scoped>
 aside {
     height: 100%;
-    width: 260px;
+    width: 18%;
     padding: 0.88rem 0.88rem;
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
@@ -101,11 +105,12 @@ aside .text {
 }
 
 aside.close {
-    width: 90px;
+    width: 6%;
 }
 
 aside.close .text {
     opacity: 0;
+    display: none;
 }
 
 aside.close .toggle {
@@ -209,5 +214,9 @@ aside main .menu ul li .router-link-active:before {
 
 aside.close main .menu ul li .router-link-active {
     background-color: var(--color-background);
+}
+
+aside.close main .menu ul li .router-link-active::before{
+    width: 0rem;
 }
 </style>
