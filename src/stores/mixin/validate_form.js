@@ -1,6 +1,6 @@
 export const useValidation = () => {
     /*
-    formRule = {
+    formRule = { dieu kien
         fullname: {
             required: true,
             maxLength: 200,

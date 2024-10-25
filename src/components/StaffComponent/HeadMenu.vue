@@ -2,7 +2,7 @@
     <div class="head-menu border-0 border-bottom border-secondary-subtle col-12">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <router-link to="/staff/addstaff/addstaff" class="btn btn-primary me-2">New</router-link>
+                <router-link :to="{path: 'staff/addstaff'}" class="btn btn-primary me-2">New</router-link>
                 <h5 class="mb-0">Employees</h5>
             </div>
             <div class="input-group w-25">

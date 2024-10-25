@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="nhanVien in listStaff" :key="nhanVien.maNhanVien">
+                <tr v-for="nhanVien in listStaff" :key="nhanVien.maNhanVien" @click="$router.push('/staff/' + nhanVien.maNhanVien)">
                     <td>
                         <input class="form-check-input" type="checkbox" />
                     </td>
@@ -36,7 +36,9 @@
 </template>
 
 <script setup>
+
 const props = defineProps({
     listStaff: Array,
 })
+
 </script>

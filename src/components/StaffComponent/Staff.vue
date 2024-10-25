@@ -24,10 +24,10 @@
 </template>
 
 <script setup>
-import HeadMenu from './HeadMenu.vue'
-import StaffTable from './StaffTable.vue'
-import StaffCard from './StaffCard.vue'
-import ListgroupItem from './ListgroupItem.vue'
+import HeadMenu from '@/components/StaffComponent/HeadMenu.vue'
+import StaffTable from '@/components/StaffComponent/StaffTable.vue'
+import StaffCard from '@/components/StaffComponent/StaffCard.vue'
+import ListgroupItem from '@/components/StaffComponent/ListgroupItem.vue'
 import { ref, onMounted, computed } from 'vue'
 import { get } from '@/stores/https'
 

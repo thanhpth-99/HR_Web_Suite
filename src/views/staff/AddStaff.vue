@@ -9,7 +9,6 @@
                 <h3>Thêm nhân sự mới</h3>
                 <p>Hãy chọn một tài khoản để tạo mới thông tin nhân sự</p>
                 <div class="mb-3">
-                    <label for="username" class="form-label">Chọn một tài khoản *</label>
                     <input type="text" class="form-control" id="username" placeholder="Nhập @ để nhắc tới" />
                 </div>
                 <div class="mb-3">

@@ -3,7 +3,7 @@ import { useAuthStore } from '../auth'
 
 
 const url = [
-    { dev: 'http://localhost:1687' },
+    { dev: 'http://localhost:1688' },
     { prod: '' },
     { test: '' }
 ]
@@ -16,7 +16,7 @@ const env = [
 const environment = 1
 
 const https = axios.create({
-    baseURL: 'http://localhost:1687',
+    baseURL: 'http://localhost:1688',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

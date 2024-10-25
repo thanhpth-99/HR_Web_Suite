@@ -8,7 +8,7 @@
                             <img v-if="!staff.hinhAnh" :src="staff.hinhAnh" :alt="staff.hoTen" class="img-fluid" />
                             <div v-else>
                                 <img
-                                    src="https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-11.jpg"
+                                    src="https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-2048x1949-pq9uiebg.png"
                                     class="img-fluid"
                                 />
                             </div>
