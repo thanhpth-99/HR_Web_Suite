@@ -67,9 +67,11 @@
                         value="TP. Hồ Chí Minh">
                 </div>
             </div>
-            <div class="py-3 pb-4 border-bottom">
-                <button class="btn btn-primary me-3">Lưu thay đổi</button>
-                <button class="btn btn-outline-secondary">Quay lại</button>
+            <div class="py-3 pb-4 border-bottom text-center">
+                <button class="btn btn-primary me-3">Lưu thay đổi</button>                
+                <router-link :to="{ path: '/user/staff' }">
+                    <button class="btn btn-outline-secondary">Quay lại</button>
+                </router-link>
             </div>
         </div>
     </div>

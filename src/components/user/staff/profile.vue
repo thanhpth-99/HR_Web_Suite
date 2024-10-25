@@ -1,75 +1,95 @@
 <template>
     <div class="wrapper bg-white">
-        <h4 class="pb-4 border-bottom">Thay đổi thông tin cá nhân</h4>
-        <div class="d-flex align-items-start py-3 border-bottom">
-            <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                class="img rounded-circle" alt="Profile Photo">
-            <div class="ps-sm-4 ps-2" id="img-section">
-                <b class="d-block mb-2">Ảnh đại diện</b>
-                <button class="btn btn-outline-secondary"><b>Upload</b></button>
-            </div>
-        </div>
-        <div class="py-2">
-            <div class="row py-2">
-                <div class="pt-md-0 pt-3">
-                    <label for="language" class="form-label">Căn cước công dân</label>
-                    <input type="text" id="cccd" class="bg-light form-control"
-                        placeholder="Vui lòng nhập căn cước công dân" value="052204008381">
-                </div>
-                <div class="col-md-6">
-                    <label for="firstname" class="form-label">Họ</label>
-                    <input type="text" id="firstname" class="bg-light form-control" placeholder="Vui lòng điền họ">
-                </div>
-                <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="lastname" class="form-label">Tên</label>
-                    <input type="text" id="lastname" class="bg-light form-control" placeholder="Vui lòng điền tên">
-                </div>
-            </div>
-            <div class="row py-2">
-                <div class="col-md-6">
-                    <label for="birthday" class="form-label">Ngày sinh</label>
-                    <input type="email" id="birthday" class="bg-light form-control"
-                        placeholder="Vui lòng nhập ngày sinh" value="10/11/2004">
-                </div>
-                <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="gender" class="form-label">Giới tính</label>
-                    <div class="px-3 py-1">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genderOptions" id="maleGender" value="0"
-                                checked />
-                            <label class="form-check-label" for="maleGender">Nam</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genderOptions" id="femaleGender"
-                                value="1" />
-                            <label class="form-check-label" for="femaleGender">Nữ</label>
+        <h4 class="pb-4 border-bottom">Thông tin cá nhân</h4>
+        <div class="row g-3 border-bottom pb-4 mt-2">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body px-2">
+                        <div class="account-settings">
+                            <div class="user-profile text-center">
+                                <img class="img rounded-circle border"
+                                    src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+                                <h5 class="user-name my-3">Nguyễn Minh Nam</h5>
+                                <p class="fw-bold">Nhân viên - Ban quản lý nhân sự</p>
+                                <div class="col-sm-12 row m-0 ps-4 text-start">
+                                    <h6 class="col-sm-5">Email: </h6>
+                                    <span class="col-sm-7">xxxx@gmail.com</span>
+                                </div>
+                                <div class="col-sm-12 row m-0 ps-4 text-start">
+                                    <h6 class="col-sm-5">Số điện thoại: </h6>
+                                    <span class="col-sm-7">0823 667 555</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row py-2">
-                <div class="col-md-6">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="bg-light form-control" placeholder="Vui lòng nhập email"
-                        value="xxxxx@gmail.com">
+            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">CCCD:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                052204008381
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Ngày sinh:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                10/11/2004
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Giới tính:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                Nam
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                xxxxx@gmail.com
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Điện thoại:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                0823 667 555
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Địa chỉ:</h6>
+                            </div>
+                            <div class="col-sm-9 text-body-secondary">
+                                TP. Hồ Chí Minh
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row text-end">
+                            <div class="col-sm-12">
+                                <router-link :to="{ path: '/user/staff/0' }">
+                                    <button class="btn btn-info">Edit</button>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="phone" class="form-label">Số điện thoại</label>
-                    <input type="text" id="phone" class="bg-light form-control"
-                        placeholder="Vui lòng nhập số điện thoại" value="0823 667 555">
-                </div>
-            </div>
-            <div class="row py-2">
-                <div class="col-md-12">
-                    <label for="address" class="form-label">Địa chỉ</label>
-                    <input type="text" id="phone" class="bg-light form-control" placeholder="Vui lòng nhập địa chỉ"
-                        value="TP. Hồ Chí Minh">
-                </div>
-            </div>
-            <div class="py-3 pb-4 border-bottom">
-                <button class="btn btn-primary me-3">Lưu thay đổi</button>
-                <button class="btn btn-outline-secondary">Quay lại</button>
             </div>
         </div>
     </div>
@@ -86,7 +106,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 15px;
     margin: 10px auto;
-    max-width: 900px;
+    max-width: 1000px;
 }
 
 h4 {
@@ -95,25 +115,12 @@ h4 {
 }
 
 .img {
-    width: 70px;
-    height: 70px;
+    width: 120px;
+    height: 120px;
     border-radius: 6px;
     object-fit: cover;
 }
 
-#img-section p,
-#deactivate p {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 10px;
-    text-align: justify;
-}
-
-#img-section b,
-#img-section button,
-#deactivate b {
-    font-size: 14px;
-}
 
 label {
     margin-bottom: 0;
@@ -121,71 +128,5 @@ label {
     font-weight: 500;
     color: #777;
     padding-left: 3px;
-}
-
-.form-label {
-    margin-bottom: 8px;
-}
-
-.form-control {
-    border-radius: 10px;
-}
-
-input[placeholder] {
-    font-weight: 500;
-}
-
-.form-control:focus {
-    box-shadow: none;
-    border: 1.5px solid #0779e4;
-}
-
-select {
-    display: block;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    height: 40px;
-    padding: 5px 10px;
-    /* -webkit-appearance: none; */
-}
-
-select:focus {
-    outline: none;
-}
-
-.button {
-    background-color: #fff;
-    color: #0779e4;
-}
-
-.button:hover {
-    background-color: #0779e4;
-    color: #fff;
-}
-
-.btn-primary {
-    background-color: #0779e4;
-}
-
-.danger {
-    background-color: #fff;
-    color: #e20404;
-    border: 1px solid #ddd;
-}
-
-.danger:hover {
-    background-color: #e20404;
-    color: #fff;
-}
-
-@media(max-width:576px) {
-    .wrapper {
-        padding: 25px 20px;
-    }
-
-    #deactivate {
-        line-height: 18px;
-    }
 }
 </style>
