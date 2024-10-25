@@ -1,17 +1,24 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue'
 
-const isShow = ref(true)
+const emit = defineEmits(['toggle-sidebar']);
+const isShow = ref(true);
+
 const btnControlSidebar_Click = () => {
-    isShow.value = !isShow.value
-}
+  isShow.value = !isShow.value;
+  emit('toggle-sidebar', isShow.value);
+};
+emit('toggle-sidebar', isShow.value);
+
+const authStore = useAuthStore()
 </script>
 <template>
     <aside class="position-fixed top-0 start-0" :class="{ close: !isShow }">
         <header class="position-relative">
             <div class="image-text d-flex align-items-center">
                 <span class="image d-flex align-items-center">
-                    <img src="@/assets/images/logo.png" alt="VitaminCode" />
+                    <img src="@/assets/images/logo.png" alt="VANGUARD" />
                 </span>
                 <div class="text header-text d-flex flex-column">
                     <span class="name">VANGUARD</span>
@@ -75,7 +82,7 @@ const btnControlSidebar_Click = () => {
                     <li class="nav-link-sidebar">
                         <router-link :to="{ path: '/' }">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            <span class="text nav-text">{{ $t('home.buttons.logout') }}</span>
+                            <span class="text nav-text" @click="authStore.clearToken">{{ $t('home.buttons.logout') }} </span>
                         </router-link>
                     </li>
                 </ul>
@@ -86,7 +93,7 @@ const btnControlSidebar_Click = () => {
 <style scoped>
 aside {
     height: 100%;
-    width: 260px;
+    width: 18%;
     padding: 0.88rem 0.88rem;
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
@@ -101,11 +108,12 @@ aside .text {
 }
 
 aside.close {
-    width: 90px;
+    width: 6%;
 }
 
 aside.close .text {
     opacity: 0;
+    display: none;
 }
 
 aside.close .toggle {
@@ -209,5 +217,9 @@ aside main .menu ul li .router-link-active:before {
 
 aside.close main .menu ul li .router-link-active {
     background-color: var(--color-background);
+}
+
+aside.close main .menu ul li .router-link-active::before{
+    width: 0rem;
 }
 </style>
