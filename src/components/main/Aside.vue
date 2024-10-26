@@ -39,13 +39,13 @@ const authStore = useAuthStore()
                     <li class="nav-link-sidebar">
                         <router-link :to="{ path: '/user/timekeeping' }">
                             <i class="fa-solid fa-right-to-bracket"></i>
-                            <span class="text nav-text">Quản lý chấm công</span>
+                            <span class="text nav-text">Theo dõi chấm công</span>
                         </router-link>
                     </li>
                     <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/activity' }">
+                        <router-link :to="{ path: '/user/timeoff' }">
                             <i class="fa-solid fa-tasks"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.activitive') }}</span>
+                            <span class="text nav-text">Quản lý ngày nghỉ</span>
                         </router-link>
                     </li>
                     <li class="nav-link-sidebar">
@@ -208,7 +208,8 @@ aside main li a:hover {
 }
 
 aside main li a:hover .fa-solid,
-aside main li a:hover .text {
+aside main li a:hover .text,
+aside main .menu ul li .router-link-active {
     font-weight: 800;
 }
 
