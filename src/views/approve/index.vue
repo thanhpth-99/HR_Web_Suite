@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-light">
+    <div>
         <article>
             <!--  Start Header  -->
             <Header />
@@ -11,9 +11,7 @@
                         <Aside />
                     </div>
                     <div class="col-10">
-                        <div class="me-2">
-                            <StaffDetail />
-                        </div>
+                        <Approve />
                     </div>
                 </div>
             </main>
@@ -24,7 +22,7 @@
 </template>
 
 <script setup>
-import StaffDetail from '@/components/StaffDetailComponent/StaffDetail.vue';
 import Header from '@/components/main/Header.vue'
 import Aside from '@/components/main/Aside.vue'
+import Approve from '@/components/ApproveComponent/Approve.vue'
 </script>

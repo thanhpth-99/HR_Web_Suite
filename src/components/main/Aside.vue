@@ -36,6 +36,12 @@ const btnControlSidebar_Click = () => {
                         </router-link>
                     </li>
                     <li class="nav-link-sidebar">
+                        <router-link :to="{ path: '/approve' }">
+                            <i class="fa-solid fa-person-circle-check"></i>
+                            <span class="text nav-text">{{ $t('home.menu_item.approve') }}</span>
+                        </router-link>
+                    </li>
+                    <li class="nav-link-sidebar">
                         <router-link :to="{ path: '/activity' }">
                             <i class="fa-solid fa-tasks"></i>
                             <span class="text nav-text">{{ $t('home.menu_item.activitive') }}</span>

@@ -11,7 +11,7 @@
                 @search="filterStaffBySearchQuery"
             />
             <div class="col-2">
-                <ListgroupItem :listPhongBan="listPhongBan" @filterByPhongBan="filterByPhongBan" />
+                <ListgroupItem :listPhongBan="listPhongBan" @filterByPhongBan="filterByPhongBan"/>
             </div>
             <div class="col-10" style="overflow-x: auto">
                 <div>

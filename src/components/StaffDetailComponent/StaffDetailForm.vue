@@ -2,9 +2,11 @@
     <div class="card custom-card border-0">
         <div class="row">
             <div class="col-md-9">
-                <h2 class="card-title">{{ props.nhanVien.hoTen }}</h2>
-                <p class="text-muted">{{ props.nhanVien.tenChucVu }}</p>
+                <h2 class="card-title"></h2>
+                <input type="text" v-model="props.nhanVien.hoTen" placeholder="Tên nhân viên"/>
+                <br>
                 <span class="badge bg-primary">{{ nhanVien.maNhanVien }}</span>
+                <p class="text-muted">{{ props.nhanVien.tenChucVu }}</p>
             </div>
         </div>
 

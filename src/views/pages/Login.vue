@@ -115,6 +115,7 @@ const btnLogin_Click = async () => {
         }
         const response = await post('/api/v1/auth/login', loginInfo)
         if (response.success) {
+            sessionStorage.setItem('user', username.value)
             authStore.setToken(response.data.accessToken, response.data.refreshToken)
             Swal.fire({
                 title: t('login.messages.login_success.title'),

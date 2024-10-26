@@ -1,7 +1,12 @@
 <template>
     <div class="p-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div v-for="staff in listStaff" :key="staff.maNhanVien" class="col">
+            <div
+                v-for="staff in listStaff"
+                :key="staff.maNhanVien"
+                class="col"
+                @click="$router.push('/staff/' + staff.maNhanVien)"
+            >
                 <div class="card h-100">
                     <div class="card-body d-flex p-0">
                         <div class="employee-avatar">
@@ -19,9 +24,9 @@
                                 <span class="status-indicator"></span>
                             </div>
                             <p v-if="staff.maChucVu" class="card-subtitle">
-                                {{ staff.maChucVu }}
+                                {{ staff.tenChucVu }}
                             </p>
-                            <p class="card-text"><i class="bi bi-envelope"></i> hoangha@gmail.com</p>
+                            <p class="card-text"><i class="bi bi-envelope"></i> {{ staff.tenBoPhan }}</p>
                             <p v-if="staff.dienThoai" class="card-text">
                                 <i class="bi bi-telephone"></i> {{ staff.dienThoai }}
                             </p>

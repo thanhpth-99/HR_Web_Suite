@@ -1,5 +1,5 @@
 <template>
-    <HeadMenu :loading="loading" @saveNhanVien="saveNhanVien" />
+    <HeadMenu :loading="loading" @saveNhanVien="saveNhanVien" :nhanVien="nhanVien" />
 
     <div class="container">
         <StaffDetailForm :nhanVien="nhanVien" />
@@ -81,6 +81,7 @@ const saveNhanVien = async () => {
 }
 
 const setNhanVienInfo = () => {
+    nhanVienInfo.maNhanVien = nhanVien.value.maNhanVien
     nhanVienInfo.hoTen = nhanVien.value.hoTen
     nhanVienInfo.gioiTinh = nhanVien.value.gioiTinh
     nhanVienInfo.ngaySinh = nhanVien.value.ngaySinh
