@@ -122,7 +122,7 @@ const btnLogin_Click = async () => {
                 icon: 'success',
                 timer: 1500,
             })
-            router.push('/pages/home')
+            router.push('/user/staff')
         } else {
             Swal.fire({
                 title: t('login.messages.login_fail.title'),

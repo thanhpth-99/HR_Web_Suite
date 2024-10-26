@@ -31,9 +31,15 @@ const authStore = useAuthStore()
             <div class="menu">
                 <ul class="menu-links p-0 m-0">
                     <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/staff' }">
+                        <router-link :to="{ path: '/user/staff' }">
                             <i class="fa-solid fa-user"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.staff') }}</span>
+                            <span class="text nav-text">Thông tin cá nhân</span>
+                        </router-link>
+                    </li>
+                    <li class="nav-link-sidebar">
+                        <router-link :to="{ path: '/user/timekeeping' }">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span class="text nav-text">Quản lý chấm công</span>
                         </router-link>
                     </li>
                     <li class="nav-link-sidebar">

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Aside />
+        <Aside @toggle-sidebar="handleToggleSidebar"/>
         <article>
             <!--  Start Header  -->
             <Header />
             <!--  End Header  -->
             <!--  Start Main  -->
-            <main>
+            <main :class="{ close: !isShow }">
                 <Profile />
             </main>
             <!--  End Main  -->
@@ -27,7 +27,7 @@ const handleToggleSidebar = (show) => {
 };
 </script>
 <style scoped>
-        main {
+main {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 18.5%;
@@ -43,4 +43,3 @@ main.close {
     transition: var(--tran-05);
 }
 </style>
-
