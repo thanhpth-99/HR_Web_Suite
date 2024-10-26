@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-10">
                         <div class="me-2">
-                            <StaffDetail />
+                            <ApproveDetail />
                         </div>
                     </div>
                 </div>
@@ -24,10 +24,9 @@
 </template>
 
 <script setup>
-import StaffDetail from '@/components/StaffDetailComponent/StaffDetail.vue';
+import ApproveDetail from '@/components/ApproveDetail/ApproveDetail.vue'
 import Header from '@/components/main/Header.vue'
 import Aside from '@/components/main/Aside.vue'
-
 </script>
 
 <style scope>

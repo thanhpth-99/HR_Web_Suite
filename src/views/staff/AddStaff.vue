@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import StaffDetail from '@/components/StaffDetailComponent/StaffDetail.vue';
+import StaffDetail from '@/components/StaffDetailComponent/StaffDetail.vue'
 import Header from '@/components/main/Header.vue'
 import Aside from '@/components/main/Aside.vue'
 </script>

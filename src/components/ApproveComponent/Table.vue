@@ -11,9 +11,9 @@
                     <th scope="col">Danh mục</th>
                     <th scope="col">Ngày yêu cầu</th>
                     <th scope="col">Người phê duyệt</th>
-                    <th scope="col">Yêu cầu tới</th>
                     <th scope="col">Ngày xác nhận</th>
                     <th scope="col">Trạng thái</th>
+                    <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,11 +32,15 @@
                         <span class="badge bg-warning">N</span>
                         Nguyễn Minh Nam
                     </td>
-                    <td>28/12/2022</td>
                     <td>03/01/2023</td>
-
                     <td>
-                        <span class="badge bg-success">Đã phê duyệt</span>
+                        <span class="badge bg-warning">Đã gửi</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-success me-2">
+                            <i class="fa-regular fa-circle-check me-2"></i>Xác nhận
+                        </button>
+                        <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark me-2"></i>Từ chối</button>
                     </td>
                 </tr>
             </tbody>

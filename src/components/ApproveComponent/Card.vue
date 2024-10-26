@@ -17,9 +17,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-start fs-4">
-                                        <span class="badge bg-success rounded-pill"
-                                            ><i class="fa-solid fa-bars"></i
-                                        ></span>
+                                        <button class="btn btn-success me-2">
+                                            <i class="fa-regular fa-circle-check me-2"></i>Xác nhận
+                                        </button>
+                                        <button class="btn btn-danger">
+                                            <i class="fa-regular fa-circle-xmark me-2"></i>Từ chối
+                                        </button>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end fs-4">
                                         <span class="badge bg-danger rounded-pill">N</span>
