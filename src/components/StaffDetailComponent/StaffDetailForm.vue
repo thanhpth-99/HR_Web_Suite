@@ -2,8 +2,8 @@
     <div class="card custom-card border-0">
         <div class="row">
             <div class="col-md-9">
-                <h2 class="card-title">{{ nhanVien.hoTen }}</h2>
-                <p class="text-muted">{{ nhanVien.maChucVu }}</p>
+                <h2 class="card-title">{{ props.nhanVien.hoTen }}</h2>
+                <p class="text-muted">{{ props.nhanVien.tenChucVu }}</p>
                 <span class="badge bg-primary">{{ nhanVien.maNhanVien }}</span>
             </div>
         </div>
@@ -20,7 +20,7 @@
                             class="form-control"
                             id="phone"
                             placeholder="Số điện thoại"
-                            :value="nhanVien.dienThoai"
+                            v-model="props.nhanVien.dienThoai"
                         />
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                             type="text"
                             class="form-control"
                             id="address"
-                            :value="nhanVien.diaChi"
+                            v-model="props.nhanVien.diaChi"
                             placeholder="Địa chỉ"
                         />
                     </div>
@@ -45,7 +45,7 @@
                             type="email"
                             class="form-control"
                             id="email"
-                            :value="nhanVien.email"
+                            v-model="props.nhanVien.email"
                             placeholder="@gmail.com"
                         />
                     </div>
@@ -60,8 +60,8 @@
                     <div class="col-sm-8">
                         <select
                             id="phongBanSelect"
-                            v-model="thongTinCongViec.phongBan"
-                            @change="logPhongBanOption(thongTinCongViec.phongBan)"
+                            v-model="props.nhanVien.maPhongBan"
+                            @change="setTruongPhongByMaPhongBan(props.nhanVien.maPhongBan)"
                             class="form-select"
                         >
                             <option value="">Chọn phòng ban</option>
@@ -79,7 +79,7 @@
                 <div class="row mb-3">
                     <label for="viTriSelect" class="col-sm-4 col-form-label">Vị trí</label>
                     <div class="col-sm-8">
-                        <select id="viTriSelect" v-model="thongTinCongViec.viTri" class="form-select">
+                        <select id="viTriSelect" v-model="props.nhanVien.maChucVu" class="form-select">
                             <option value="">Chọn vị trí</option>
                             <option v-for="viTri in listViTri" :key="viTri.maChucVu" :value="viTri.maChucVu">
                                 {{ viTri.tenChucVu }}
@@ -94,7 +94,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            v-model="thongTinCongViec.truongPhong"
+                            v-model="props.nhanVien.tenTruongPhong"
                             id="manager"
                             readonly
                         />
@@ -112,33 +112,22 @@ import { get } from '@/stores/https'
 const listPhongBan = ref([])
 const listViTri = ref([])
 
-const thongTinCongViec = reactive({
-    phongBan: '',
-    viTri: '',
-    truongPhong: '',
-})
-
 const props = defineProps({
     nhanVien: Object,
 })
 
 onMounted(async () => {
-    // Đảm bảo `nhanVien` đã được khởi tạo trước khi chạy các hàm dưới
-    console.log(props.nhanVien)
     await getAllPhongBan()
     await getAllViTri()
-    thongTinCongViec.phongBan = props.nhanVien.maPhongBan
-    thongTinCongViec.viTri = props.nhanVien.maChucVu
 })
 
-const logPhongBanOption = (selectedPhongBan) => {
-    // Tìm đối tượng phòng ban tương ứng với mã đã chọn
-    const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === selectedPhongBan)
+const setTruongPhongByMaPhongBan = (maPhongBan) => {
+    const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
 
     if (selectedObject) {
-        thongTinCongViec.truongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
+        props.nhanVien.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
     } else {
-        thongTinCongViec.truongPhong = ''
+        props.nhanVien.tenTruongPhong = ''
         console.log('Không tìm thấy phòng ban tương ứng.')
     }
 }

@@ -1,24 +1,82 @@
 <template>
     <div class="container mt-4">
         <div class="row">
-            <div class="summary-card col-6">
-                <div class="row">
-                    <div class="col-6"><h6>Kinh nghiệm</h6></div>
-                    <div class="col-6"><button class="btn btn-secondary add-btn">THÊM VÀO</button></div>
-                </div>
+            <div class="col-6">
+                <div class="summary-card">
+                    <div class="row">
+                        <div class="col-6"><h6>Kinh nghiệm</h6></div>
+                        <div class="col-6"><button class="btn btn-secondary add-btn">THÊM VÀO</button></div>
+                    </div>
 
-                <div class="experience-entry mt-4">
-                    <span class="experience-date">24/04/2024 - Hiện tại</span>
-                    <p><strong>Tiên Phong CDS</strong></p>
-                    <p>Chuyên viên phân tích kinh doanh</p>
-                    <span class="delete-icon">
-                        <i class="fas fa-trash"></i>
-                    </span>
+                    <div class="experience-entry mt-4" v-for="kinhNghiem in listKinhNghiem" :key="kinhNghiem.tenCongTy">
+                        <span class="experience-date"
+                            >{{ kinhNghiem.thoiGianBatDau }} - {{ kinhNghiem.thoiGianKetThuc }}</span
+                        >
+                        <p>
+                            <strong>{{ kinhNghiem.tenCongTy }}</strong>
+                        </p>
+                        <p>{{ kinhNghiem.moTaCongViec }}</p>
+                        <span class="delete-icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="summary-card">
+                    <div class="row">
+                        <div class="col-6"><h6>Học vấn</h6></div>
+                        <div class="col-6"><button class="btn btn-secondary add-btn">THÊM VÀO</button></div>
+                    </div>
+
+                    <div class="experience-entry mt-4" v-for="hocVan in listHocVan" :key="hocVan.maNhanVien">
+                        <span class="experience-date"
+                            >Năm tốt nghiệp: {{ hocVan.namTotNghiep }}</span
+                        >
+                        <p>
+                            <strong>{{ hocVan.coSoGiaoDuc }}</strong>
+                        </p>
+                        <p>{{ hocVan.chuyenNganh }}</p>
+                        <span class="delete-icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { get } from '@/stores/https'
+
+const listKinhNghiem = ref([])
+const listHocVan = ref([])
+
+const props = defineProps({
+    nhanVien: Object,
+})
+
+onMounted(async () => {
+    await getAllKinhNghiem()
+    await getAllHocVan()
+})
+
+const getAllKinhNghiem = async () => {
+    const maNhanVien = props.nhanVien.maNhanVien
+    const response = await get('/api/v1/work-histories', { maNhanVien })
+    listKinhNghiem.value = response.data
+}
+
+const getAllHocVan = async () => {
+    const maNhanVien = props.nhanVien.maNhanVien
+    const response = await get(`/api/v1/educations/${maNhanVien}`)
+    listHocVan.value = response.data
+}
+</script>
 
 <style>
 .summary-card {
