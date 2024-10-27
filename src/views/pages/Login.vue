@@ -116,13 +116,18 @@ const btnLogin_Click = async () => {
         const response = await post('/api/v1/auth/login', loginInfo)
         if (response.success) {
             authStore.setToken(response.data.accessToken, response.data.refreshToken)
+            authStore.setRole(response.data.role)
             Swal.fire({
                 title: t('login.messages.login_success.title'),
                 text: t('login.messages.login_success.text'),
                 icon: 'success',
                 timer: 1500,
             })
-            router.push('/pages/home')
+            response.data.role === 'ADMIN' 
+                ? router.push('/admin') 
+                : response.data.role === 'MANAGER' 
+                    ? router.push('/manager')
+                    : router.push('/user')
         } else {
             Swal.fire({
                 title: t('login.messages.login_fail.title'),

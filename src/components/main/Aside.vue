@@ -1,10 +1,93 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 
+const emit = defineEmits(['toggle-sidebar']);
 const isShow = ref(true)
 const btnControlSidebar_Click = () => {
-    isShow.value = !isShow.value
-}
+  isShow.value = !isShow.value;
+  emit('toggle-sidebar', isShow.value);
+};
+emit('toggle-sidebar', isShow.value);
+
+const authStore = useAuthStore()
+
+const currentFeature = ref([])
+const featureAdmin = [
+    {
+        path: '/admin/staff',
+        icon: 'fa-user',
+        text: 'home.menu_item.staff'
+    },
+    {
+        path: '/admin/activity',
+        icon: 'fa-tasks',
+        text: 'home.menu_item.activitive'
+    },
+    {
+        path: '/admin/position',
+        icon: 'fa-briefcase',
+        text: 'home.menu_item.position'
+    },
+    {
+        path: '/admin/payroll',
+        icon: 'fa-dollar-sign',
+        text: 'home.menu_item.payroll'
+    },
+    {
+        path: '/admin/chart',
+        icon: 'fa-sitemap',
+        text: 'home.menu_item.chart'
+    },
+    {
+        path: '/admin/site',
+        icon: 'fa-map-marker-alt',
+        text: 'home.menu_item.site'
+    },
+    {
+        path: '/admin/document',
+        icon: 'fa-file-alt',
+        text: 'home.menu_item.documentation'
+    }
+]
+const featureManager = [
+{
+        path: '/manager/staff',
+        icon: 'fa-user',
+        text: 'Thông tin cá nhân'
+    },
+    {
+        path: '/manager/activity',
+        icon: 'fa-tasks',
+        text: 'home.menu_item.activity'
+    },
+    {
+        path: '/manager/position',
+        icon: 'fa-briefcase',
+        text: 'home.menu_item.position'
+    }
+]
+const featureUser = [
+{
+        path: '/user/infomation',
+        icon: 'fa-user',
+        text: 'Thông tin cá nhân'
+    },
+    {
+        path: '/user/activity',
+        icon: 'fa-tasks',
+        text: 'Theo dõi chấm công'
+    }
+]
+onMounted(() => {
+    if (sessionStorage.getItem('role') === 'ADMIN') {
+        currentFeature.value = featureAdmin
+    } else if (sessionStorage.getItem('role') === 'MANAGER') {
+        currentFeature.value = featureManager
+    } else {
+        currentFeature.value = featureUser
+    }
+})
 </script>
 <template>
     <aside class="position-fixed top-0 start-0" :class="{ close: !isShow }">
@@ -23,49 +106,10 @@ const btnControlSidebar_Click = () => {
         <main>
             <div class="menu">
                 <ul class="menu-links p-0 m-0">
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/staff' }">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.staff') }}</span>
-                        </router-link>
-                    </li>
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/activity' }">
-                            <i class="fa-solid fa-tasks"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.activitive') }}</span>
-                        </router-link>
-                    </li>
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/position' }">
-                            <i class="fa-solid fa-briefcase"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.position') }}</span>
-                        </router-link>
-                    </li>
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/payroll' }">
-                            <i class="fa-solid fa-dollar-sign"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.payroll') }}</span>
-                        </router-link>
-                    </li>
-                </ul>
-                <hr />
-                <ul class="menu-links p-0 m-0">
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/chart' }">
-                            <i class="fa-solid fa-sitemap"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.chart') }}</span>
-                        </router-link>
-                    </li>
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/site' }">
-                            <i class="fa-solid fa-map-marker-alt"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.site') }}</span>
-                        </router-link>
-                    </li>
-                    <li class="nav-link-sidebar">
-                        <router-link :to="{ path: '/document' }">
-                            <i class="fa-solid fa-file-alt"></i>
-                            <span class="text nav-text">{{ $t('home.menu_item.documentation') }}</span>
+                    <li class="nav-link-sidebar" v-for=" item in currentFeature">
+                        <router-link :to="{ path: item.path }">
+                            <i class="fa-solid" :class="item.icon"></i>
+                            <span class="text nav-text">{{ $t(item.text) }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -75,7 +119,7 @@ const btnControlSidebar_Click = () => {
                     <li class="nav-link-sidebar">
                         <router-link :to="{ path: '/' }">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            <span class="text nav-text">{{ $t('home.buttons.logout') }}</span>
+                            <span class="text nav-text" @click="authStore.clearToken">{{ $t('home.buttons.logout') }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -86,7 +130,7 @@ const btnControlSidebar_Click = () => {
 <style scoped>
 aside {
     height: 100%;
-    width: 260px;
+    width: 18%;
     padding: 0.88rem 0.88rem;
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
@@ -101,11 +145,12 @@ aside .text {
 }
 
 aside.close {
-    width: 90px;
+    width: 6%;
 }
 
 aside.close .text {
     opacity: 0;
+    display: none;
 }
 
 aside.close .toggle {
@@ -194,7 +239,8 @@ aside main li a:hover {
 }
 
 aside main li a:hover .fa-solid,
-aside main li a:hover .text {
+aside main li a:hover .text,
+aside main .menu ul li .router-link-active {
     font-weight: 800;
 }
 
@@ -209,5 +255,9 @@ aside main .menu ul li .router-link-active:before {
 
 aside.close main .menu ul li .router-link-active {
     background-color: var(--color-background);
+}
+
+aside.close main .menu ul li .router-link-active::before{
+    width: 0rem;
 }
 </style>

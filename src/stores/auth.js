@@ -5,6 +5,7 @@ import router from '@/router'
 export const useAuthStore = defineStore('auth', () => {
     const accessToken = ref(sessionStorage.getItem('accessToken') || null)
     const refreshToken = ref(sessionStorage.getItem('refreshToken') || null)
+    const role = ref(sessionStorage.getItem('role') || null)
     let inactivityTimer
 
     const TIMER_ACTIVITY = 600000 // 10 minutes
@@ -19,6 +20,16 @@ export const useAuthStore = defineStore('auth', () => {
         setupInactivityTimer()
     }
 
+    const setRole = (newRole) => {
+        role.value = newRole
+
+        sessionStorage.setItem('role', newRole)
+    }
+
+    const clearRole = () => {
+        sessionStorage.removeItem('role', newRole)
+    }
+
     const clearToken = () => {
         accessToken.value = null
         refreshToken.value = null
@@ -27,11 +38,13 @@ export const useAuthStore = defineStore('auth', () => {
         sessionStorage.removeItem('refreshToken')
 
         clearTimeout(inactivityTimer)
+        clearRole()
     }
 
     const setupInactivityTimer = () => {
         inactivityTimer = setTimeout(() => {
             clearToken()
+            clearRole()
             router.push('/pages/login')
         }, TIMER_ACTIVITY)
     }
@@ -52,5 +65,5 @@ export const useAuthStore = defineStore('auth', () => {
         window.removeEventListener('keypress', resetInactivityTimer)
     })
 
-    return { accessToken, refreshToken, setToken, clearToken }
+    return { accessToken, refreshToken, setToken, clearToken, setRole }
 })
