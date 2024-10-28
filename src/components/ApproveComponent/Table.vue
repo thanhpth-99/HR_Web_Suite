@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="approve in props.listApprove" :key="approve.maDon">
+                <tr v-for="approve in props.listApprove" :key="approve.maDon" @click="$router.push('/approve/' + approve.maDon)">
                     <td>
                         <input class="form-check-input" type="checkbox" />
                     </td>

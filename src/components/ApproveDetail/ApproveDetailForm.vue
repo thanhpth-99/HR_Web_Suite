@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <h5 class="card-title">Tiêu đề phê duyệt</h5>
-                <input type="text" readonly value="Công tác" class="fs-2" />
+                <input type="text" readonly :value="approveDetail.loaiDon" class="fs-2" />
             </div>
         </div>
         <div class="row mt-4">
@@ -12,60 +12,39 @@
                     <div class="row mb-3">
                         <label for="nguoiYeuCau" class="col-3 col-form-label">Người yêu cầu</label>
                         <div class="col-9">
-                            <input type="text" id="nguoiYeuCau" class="form-control" value="Nguyễn Minh Nam" readonly />
+                            <input
+                                type="text"
+                                id="nguoiYeuCau"
+                                class="form-control"
+                                :value="approveDetail.hoTenNguoiTao"
+                                readonly
+                            />
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="danhMuc" class="col-3 col-form-label">Danh mục</label>
                         <div class="col-9">
-                            <input type="text" id="danhMuc" class="form-control" value="Công tác" readonly />
+                            <input
+                                type="text"
+                                id="danhMuc"
+                                class="form-control"
+                                :value="approveDetail.loaiDon"
+                                readonly
+                            />
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="tuNgay" class="col-3 col-form-label">Giai đoạn</label>
+                        <label for="ngayTao" class="col-3 col-form-label">Ngày tạo</label>
                         <div class="col-9">
-                            <div class="row">
-                                <div class="row align-items-center mb-2">
-                                    <div class="col-2">
-                                        <label for="tuNgay" class="col-form-label">Từ</label>
-                                    </div>
-                                    <div class="col-10">
-                                        <input
-                                            type="text"
-                                            id="tuNgay"
-                                            class="form-control"
-                                            value="07/10/2024 16:00:00"
-                                            readonly
-                                        />
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-2">
-                                        <label for="tuNgay" class="col-form-label">Đến</label>
-                                    </div>
-                                    <div class="col-10">
-                                        <input
-                                            type="text"
-                                            id="denNgay"
-                                            class="form-control"
-                                            value="03/11/2024 16:00:00"
-                                            readonly
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="nguoiYeuCau" class="col-3 col-form-label">Mô tả</label>
-                        <div class="col-9">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>
-Công tác</textarea
-                            >
+                            <input
+                                type="text"
+                                id="ngayTao"
+                                class="form-control"
+                                :value="approveDetail.ngayTao"
+                                readonly
+                            />
                         </div>
                     </div>
                 </div>
@@ -76,7 +55,7 @@ Công tác</textarea
                     <div class="row mb-3">
                         <label for="nguoiYeuCau" class="col-3 col-form-label">Người phê duyệt</label>
                         <div class="col-9">
-                            <input type="text" id="nguoiYeuCau" class="form-control" value="Phạm Hoàng Hà" readonly />
+                            <input type="text" id="nguoiYeuCau" class="form-control" :value="approveDetail.hoTenNguoiPheDuyet" readonly />
                         </div>
                     </div>
                 </div>
@@ -85,20 +64,17 @@ Công tác</textarea
                     <div class="row mb-3">
                         <label for="nguoiYeuCau" class="col-3 col-form-label">Trạng thái</label>
                         <div class="col-9">
-                            <span class="badge bg-warning">Đã gửi</span>
+                            <span v-if="approveDetail.trangThai === 1" class="badge bg-warning">Đã gửi</span>
+                            <span v-if="approveDetail.trangThai === 2" class="badge bg-success">Đã xác nhận</span>
+                            <span v-if="approveDetail.trangThai === 3" class="badge bg-danger">Đã từ chối</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label for="nguoiYeuCau" class="col-3 col-form-label">Ghi chú</label>
+                    <label for="ghiChu" class="col-3 col-form-label">Ghi chú</label>
                     <div class="col-9">
-                        <textarea
-                            class="form-control"
-                            id="exampleFormControlTextarea1"
-                            rows="3"
-                            placeholder="Ghi chú"
-                        ></textarea>
+                        <input type="text" id="ghiChu" class="form-control" v-model="approveDetail.ghiChu" />
                     </div>
                 </div>
             </div>
@@ -107,11 +83,11 @@ Công tác</textarea
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import { get } from '@/stores/https'
+import { ref, onMounted } from 'vue'
 
-
-onMounted(async () => {
- 
+const props = defineProps({
+    approveDetail: Object,
 })
+
+onMounted(async () => {})
 </script>

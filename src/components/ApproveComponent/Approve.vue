@@ -37,7 +37,7 @@ const setApproveInfo = async (maDon, trangThai, ghiChu) => {
 }
 
 const updateApprove = async () => {
-    const response = await put('/api/v1/phe-duyet', approveInfo)
+    const response = await put('/api/v1/approvals', approveInfo)
     if (response) {
         getAllApprove()
     }
@@ -61,7 +61,7 @@ const getUserLogin = async () => {
 
 const getAllApprove = async () => {
     const maNhanVienLogin = userLogin.value.maNhanVien
-    const response = await get(`/api/v1/phe-duyet/${maNhanVienLogin}`)
+    const response = await get(`/api/v1/approvals/employee/${maNhanVienLogin}`)
     if (response) {
         listApprove.value = response.data
     }

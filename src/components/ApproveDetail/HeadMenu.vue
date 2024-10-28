@@ -8,6 +8,7 @@
                         class="btn btn-secondary w-100 fw-bold me-2"
                         :disabled="loading"
                         :class="{ loading: loading }"
+                        @click="$emit('setTrangThaiApprove', approveDetail.maDon, 1, props.approveDetail.ghiChu)"
                     >
                         <span
                             v-if="loading"
@@ -19,10 +20,18 @@
                     </button>
                 </div>
                 <div>
-                    <button class="btn btn-success me-2">
+                    <button
+                        class="btn btn-success me-2"
+                        @click="$emit('setTrangThaiApprove', approveDetail.maDon, 2, props.approveDetail.ghiChu)"
+                    >
                         <i class="fa-regular fa-circle-check me-2"></i>Xác nhận
                     </button>
-                    <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark me-2"></i>Từ chối</button>
+                    <button
+                        class="btn btn-danger"
+                        @click="$emit('setTrangThaiApprove', approveDetail.maDon, 3, props.approveDetail.ghiChu)"
+                    >
+                        <i class="fa-regular fa-circle-xmark me-2"></i>Từ chối
+                    </button>
                 </div>
             </div>
         </div>
@@ -32,6 +41,7 @@
 <script setup>
 const props = defineProps({
     loading: Boolean,
+    approveDetail: Object,
 })
 </script>
 
