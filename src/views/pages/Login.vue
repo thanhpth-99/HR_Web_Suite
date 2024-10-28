@@ -127,7 +127,7 @@ const btnLogin_Click = async () => {
                 ? router.push('/admin') 
                 : response.data.role === 'MANAGER' 
                     ? router.push('/manager')
-                    : router.push('/user')
+                    : router.push('/user/information')
         } else {
             Swal.fire({
                 title: t('login.messages.login_fail.title'),

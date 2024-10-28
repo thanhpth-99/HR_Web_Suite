@@ -14,7 +14,7 @@
                 <div class="pt-md-0 pt-3">
                     <label for="language" class="form-label">Căn cước công dân</label>
                     <input type="text" id="cccd" class="bg-light form-control"
-                        placeholder="Vui lòng nhập căn cước công dân" value="052204008381">
+                        placeholder="Vui lòng nhập căn cước công dân" value="052204008381" v-model="cccd">
                 </div>
                 <div class="col-md-6">
                     <label for="firstname" class="form-label">Họ</label>
@@ -77,6 +77,15 @@
     </div>
 
 </template>
+<script setup>
+    import { ref } from 'vue'
+
+    const cccd = ref('')
+    const ho = ref('')
+    const ten = ref('')
+    const ngaySinh = ref('')
+    const gioiTinh = ref(true)
+</script>
 
 <style scoped>
 body {

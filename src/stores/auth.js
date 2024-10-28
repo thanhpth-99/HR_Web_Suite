@@ -27,7 +27,8 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     const clearRole = () => {
-        sessionStorage.removeItem('role', newRole)
+        role.value = null
+        sessionStorage.removeItem('role')
     }
 
     const clearToken = () => {
