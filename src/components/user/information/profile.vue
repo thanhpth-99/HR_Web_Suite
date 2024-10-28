@@ -83,7 +83,7 @@
                         <hr>
                         <div class="row text-end">
                             <div class="col-sm-12">
-                                <router-link :to="{ path: '/user/infomation/0' }">
+                                <router-link :to="{ path: '/user/information/0' }">
                                     <button class="btn btn-info">Edit</button>
                                 </router-link>
                             </div>

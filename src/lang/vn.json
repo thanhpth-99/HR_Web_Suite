@@ -60,7 +60,7 @@
         "buttons": {
             "logout": "Đăng xuất"
         },
-        "menu_item": {
+        "menu_item_admin": {
             "staff": "Nhân viên",
             "activitive": "Hoạt động",
             "position": "Chức vụ",
@@ -69,6 +69,11 @@
             "chart": "Sơ đồ tổ chức",
             "site": "Vị trí",
             "documentation": "Tài liệu"
+        },
+        "menu_item_user": {
+            "information": "Thông tin cá nhân",
+            "checkin": "Theo dõi chấm công",
+            "timeoff": "Nghỉ phép"
         }
     }
 }

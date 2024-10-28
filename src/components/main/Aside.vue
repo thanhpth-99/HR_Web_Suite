@@ -17,37 +17,37 @@ const featureAdmin = [
     {
         path: '/admin/staff',
         icon: 'fa-user',
-        text: 'home.menu_item.staff'
+        text: 'home.menu_item_admin.staff'
     },
     {
         path: '/admin/activity',
         icon: 'fa-tasks',
-        text: 'home.menu_item.activitive'
+        text: 'home.menu_item_admin.activitive'
     },
     {
         path: '/admin/position',
         icon: 'fa-briefcase',
-        text: 'home.menu_item.position'
+        text: 'home.menu_item_admin.position'
     },
     {
         path: '/admin/payroll',
         icon: 'fa-dollar-sign',
-        text: 'home.menu_item.payroll'
+        text: 'home.menu_item_admin.payroll'
     },
     {
         path: '/admin/chart',
         icon: 'fa-sitemap',
-        text: 'home.menu_item.chart'
+        text: 'home.menu_item_admin.chart'
     },
     {
         path: '/admin/site',
         icon: 'fa-map-marker-alt',
-        text: 'home.menu_item.site'
+        text: 'home.menu_item_admin.site'
     },
     {
         path: '/admin/document',
         icon: 'fa-file-alt',
-        text: 'home.menu_item.documentation'
+        text: 'home.menu_item_admin.documentation'
     }
 ]
 const featureManager = [
@@ -69,14 +69,19 @@ const featureManager = [
 ]
 const featureUser = [
 {
-        path: '/user/infomation',
+        path: '/user/information',
         icon: 'fa-user',
-        text: 'Thông tin cá nhân'
+        text: 'home.menu_item_user.information'
     },
     {
-        path: '/user/activity',
+        path: '/user/checkin',
+        icon: 'fa-right-to-bracket',
+        text: 'home.menu_item_user.checkin'
+    },
+    {
+        path: '/user/timeoff',
         icon: 'fa-tasks',
-        text: 'Theo dõi chấm công'
+        text: 'home.menu_item_user.timeoff'
     }
 ]
 onMounted(() => {

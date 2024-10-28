@@ -69,7 +69,7 @@
             </div>
             <div class="py-3 pb-4 border-bottom text-center">
                 <button class="btn btn-primary me-3">Lưu thay đổi</button>                
-                <router-link :to="{ path: '/user/infomation' }">
+                <router-link :to="{ path: '/user/information' }">
                     <button class="btn btn-outline-secondary">Quay lại</button>
                 </router-link>
             </div>

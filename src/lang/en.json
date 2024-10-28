@@ -58,6 +58,11 @@
             "chart": "Organizational Chart",
             "site": "Location",
             "documentation": "Documentation"
+        },
+        "menu_item_user": {
+            "information": "Profile",
+            "checkin": "Check in",
+            "timeoff": "Time off"
         }
     }
 }

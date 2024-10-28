@@ -1,13 +1,13 @@
 <template>
     <div>
-        <Aside @toggle-sidebar="handleToggleSidebar"/>
+        <Aside @toggle-sidebar="handleToggleSidebar" />
         <article>
             <!--  Start Header  -->
             <Header />
             <!--  End Header  -->
             <!--  Start Main  -->
-            <main :class="{ close: !isShow }">
-                <Profile />
+            <main class="container-fluid" :class="{ close: !isShow }" >
+                <Form />
             </main>
             <!--  End Main  -->
         </article>
@@ -17,8 +17,8 @@
 <script setup>
 import Header from '@/components/main/Header.vue';
 import Aside from '@/components/main/Aside.vue';
-import Profile from '@/components/user/infomation/profile.vue';
-import { ref } from 'vue';
+import Form from '@/components/user/timeoff/formtimeoff.vue'
+import { ref } from 'vue'
 
 const isShow = ref(true);
 
@@ -35,7 +35,6 @@ main {
     display: inline-block;
     transition: var(--tran-04);
 }
-
 main.close {
     margin-left: 6.5%;
     width: 92%;

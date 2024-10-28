@@ -6,8 +6,8 @@
             <Header />
             <!--  End Header  -->
             <!--  Start Main  -->
-            <main class="container-fluid" :class="{ close: !isShow }">
-                <editprofile />
+            <main class="container-fluid" :class="{ close: !isShow }" >
+                <Table />
             </main>
             <!--  End Main  -->
         </article>
@@ -15,10 +15,10 @@
     </div>
 </template>
 <script setup>
-import editprofile from '@/components/user/infomation/editprofile.vue';
 import Header from '@/components/main/Header.vue';
 import Aside from '@/components/main/Aside.vue';
-import { ref } from 'vue';
+import Table from '@/components/user/timeoff/tabletimeoff.vue'
+import { ref } from 'vue'
 
 const isShow = ref(true);
 
@@ -27,7 +27,7 @@ const handleToggleSidebar = (show) => {
 };
 </script>
 <style scoped>
-    main {
+main {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 18.5%;
@@ -35,7 +35,6 @@ const handleToggleSidebar = (show) => {
     display: inline-block;
     transition: var(--tran-04);
 }
-
 main.close {
     margin-left: 6.5%;
     width: 92%;
@@ -43,4 +42,3 @@ main.close {
     transition: var(--tran-05);
 }
 </style>
-
