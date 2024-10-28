@@ -1,14 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
-const emit = defineEmits(['toggle-sidebar']);
+const emit = defineEmits(['toggle-sidebar'])
 const isShow = ref(true)
 const btnControlSidebar_Click = () => {
-  isShow.value = !isShow.value;
-  emit('toggle-sidebar', isShow.value);
-};
-emit('toggle-sidebar', isShow.value);
+    isShow.value = !isShow.value
+    emit('toggle-sidebar', isShow.value)
+}
+emit('toggle-sidebar', isShow.value)
 
 const authStore = useAuthStore()
 
@@ -17,72 +17,82 @@ const featureAdmin = [
     {
         path: '/admin/staff',
         icon: 'fa-user',
-        text: 'home.menu_item_admin.staff'
+        text: 'home.menu_item_admin.staff',
+    },
+    {
+        path: '/admin/departments',
+        icon: 'fa-building',
+        text: 'Phòng ban',
+    },
+    {
+        path: '/admin/approve',
+        icon: 'fa-person-circle-check',
+        text: 'Phê duyệt',
     },
     {
         path: '/admin/activity',
         icon: 'fa-tasks',
-        text: 'home.menu_item_admin.activitive'
+        text: 'home.menu_item_admin.activitive',
     },
     {
         path: '/admin/position',
         icon: 'fa-briefcase',
-        text: 'home.menu_item_admin.position'
+        text: 'home.menu_item_admin.position',
     },
     {
         path: '/admin/payroll',
         icon: 'fa-dollar-sign',
-        text: 'home.menu_item_admin.payroll'
+        text: 'home.menu_item_admin.payroll',
     },
     {
         path: '/admin/chart',
         icon: 'fa-sitemap',
-        text: 'home.menu_item_admin.chart'
+        text: 'home.menu_item_admin.chart',
     },
     {
         path: '/admin/site',
         icon: 'fa-map-marker-alt',
-        text: 'home.menu_item_admin.site'
+        text: 'home.menu_item_admin.site',
     },
     {
         path: '/admin/document',
         icon: 'fa-file-alt',
-        text: 'home.menu_item_admin.documentation'
-    }
+        text: 'home.menu_item_admin.documentation',
+    },
 ]
 const featureManager = [
-{
+    {
         path: '/manager/staff',
         icon: 'fa-user',
-        text: 'Thông tin cá nhân'
+        text: 'Thông tin cá nhân',
     },
     {
         path: '/manager/activity',
         icon: 'fa-tasks',
-        text: 'home.menu_item.activity'
+        text: 'home.menu_item.activity',
     },
     {
         path: '/manager/position',
         icon: 'fa-briefcase',
-        text: 'home.menu_item.position'
-    }
+        text: 'home.menu_item.position',
+    },
 ]
 const featureUser = [
-{
+    {
         path: '/user/information',
         icon: 'fa-user',
-        text: 'home.menu_item_user.information'
+        text: 'home.menu_item_user.information',
     },
     {
         path: '/user/checkin',
         icon: 'fa-right-to-bracket',
-        text: 'home.menu_item_user.checkin'
+        text: 'home.menu_item_user.checkin',
     },
     {
         path: '/user/timeoff',
         icon: 'fa-tasks',
-        text: 'home.menu_item_user.timeoff'
-    }
+        text: 'home.menu_item_user.timeoff',
+    },
 ]
 onMounted(() => {
     if (sessionStorage.getItem('role') === 'ADMIN') {
@@ -111,7 +121,7 @@ onMounted(() => {
         <main>
             <div class="menu">
                 <ul class="menu-links p-0 m-0">
-                    <li class="nav-link-sidebar" v-for=" item in currentFeature">
+                    <li class="nav-link-sidebar" v-for="item in currentFeature">
                         <router-link :to="{ path: item.path }">
                             <i class="fa-solid" :class="item.icon"></i>
                             <span class="text nav-text">{{ $t(item.text) }}</span>
@@ -124,7 +134,9 @@ onMounted(() => {
                     <li class="nav-link-sidebar">
                         <router-link :to="{ path: '/' }">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            <span class="text nav-text" @click="authStore.clearToken">{{ $t('home.buttons.logout') }}</span>
+                            <span class="text nav-text" @click="authStore.clearToken">{{
+                                $t('home.buttons.logout')
+                            }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -262,7 +274,7 @@ aside.close main .menu ul li .router-link-active {
     background-color: var(--color-background);
 }
 
-aside.close main .menu ul li .router-link-active::before{
+aside.close main .menu ul li .router-link-active::before {
     width: 0rem;
 }
 </style>

@@ -11,9 +11,7 @@
                         <Aside />
                     </div>
                     <div class="col-10">
-                        <div class="me-2">
-                            <Staff/>
-                        </div>
+                        <Department />
                     </div>
                 </div>
             </main>
@@ -22,10 +20,9 @@
         <!--  End Home  -->
     </div>
 </template>
+
 <script setup>
-import Staff from '@/components/admin/StaffComponent/Staff.vue';
-import Header from '@/components/main/Header.vue'
+import Header from '@/components/main/Header.vue';
 import Aside from '@/components/main/Aside.vue'
+import Department from '@/components/admin/DepartmentComponent/Department.vue';
 </script>
-<style scoped>
-</style>

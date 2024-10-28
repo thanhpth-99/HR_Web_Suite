@@ -95,7 +95,7 @@ const language = ref('vn')
 
 const error = reactive({
     username: '',
-    password: ''
+    password: '',
 })
 
 const btnLogin_Click = async () => {
@@ -115,6 +115,7 @@ const btnLogin_Click = async () => {
         }
         const response = await post('/api/v1/auth/login', loginInfo)
         if (response.success) {
+            sessionStorage.setItem('user', username.value)
             authStore.setToken(response.data.accessToken, response.data.refreshToken)
             authStore.setRole(response.data.role)
             Swal.fire({
@@ -123,11 +124,11 @@ const btnLogin_Click = async () => {
                 icon: 'success',
                 timer: 1500,
             })
-            response.data.role === 'ADMIN' 
-                ? router.push('/admin') 
-                : response.data.role === 'MANAGER' 
-                    ? router.push('/manager')
-                    : router.push('/user/information')
+            response.data.role === 'ADMIN'
+                ? router.push('/admin')
+                : response.data.role === 'MANAGER'
+                ? router.push('/manager')
+                : router.push('/user/information')
         } else {
             Swal.fire({
                 title: t('login.messages.login_fail.title'),

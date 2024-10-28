@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-light">
         <article>
             <!--  Start Header  -->
             <Header />
@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-10">
                         <div class="me-2">
-                            <Staff/>
+                            <StaffDetail />
                         </div>
                     </div>
                 </div>
@@ -22,10 +22,13 @@
         <!--  End Home  -->
     </div>
 </template>
+
 <script setup>
-import Staff from '@/components/admin/StaffComponent/Staff.vue';
-import Header from '@/components/main/Header.vue'
+import StaffDetail from '@/components/admin/StaffDetailComponent/StaffDetail.vue';
+import Header from '@/components/main/Header.vue';
 import Aside from '@/components/main/Aside.vue'
+
 </script>
-<style scoped>
+
+<style scope>
 </style>
