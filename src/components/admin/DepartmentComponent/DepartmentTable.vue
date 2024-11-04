@@ -12,13 +12,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="phongBan in listPhongBan" :key="phongBan.maPhongBan">
+                <tr v-for="department in departments" :key="department.maPhongBan">
                     <td>
                         <input class="form-check-input" type="checkbox" />
                     </td>
-                    <td>{{ phongBan.tenPhongBan }}</td>
-                    <td><span class="badge bg-success">{{ phongBan.truongPhong.charAt(0) }}</span> {{ phongBan.truongPhong }}</td>
-                    <td>{{ phongBan.soLuongNhanVien }}</td>
+                    <td>{{ department.tenPhongBan }}</td>
+                    <td>
+                        <span class="badge bg-success">{{ department.truongPhong.charAt(0) }}</span>
+                        {{ department.truongPhong }}
+                    </td>
+                    <td>{{ department.soLuongNhanVien }}</td>
                 </tr>
             </tbody>
         </table>
@@ -26,8 +29,7 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
-    listPhongBan: Array,
+    departments: Array,
 })
 </script>

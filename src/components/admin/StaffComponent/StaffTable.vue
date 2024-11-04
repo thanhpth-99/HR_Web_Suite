@@ -17,22 +17,22 @@
             </thead>
             <tbody>
                 <tr
-                    v-for="nhanVien in listStaff"
-                    :key="nhanVien.maNhanVien"
-                    @click="$router.push('/admin/staff/' + nhanVien.maNhanVien)"
+                    v-for="staff in listStaff"
+                    :key="staff.maNhanVien"
+                    @click="$router.push('/admin/staff/' + staff.maNhanVien)"
                 >
                     <td>
                         <input class="form-check-input" type="checkbox" />
                     </td>
-                    <td>{{ nhanVien.hoTen }}</td>
-                    <td>{{ nhanVien.dienThoai }}</td>
-                    <td>hoangha@gmail.com</td>
+                    <td>{{ staff.hoTen }}</td>
+                    <td>{{ staff.dienThoai }}</td>
+                    <td>{{ staff.email }}</td>
                     <td><i class="fas fa-clock"></i></td>
-                    <td>{{ nhanVien.maChucVu }}</td>
-                    <td>{{ nhanVien.maPhongBan }}</td>
+                    <td>{{ staff.maChucVu }}</td>
+                    <td>{{ staff.maPhongBan }}</td>
                     <td>
-                        <span class="badge rounded-circle bg-success">{{ nhanVien.tenTruongPhong.charAt(0) }}</span>
-                        {{ nhanVien.tenTruongPhong }}
+                        <span class="badge rounded-circle bg-success">{{ staff.tenTruongPhong.charAt(0) }}</span>
+                        {{ staff.tenTruongPhong }}
                     </td>
                 </tr>
             </tbody>

@@ -32,14 +32,29 @@ const setApproveInfo = async (maDon, trangThai, ghiChu) => {
     approveInfo.maNhanVien = userLogin.value.maNhanVien
     approveInfo.trangThai = trangThai
     approveInfo.ghiChu = ghiChu
-    console.log(approveInfo)
     updateApprove()
 }
 
 const updateApprove = async () => {
-    const response = await put('/api/v1/approvals', approveInfo)
-    if (response) {
-        getAllApprove()
+    try {
+        const response = await put('/api/v1/approvals', approveInfo)
+        if (response) {
+            Swal.fire({
+                title: 'Thành công',
+                text: 'Cập nhật phê duyệt thành công',
+                icon: 'success',
+                timer: 1500,
+            })
+            getAllApprove()
+        }
+    } catch (error) {
+        Swal.fire({
+            title: 'Thất bại',
+            text: 'Cập nhật phê duyệt thất bại',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error(error)
     }
 }
 
@@ -53,18 +68,24 @@ onMounted(async () => {
 })
 
 const getUserLogin = async () => {
-    const username = sessionStorage.getItem('user')
-    const response = await get('/api/v1/employees/me', { username })
-    userLogin.value = response.data
-    console.log(userLogin.value)
+    try {
+        const username = sessionStorage.getItem('user')
+        const response = await get('/api/v1/employees/me', { username })
+        userLogin.value = response.data
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 const getAllApprove = async () => {
-    const maNhanVienLogin = userLogin.value.maNhanVien
-    const response = await get(`/api/v1/approvals/employee/${maNhanVienLogin}`)
-    if (response) {
-        listApprove.value = response.data
+    try {
+        const maNhanVienLogin = userLogin.value.maNhanVien
+        const response = await get(`/api/v1/approvals/employee/${maNhanVienLogin}`)
+        if (response) {
+            listApprove.value = response.data
+        }
+    } catch (error) {
+        console.error(error)
     }
-    console.log(listApprove.value)
 }
 </script>

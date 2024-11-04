@@ -121,7 +121,7 @@ onMounted(() => {
         <main>
             <div class="menu">
                 <ul class="menu-links p-0 m-0">
-                    <li class="nav-link-sidebar" v-for="item in currentFeature">
+                    <li class="nav-link-sidebar" v-for="item in currentFeature" :key="item.path">
                         <router-link :to="{ path: item.path }">
                             <i class="fa-solid" :class="item.icon"></i>
                             <span class="text nav-text">{{ $t(item.text) }}</span>
