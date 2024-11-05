@@ -3,6 +3,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <router-link :to="{ path: '/admin/staff/AddStaff' }" class="btn btn-primary me-2">New</router-link>
+                <router-link :to="{ path: '/admin/staff/AddStaffByFileExcel' }" class="btn btn-primary me-2">New by file excel</router-link>
                 <h5 class="mb-0">Employees</h5>
             </div>
             <div class="input-group w-25">
