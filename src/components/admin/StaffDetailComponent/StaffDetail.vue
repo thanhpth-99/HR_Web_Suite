@@ -1,7 +1,7 @@
 <template>
     <HeadMenu :loading="loading" @saveNhanVien="saveStaff" :staff="staff" />
 
-    <div class="container">
+    <div class="container-fluid">
         <StaffDetailForm :error="error" :staff="staff" />
 
         <StaffDetailMenu @setActiveTab="setActiveTab" :activeTab="activeTab" />
@@ -86,6 +86,7 @@ const getStaffById = async () => {
         if (id) {
             const response = await get(`/api/v1/employees/${id}`)
             staff.value = response.data
+            console.log(staff.value)
         }
     } catch (error) {
         console.error(error)

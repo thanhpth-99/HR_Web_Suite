@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mt-3 bg-light" style="overflow-x: auto">
+    <div class="container-fluid mt-3" style="overflow-x: auto; background-color: var(--color-main);">
         <div class="row">
             <HeadMenu
                 @tab-change="setActiveTab"

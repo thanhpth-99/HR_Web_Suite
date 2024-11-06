@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mt-3 bg-light" style="overflow-x: auto">
+    <div class="container-fluid mt-3" style="overflow-x: auto">
         <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" />
         <div class="row">
             <div>

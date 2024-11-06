@@ -1,7 +1,7 @@
 <template>
     <div>
         <table class="table table-hover align-middle table-responsive">
-            <thead class="table-light">
+            <thead class="table-">
                 <tr>
                     <th scope="col">
                         <input class="form-check-input" type="checkbox" />

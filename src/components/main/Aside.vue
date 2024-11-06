@@ -116,7 +116,7 @@ onMounted(() => {
                     <span class="slogan">HRM - Final project</span>
                 </div>
             </div>
-            <i class="fa-solid fa-left-long toggle" @click="btnControlSidebar_Click"></i>
+            <i class="fa-solid fa-arrow-left toggle" @click="btnControlSidebar_Click"></i>
         </header>
         <main>
             <div class="menu">
@@ -147,7 +147,7 @@ onMounted(() => {
 <style scoped>
 aside {
     height: 100%;
-    width: 18%;
+    width: 16%;
     padding: 0.88rem 0.88rem;
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
@@ -258,14 +258,22 @@ aside main li a:hover {
 aside main li a:hover .fa-solid,
 aside main li a:hover .text,
 aside main .menu ul li .router-link-active {
-    font-weight: 800;
+    background-color: #f4f4f5 !important;
+    color: #1591da !important;
+    font-weight: 600;
+    transition: none;
+}
+
+aside main .menu ul li .router-link-active .fa-solid,
+aside main .menu ul li .router-link-active .text {
+    color: #1591da !important;
 }
 
 aside main .menu ul li .router-link-active:before {
     content: '';
     height: 100%;
-    width: 0.7rem;
-    background-color: var(--color-background);
+    width: 0.5rem;
+    background-color: #1591da !important;
     border-radius: 5px;
     transition: var(--tran-02);
 }
