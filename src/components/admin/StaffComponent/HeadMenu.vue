@@ -30,27 +30,27 @@
 
                 <h5 class="mb-0">Employees</h5>
             </div>
-            <div class="input-group w-25">
-                <input type="text" class="form-control" placeholder="Search..." v-model="searchQuery" />
-                <span class="input-group-text" @click="$emit('search', searchQuery)">
-                    <i class="fas fa-search"></i>
-                </span>
+
+            <div class="form-group fs has-search me-2">
+                <span class="material-symbols-outlined form-control-feedback">search</span>
+                <input type="search" class="form-control" @input="$emit('search', searchQuery)" placeholder="Search" v-model="searchQuery" />
             </div>
+
             <div class="pagination d-flex justify-content-center align-items-center">
                 <span>Trang {{ currentPage }} / {{ totalPages }}</span>
                 <button
-                    class="btn btn-secondary rounded-0 mx-1"
+                    class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
                     :disabled="currentPage === 1"
                     @click="$emit('prevPage')"
                 >
-                    &lt;&lt;
+                    <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
                 </button>
                 <button
-                    class="btn btn-secondary rounded-0"
+                    class="btn btn-secondary rounded-0 d-flex align-items-center"
                     :disabled="currentPage === totalPages"
                     @click="$emit('nextPage')"
                 >
-                    &gt;&gt;
+                    <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
                 </button>
             </div>
             <div class="pagination d-flex justify-content-center align-items-center">
@@ -102,6 +102,9 @@ import AddStaffByFileExcel from '../AddStaffByFileExcelComponent/AddStaffByFileE
 import { ref } from 'vue'
 const searchQuery = ref('')
 const showPopup = ref(false)
+
+// defineEmits(['search', 'prevPage', 'nextPage', 'tab-change'])   
+
 const props = defineProps({
     activeTab: {
         type: String,

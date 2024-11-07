@@ -39,3 +39,7 @@ const createSlimSelect = () => {
     })
 }
 </script>
+
+<style scope>
+@import url('https://cdn.jsdelivr.net/npm/slim-select@latest/dist/slimselect.min.css');
+</style>

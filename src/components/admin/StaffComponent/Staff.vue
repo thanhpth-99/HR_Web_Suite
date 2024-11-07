@@ -68,20 +68,13 @@ const applyFilters = () => {
             (staff.email && staff.email.toLowerCase().includes(searchQuery.value.toLowerCase()))
         return matchesDepartment && matchesQuery
     })
-    if (filteredStaffs.value.length === 0) {
-        Swal.fire({
-            title: 'Không tìm thấy nhân viên',
-            text: 'Không tìm thấy nhân viên với các tiêu chí đã chọn',
-            icon: 'error',
-            timer: 1500,
-        })
-    }
 }
 
 // Gọi applyFilters khi thay đổi từ khóa tìm kiếm hoặc phòng ban
 const filterStaffBySearchQuery = (query) => {
     searchQuery.value = query
     applyFilters()
+    console.log(query)
 }
 
 const filterStaffByDepartment = (selectedOptions) => {

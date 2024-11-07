@@ -16,6 +16,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr v-if="listStaff.length === 0" style="text-align: center; font-style: italic">
+                    <td colspan="10">Không tìm thấy nhân viên</td>
+                </tr>
                 <tr
                     v-for="staff in listStaff"
                     :key="staff.maNhanVien"
