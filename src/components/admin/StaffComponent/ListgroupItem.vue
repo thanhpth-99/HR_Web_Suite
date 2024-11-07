@@ -5,13 +5,13 @@
             <label for="phongBanSelect" class="form-label">Phòng ban</label>
             <select
                 id="phongBanSelect"
-                v-model="listOptionPhongBan"
+                v-model="departmentSelected"
                 multiple
                 class="slim-select"
-                @change="$emit('filterByPhongBan', listOptionPhongBan)"
+                @change="$emit('filterStaffByDepartment', departmentSelected)"
             >
-                <option v-for="phongBan in listPhongBan" :key="phongBan.maPhongBan" :value="phongBan.maPhongBan">
-                    {{ phongBan.tenPhongBan }}
+                <option v-for="department in departments" :key="department.maPhongBan" :value="department.maPhongBan">
+                    {{ department.tenPhongBan }}
                 </option>
             </select>
         </div>
@@ -23,10 +23,10 @@ import { onMounted, computed, ref } from 'vue'
 import SlimSelect from 'slim-select'
 
 const slimSelectInstance = ref('')
-const listOptionPhongBan = ref([])
+const departmentSelected = ref([])
 
 const props = defineProps({
-    listPhongBan: Array,
+    departments: Array,
 })
 onMounted(async () => {
     createSlimSelect()
@@ -39,3 +39,7 @@ const createSlimSelect = () => {
     })
 }
 </script>
+
+<style scope>
+@import url('https://cdn.jsdelivr.net/npm/slim-select@latest/dist/slimselect.min.css');
+</style>

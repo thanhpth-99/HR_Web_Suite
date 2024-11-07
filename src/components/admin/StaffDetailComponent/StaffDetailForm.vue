@@ -3,10 +3,16 @@
         <div class="row">
             <div class="col-md-9">
                 <h2 class="card-title"></h2>
-                <input type="text" v-model="props.nhanVien.hoTen" placeholder="Tên nhân viên"/>
-                <br>
-                <span class="badge bg-primary">{{ nhanVien.maNhanVien }}</span>
-                <p class="text-muted">{{ props.nhanVien.tenChucVu }}</p>
+                <input
+                    type="text"
+                    :class="{ 'is-invalid': error.hoTen }"
+                    v-model="props.staff.hoTen"
+                    placeholder="Tên nhân viên"
+                />
+                <div class="invalid-feedback" v-if="error.hoTen">Tên không được để trống</div>
+                <br />
+                <span class="badge bg-primary">{{ staff.maNhanVien }}</span>
+                <p class="text-muted">{{ props.staff.tenChucVu }}</p>
             </div>
         </div>
 
@@ -20,10 +26,11 @@
                         <input
                             type="text"
                             class="form-control"
-                            id="phone"
+                            :class="{ 'is-invalid': error.dienThoai }"
+                            v-model="props.staff.dienThoai"
                             placeholder="Số điện thoại"
-                            v-model="props.nhanVien.dienThoai"
                         />
+                        <div class="invalid-feedback" v-if="error.dienThoai">Số điện thoại sai định dạng</div>
                     </div>
                 </div>
                 <!-- Work Address -->
@@ -34,7 +41,7 @@
                             type="text"
                             class="form-control"
                             id="address"
-                            v-model="props.nhanVien.diaChi"
+                            v-model="props.staff.diaChi"
                             placeholder="Địa chỉ"
                         />
                     </div>
@@ -46,10 +53,12 @@
                         <input
                             type="email"
                             class="form-control"
+                            :class="{ 'is-invalid': error.email }"
                             id="email"
-                            v-model="props.nhanVien.email"
+                            v-model="props.staff.email"
                             placeholder="@gmail.com"
                         />
+                        <div class="invalid-feedback" v-if="error.email">Email sai định dạng</div>
                     </div>
                 </div>
             </div>
@@ -62,8 +71,9 @@
                     <div class="col-sm-8">
                         <select
                             id="phongBanSelect"
-                            v-model="props.nhanVien.maPhongBan"
-                            @change="setTruongPhongByMaPhongBan(props.nhanVien.maPhongBan)"
+                            v-model="props.staff.maPhongBan"
+                            :class="{ 'is-invalid': error.maPhongBan }"
+                            @change="setTruongPhongByMaPhongBan(props.staff.maPhongBan)"
                             class="form-select"
                         >
                             <option value="">Chọn phòng ban</option>
@@ -75,18 +85,25 @@
                                 {{ phongBan.tenPhongBan }}
                             </option>
                         </select>
+                        <div class="invalid-feedback" v-if="error.maPhongBan">Mã phòng ban không được để trống</div>
                     </div>
                 </div>
                 <!-- Job Position -->
                 <div class="row mb-3">
                     <label for="viTriSelect" class="col-sm-4 col-form-label">Vị trí</label>
                     <div class="col-sm-8">
-                        <select id="viTriSelect" v-model="props.nhanVien.maChucVu" class="form-select">
+                        <select
+                            id="viTriSelect"
+                            v-model="props.staff.maChucVu"
+                            :class="{ 'is-invalid': error.maChucVu }"
+                            class="form-select"
+                        >
                             <option value="">Chọn vị trí</option>
                             <option v-for="viTri in listViTri" :key="viTri.maChucVu" :value="viTri.maChucVu">
                                 {{ viTri.tenChucVu }}
                             </option>
                         </select>
+                        <div class="invalid-feedback" v-if="error.maChucVu">Chức vụ không được để trống</div>
                     </div>
                 </div>
                 <!-- Manager -->
@@ -96,7 +113,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            v-model="props.nhanVien.tenTruongPhong"
+                            v-model="props.staff.tenTruongPhong"
                             id="manager"
                             readonly
                         />
@@ -115,21 +132,23 @@ const listPhongBan = ref([])
 const listViTri = ref([])
 
 const props = defineProps({
-    nhanVien: Object,
+    staff: Object,
+    error: Object,
 })
 
 onMounted(async () => {
     await getAllPhongBan()
     await getAllViTri()
+    console.log(props.error)
 })
 
 const setTruongPhongByMaPhongBan = (maPhongBan) => {
     const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
 
     if (selectedObject) {
-        props.nhanVien.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
+        props.staff.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
     } else {
-        props.nhanVien.tenTruongPhong = ''
+        props.staff.tenTruongPhong = ''
         console.log('Không tìm thấy phòng ban tương ứng.')
     }
 }
