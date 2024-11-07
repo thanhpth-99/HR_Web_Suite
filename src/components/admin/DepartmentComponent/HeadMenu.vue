@@ -5,12 +5,18 @@
                 <button class="btn btn-primary me-2" @click="showPopup = true">New</button>
                 <h5 class="mb-0">Departments</h5>
             </div>
-            <div class="input-group w-25">
-                <input type="text" class="form-control" placeholder="Search..." v-model="searchQuery" />
-                <span class="input-group-text" @click="$emit('search', searchQuery)">
-                    <i class="fas fa-search"></i>
-                </span>
+
+            <div class="form-group fs has-search me-2">
+                <span class="material-symbols-outlined form-control-feedback">search</span>
+                <input
+                    type="search"
+                    class="form-control"
+                    @input="$emit('search', searchQuery)"
+                    placeholder="Search"
+                    v-model="searchQuery"
+                />
             </div>
+
             <div class="pagination d-flex justify-content-center align-items-center">
                 <span>Trang {{ currentPage }} / {{ totalPages }}</span>
                 <button

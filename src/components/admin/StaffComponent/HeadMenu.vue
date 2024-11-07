@@ -33,7 +33,13 @@
 
             <div class="form-group fs has-search me-2">
                 <span class="material-symbols-outlined form-control-feedback">search</span>
-                <input type="search" class="form-control" @input="$emit('search', searchQuery)" placeholder="Search" v-model="searchQuery" />
+                <input
+                    type="search"
+                    class="form-control"
+                    @input="$emit('search', searchQuery)"
+                    placeholder="Search"
+                    v-model="searchQuery"
+                />
             </div>
 
             <div class="pagination d-flex justify-content-center align-items-center">
@@ -82,19 +88,34 @@
             </div>
         </div>
     </div>
+
     <div :class="['popup', { show: showPopup }]" tabindex="-1">
+        <div class="popup-content modal-dialog">
+            <div class="modal-content p-4 border-0">
+                <h2 class="modal-title border-bottom mb-4">Add staff by excel</h2>
+                <div class="modal-body border-none">
+                    <AddStaffByFileExcel />
+                </div>
+                <div class="modal-footer d-flex justify-content-end align-items-end">
+                    <i @click="showPopup = false" class="text-danger fs-3 fa-solid fa-circle-xmark"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div :class="['popup', { show: showPopup }]" tabindex="-1">
         <div class="popup-content modal-dialog">
             <div class="modal-content p-4">
                 <h2 class="modal-title">Add staff by excel</h2>
                 <div class="modal-body">
-                    <AddStaffByFileExcel />
+                    
                 </div>
                 <div class="modal-footer d-flex justify-content-end mt-2 me-2">
                     <button class="btn btn-danger" @click="showPopup = false">Đóng</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script setup>
@@ -103,7 +124,7 @@ import { ref } from 'vue'
 const searchQuery = ref('')
 const showPopup = ref(false)
 
-// defineEmits(['search', 'prevPage', 'nextPage', 'tab-change'])   
+// defineEmits(['search', 'prevPage', 'nextPage', 'tab-change'])
 
 const props = defineProps({
     activeTab: {
@@ -131,6 +152,7 @@ const props = defineProps({
     transition: var(--tran-05);
     border: 1px solid var(--color-border);
 }
+
 .popup {
     position: fixed;
     top: 0;
@@ -165,5 +187,11 @@ const props = defineProps({
 
 .popup.show .popup-content {
     transform: translateY(0);
+}
+.modal-footer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
 }
 </style>

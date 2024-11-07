@@ -1,35 +1,24 @@
 <template>
     <div class="container-fluid">
-    <div class="p-4 border-0 border-bottom border-secondary-subtle">
-        <div class="head-menu col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <button
-                        @click="saveStaffs"
-                        type="button"
-                        class="btn btn-success btn-sm fw-bold me-2 px-4"
-                        :disabled="loading"
-                        :class="{ loading: loading }"
-                    >
-                        <span
-                            v-if="loading"
-                            class="spinner-border spinner-border-sm me-2"
-                            role="status"
-                            aria-hidden="true"
-                        ></span>
-                        <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
-                    </button>
-
-                    <!-- Input group for file upload -->
+        <div class="border-0">
+            <div class="head-menu col-12">
+                <div class="d-flex align-items-center mb-4">
                     <div class="input-group">
-                        <input type="file" ref="fileInput" @change="handleFileUpload" accept=".xlsx, .xls" class="form-control" />
+                        <input
+                            type="file"
+                            ref="fileInput"
+                            @change="handleFileUpload"
+                            accept=".xlsx, .xls"
+                            class="form-control"
+                        />
                     </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" @click="saveStaffs">Save</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </template>
   
 <script setup>

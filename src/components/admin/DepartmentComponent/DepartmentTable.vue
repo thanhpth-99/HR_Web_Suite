@@ -4,7 +4,7 @@
             <thead class="table-light">
                 <tr>
                     <th scope="col">
-                        <input class="form-check-input" type="checkbox" />
+                        STT
                     </th>
                     <th scope="col">Tên phòng ban</th>
                     <th scope="col">Quản lý</th>
@@ -12,9 +12,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="department in departments" :key="department.maPhongBan">
+                <tr v-if="departments.length === 0" style="text-align: center; font-style: italic">
+                    <td colspan="10">Không tìm thấy phòng ban</td>
+                </tr>
+
+                <tr v-for="(department, index) in departments" :key="department.maPhongBan">
                     <td>
-                        <input class="form-check-input" type="checkbox" />
+                        <p>{{ index + 1 }}</p>
                     </td>
                     <td>{{ department.tenPhongBan }}</td>
                     <td>

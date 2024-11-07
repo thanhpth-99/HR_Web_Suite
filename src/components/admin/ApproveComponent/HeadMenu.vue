@@ -5,11 +5,15 @@
                 <router-link class="btn btn-success me-2">Quay lại</router-link>
                 <h5 class="mb-0">Approve manager</h5>
             </div>
-            <div class="input-group w-25">
-                <input type="text" class="form-control" placeholder="Search..." v-model="searchQuery" />
-                <span class="input-group-text">
-                    <i class="fas fa-search"></i>
-                </span>
+            <div class="form-group fs has-search me-2">
+                <span class="material-symbols-outlined form-control-feedback">search</span>
+                <input
+                    type="search"
+                    class="form-control"
+                    @input="$emit('search', searchQuery)"
+                    placeholder="Search"
+                    v-model="searchQuery"
+                />
             </div>
             <div class="pagination d-flex justify-content-center align-items-center">
                 <ul class="nav nav-tabs">

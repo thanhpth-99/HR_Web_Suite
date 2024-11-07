@@ -1,11 +1,9 @@
 <template>
     <div>
         <table class="table table-hover align-middle table-responsive">
-            <thead class="table-">
+            <thead class="table-light">
                 <tr>
-                    <th scope="col">
-                        <input class="form-check-input" type="checkbox" />
-                    </th>
+                    <th scope="col">STT</th>
                     <th scope="col">Họ tên</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Email</th>
@@ -20,22 +18,24 @@
                     <td colspan="10">Không tìm thấy nhân viên</td>
                 </tr>
                 <tr
-                    v-for="staff in listStaff"
+                    v-for="(staff, index) in listStaff"
                     :key="staff.maNhanVien"
                     @click="$router.push('/admin/staff/' + staff.maNhanVien)"
                 >
                     <td>
-                        <input class="form-check-input" type="checkbox" />
+                        {{ index + 1 }}
                     </td>
                     <td>{{ staff.hoTen }}</td>
                     <td>{{ staff.dienThoai }}</td>
                     <td>{{ staff.email }}</td>
-                    <td><i class="fas fa-clock"></i></td>
+                    <td><span class="material-symbols-outlined" :class="index%2==0 && !index%3==0 ? 'text-danger' : 'text-success'"> radio_button_checked </span></td>
                     <td>{{ staff.maChucVu }}</td>
                     <td>{{ staff.maPhongBan }}</td>
                     <td>
-                        <span class="badge rounded-circle bg-success">{{ staff.tenTruongPhong.charAt(0) }}</span>
-                        {{ staff.tenTruongPhong }}
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-success me-2">{{ staff.tenTruongPhong.charAt(0) }}</span>
+                            <p class="mb-0">{{ staff.tenTruongPhong }}</p>
+                        </div>
                     </td>
                 </tr>
             </tbody>

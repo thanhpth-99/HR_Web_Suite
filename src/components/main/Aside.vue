@@ -112,8 +112,8 @@ onMounted(() => {
                     <img src="@/assets/images/logo.png" alt="VitaminCode" />
                 </span>
                 <div class="text header-text d-flex flex-column">
-                    <span class="name">VANGUARD</span>
-                    <span class="slogan">HRM - Final project</span>
+                    <span class="name text-white">VANGUARD</span>
+                    <span class="slogan text-white">HRM - Final project</span>
                 </div>
             </div>
             <i class="fa-solid fa-arrow-left toggle" @click="btnControlSidebar_Click"></i>
@@ -238,7 +238,7 @@ aside main li .fa-solid {
 aside main li .fa-solid,
 aside main li .text {
     transition: var(--tran-02);
-    color: black;
+    color: #bbbdc0;
 }
 
 aside main li a {
@@ -247,33 +247,35 @@ aside main li a {
     width: 100%;
     display: flex;
     align-items: center;
-    transition: var(--tran-02);
+    transition: all var(--tran-02);
     border-radius: 0.8rem;
 }
 
 aside main li a:hover {
-    background-color: var(--color-component);
+    background-color: #ffd831;
 }
 
 aside main li a:hover .fa-solid,
-aside main li a:hover .text,
-aside main .menu ul li .router-link-active {
-    background-color: #f4f4f5 !important;
-    color: #1591da !important;
+aside main li a:hover .text{
+    color: #1c212d !important;
     font-weight: 600;
-    transition: none;
+}
+
+aside main .menu ul li .router-link-active {
+    background-color: #ffd831 !important;
+    color: #1c212d !important;
+    font-weight: 600;
 }
 
 aside main .menu ul li .router-link-active .fa-solid,
 aside main .menu ul li .router-link-active .text {
-    color: #1591da !important;
+    color: #1c212d !important;
 }
 
 aside main .menu ul li .router-link-active:before {
     content: '';
     height: 100%;
     width: 0.5rem;
-    background-color: #1591da !important;
     border-radius: 5px;
     transition: var(--tran-02);
 }
