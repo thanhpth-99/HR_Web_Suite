@@ -13,6 +13,17 @@
             "text": "Please log in again"
         }
     },
+    "component": {
+        "header": {
+            "title": {
+                "setting": "Setting"
+            },
+            "buttons": {
+                "save": "Save",
+                "cancel": "Cancel"
+            }
+        }
+    },
     "login": {
         "title": "LOGIN",
         "buttons": {
@@ -63,6 +74,70 @@
             "information": "Profile",
             "checkin": "Check in",
             "timeoff": "Time off"
+        }
+    },
+    "profile": {
+        "title": "Profile",
+        "buttons": {
+            "edit": "Edit"
+        },
+        "items": {
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "phone": "Phone",
+            "address": "Address"
+        }
+    },
+    "edit_profile": {
+        "title": "Edit profile",
+        "buttons": {
+            "upload": "Upload",
+            "change": "Change",
+            "back": "Back"
+        },
+        "items": {
+            "profile_picture": "Profile picture",
+            "identity_card": "Identity card",
+            "full_name": "Full name",
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "phone": "Phone",
+            "address": "Address",
+            "male": "Male",
+            "female": "Female"
+        },
+        "errors": {
+            "identity_card": "Identity card is invalid",
+            "full_name": "Full name is invalid",
+            "birthday": "Birdth is invalid",
+            "email": "Email is invalid",
+            "phone": "Phone is invalid",
+            "address": "Address is invalid"
+        },
+        "placeholder": {
+            "identity_card": "Please enter identity card",
+            "full_name": "Please enter full name",
+            "email": "Please enter email",
+            "phone": "Please enter phone",
+            "address": "Please enter address"
+        },
+        "message": {
+            "validate_fail": {
+                "title": "Save failed",
+                "text": "Invalid information"
+            },
+            "update_success": {
+                "title": "Update information successfully",
+                "text": "Changed"
+            },
+            "update_fail": {
+                "title": "Update information failed",
+                "text": "No change"
+            },
+            "update_error": {
+                "title": "Update information failed",
+                "text": "An error occurred"
+            }
         }
     }
 }

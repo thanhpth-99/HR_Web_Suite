@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper bg-white">
-        <h4 class="pb-4 border-bottom">Thay đổi thông tin cá nhân</h4>
+        <h4 class="pb-4 border-bottom fw-medium">Thay đổi thông tin cá nhân</h4>
         <!-- <div class="d-flex align-items-start py-3 border-bottom">
             <img :src="infoNV.hinhAnh || 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'"
                 class="img rounded-circle" alt="Profile Photo">
@@ -13,90 +13,90 @@
             <img :src="previewImage || infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'"
                 class="img rounded-circle" alt="Profile Photo" width="100" height="100">
             <div class="ps-sm-4 ps-2" id="img-section">
-                <b class="d-block mb-2">Ảnh đại diện</b>
+                <b class="d-block mb-2">{{ $t('edit_profile.items.profile_picture') }}</b>
                 <input type="file" @change="uploadImage" accept="image/*" class="d-none" ref="fileInput">
-                <button class="btn btn-outline-secondary" @click="fileInput.click()"><b>Upload</b></button>
+                <button class="btn btn-outline-secondary" @click="fileInput.click()"><b>{{ $t('edit_profile.buttons.upload') }}</b></button>
             </div>
         </div>
         <div class="py-2">
-            <div class="row py-2">
+            <div class="row pt-2">
                 <div class="pt-md-0 pt-3">
-                    <label for="cccd" class="form-label">Căn cước công dân</label>
+                    <label for="cccd" class="form-label">{{ $t('edit_profile.items.identity_card') }}</label>
                     <input type="text" id="cccd" class="bg-light form-control"
                         placeholder="Vui lòng nhập căn cước công dân" v-model="infoNV.cccd"
                         :class="{ 'is-invalid': error.cccd }">
                     <div class="invalid-feedback">
-                        Căn cước không phù hợp
+                        {{ $t('edit_profile.errors.identity_card') }}
                     </div>
                 </div>
-                <div class="pt-md-0 pt-3">
-                    <label for="firstname" class="form-label">Họ Tên</label>
+                <div class="pt-md-0 pt-3 mt-2">
+                    <label for="firstname" class="form-label">{{ $t('edit_profile.items.full_name') }}</label>
                     <input type="text" id="firstname" class="bg-light form-control" placeholder="Vui lòng điền họ tên"
                         v-model="infoNV.hoTen" :class="{ 'is-invalid': error.hoTen }">
                     <div class="invalid-feedback">
-                        Chưa nhập họ tên
+                        {{ $t('edit_profile.errors.full_name') }}
                     </div>
                 </div>
             </div>
-            <div class="row py-2">
+            <div class="row pt-2">
                 <div class="col-md-6">
-                    <label for="birthday" class="form-label">Ngày sinh</label>
+                    <label for="birthday" class="form-label">{{ $t('edit_profile.items.birthday') }}</label>
                     <input type="date" id="birthday" class="bg-light form-control" placeholder="Vui lòng nhập ngày sinh"
                         v-model="infoNV.ngaySinh" :class="{ 'is-invalid': error.ngaySinh }">
                     <div class="invalid-feedback">
-                        Ngày sinh không hợp lệ
+                        {{ $t('edit_profile.errors.birthday') }}
                     </div>
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="gender" class="form-label">Giới tính</label>
+                    <label for="gender" class="form-label">{{ $t('edit_profile.items.gender') }}</label>
                     <div class="px-3 py-1">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genderOptions" id="maleGender"
                                 v-model="infoNV.gioiTinh" :value="true" />
-                            <label class="form-check-label" for="maleGender">Nam</label>
+                            <label class="form-check-label" for="maleGender">{{ $t('edit_profile.items.male') }}</label>
                         </div>
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genderOptions" id="femaleGender"
                                 v-model="infoNV.gioiTinh" :value="false" />
-                            <label class="form-check-label" for="femaleGender">Nữ</label>
+                            <label class="form-check-label" for="femaleGender">{{ $t('edit_profile.items.female') }}</label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row py-2">
+            <div class="row pt-2">
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" id="email" class="bg-light form-control" placeholder="Vui lòng nhập email"
                         v-model="infoNV.email" :class="{ 'is-invalid': error.email }">
                     <div class="invalid-feedback">
-                        Email không hợp lệ
+                        {{ $t('edit_profile.errors.email') }}
                     </div>
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <label for="phone" class="form-label">{{ $t('edit_profile.items.phone') }}</label>
                     <input type="text" id="phone" class="bg-light form-control"
                         placeholder="Vui lòng nhập số điện thoại" v-model="infoNV.dienThoai"
                         :class="{ 'is-invalid': error.dienThoai }">
                     <div class="invalid-feedback">
-                        Số điện thoại không phù hợp
+                        {{ $t('edit_profile.errors.phone') }}
                     </div>
                 </div>
             </div>
-            <div class="row py-2">
+            <div class="row pt-2">
                 <div class="col-md-12">
-                    <label for="address" class="form-label">Địa chỉ</label>
+                    <label for="address" class="form-label">{{ $t('edit_profile.items.address') }}</label>
                     <input type="text" id="address" class="bg-light form-control" placeholder="Vui lòng nhập địa chỉ"
                         v-model="infoNV.diaChi" :class="{ 'is-invalid': error.diaChi }">
                     <div class="invalid-feedback">
-                        Chưa nhập địa chỉ
+                        {{ $t('edit_profile.errors.address') }}
                     </div>
                 </div>
             </div>
             <div class="py-3 pb-4 border-bottom text-center">
-                <button class="btn btn-primary me-3" @click.prevent="btnUpdateInfo_Click">Lưu thay đổi</button>
+                <button class="btn btn-primary me-3" @click.prevent="btnUpdateInfo_Click">{{ $t('edit_profile.buttons.change') }}</button>
                 <router-link :to="{ path: '/user/information' }" class="btn btn-outline-secondary">
-                    Quay lại
+                    {{ $t('edit_profile.buttons.back') }}
                 </router-link>
             </div>
         </div>
@@ -107,6 +107,9 @@
 import { reactive, onMounted, ref } from 'vue'
 import { useValidation } from '@/stores/mixin/validate_form'
 import { post, get, put } from '@/stores/https';
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 
 const infoNV = reactive({
     maNhanVien: '',
@@ -182,8 +185,8 @@ const error = reactive({
 const btnUpdateInfo_Click = async () => {
     if (!validate()) {
         await Swal.fire({
-            title: 'Lưu không thành công',
-            text: 'Thông tin không hợp lệ',
+            title: t('edit_profile.message.validate_fail.title'),
+            text: t('edit_profile.message.validate_fail.text'),
             icon: 'error',
             timer: 1500,
         })
@@ -210,23 +213,23 @@ const btnUpdateInfo_Click = async () => {
         const response = await put('/api/v1/employees', infoNV)
         if (response.success) {
             Swal.fire({
-                title: 'Thành công',
-                text: 'Đã thay đổi thông tin',
+                title: t('edit_profile.message.update_success.title'),
+                text: t('edit_profile.message.update_success.text'),
                 icon: 'success',
                 timer: 1500,
             })
         } else {
             Swal.fire({
-                title: 'Thất bại',
-                text: 'Thay đối thất bại',
+                title: t('edit_profile.message.update_fail.title'),
+                text:  t('edit_profile.message.update_fail.text'),
                 icon: 'error',
                 timer: 1500,
             })
         }
     } catch (error) {
         Swal.fire({
-            title: 'Lỗi',
-            text: 'Error',
+            title: t('edit_profile.message.update_error.title'),
+            text: t('edit_profile.message.update_error.text'),
             icon: 'error',
             timer: 1500,
         })
