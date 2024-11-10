@@ -1,5 +1,6 @@
 <template>
     <div class="card">
+        <!-- Header Section -->
         <div class="card-header border-bottom text-center d-flex align-items-center justify-content-between">
             <div class="float-start mt-2">
                 Đơn nghỉ phép của tôi
@@ -7,12 +8,9 @@
             </div>
             <div class="search_input d-flex justify-content-center">
                 <div class="search input-group">
-                    <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Tìm kiếm"
-                        id="example-search-input">
+                    <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Tìm kiếm" id="example-search-input">
                     <span class="input-group-append">
-                        <button
-                            class="search btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5"
-                            type="button">
+                        <button class="search btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="button">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
@@ -26,10 +24,13 @@
                 </div>
             </router-link>
         </div>
+
+        <!-- Main Content Section -->
         <div class="card-body">
             <div class="col-sm-12 row m-0">
                 <div class="col-sm-3">
                     <b>Chờ phê duyệt</b>
+                    <!-- Card Item with Modal Trigger -->
                     <div class="card p-2 my-1">
                         <div class="title d-flex justify-content-between align-items-center">
                             <div>
@@ -40,21 +41,18 @@
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><router-link :to="{ path: '/user/timeoff/0' }">
-                                            <a class="dropdown-item btn-edit" href="#">Chỉnh sửa
-                                                <i class="ms-2 fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                        </router-link></li>
+                                    <li><router-link :to="{ path: '/user/timeoff/0' }" class="dropdown-item btn-edit">
+                                        Chỉnh sửa
+                                        <i class="ms-2 fa-solid fa-pen-to-square"></i>
+                                    </router-link></li>
                                     <li><a class="dropdown-item btn-cancel mt-1" href="#">Hủy bỏ
-                                            <i class="fa-solid fa-trash-can ms-4"></i>
-                                        </a></li>
+                                        <i class="fa-solid fa-trash-can ms-4"></i>
+                                    </a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="content my-2">
-                            <label class="w-100">
-                                Nghỉ có lương
-                            </label>
+                            <label class="w-100">Nghỉ có lương</label>
                             <div class="time_off col-sm-12 row m-0 my-2">
                                 <div class="col-sm-6 text-start p-0">
                                     <b>Từ:</b> 01/01/2024 8:00
@@ -67,51 +65,69 @@
                                 <i class="fa-regular fa-clock"></i>
                             </div>
                             <div class="float-end">
-                                <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                    class="img" alt="Profile Photo">
+                                <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="img" alt="Profile Photo">
                             </div>
                         </div>
+                        <!-- Modal Trigger Button -->
+                        <button type="button" class="btn btn-info mt-2 w-100" data-bs-toggle="modal" data-bs-target="#timeOffModal">
+                            Xem chi tiết
+                        </button>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="card p-2 my-1">
-                        <div class="title">
-                            <div class="float-start">
-                                <b>Nghỉ bù</b>
-                            </div>
-                            <div class="float-end btn p-0">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </div>
-                        <div class="content my-2">
-                            <label class="w-100">
-                                Nghỉ có lương
-                            </label>
-                            <div class="time_off col-sm-12 row m-0 my-2">
-                                <div class="col-sm-6 text-start p-0">
-                                    <b>Từ:</b> 01/01/2024 8:00
+        <!-- Bootstrap Modal for Detailed Information -->
+        <div class="modal fade" id="timeOffModal" tabindex="-1" aria-labelledby="timeOffModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="timeOffModalLabel">Chi tiết nghỉ phép</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Reusable Card Structure Inside Modal -->
+                        <div class="card p-2 my-1">
+                            <div class="title d-flex justify-content-between align-items-center">
+                                <div><b>Nghỉ bù</b></div>
+                                <div class="dropdown">
+                                    <button class="btn p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <router-link :to="{ path: '/user/timeoff/0' }" class="dropdown-item btn-edit">Chỉnh sửa
+                                                <i class="ms-2 fa-solid fa-pen-to-square"></i>
+                                            </router-link>
+                                        </li>
+                                        <li><a class="dropdown-item btn-cancel mt-1" href="#">Hủy bỏ
+                                            <i class="fa-solid fa-trash-can ms-4"></i>
+                                        </a></li>
+                                    </ul>
                                 </div>
-                                <div class="col-sm-6 text-end p-0">
-                                    <b>Đến:</b> 02/01/2024 6:00
+                            </div>
+                            <div class="content my-2">
+                                <label class="w-100">Nghỉ có lương</label>
+                                <div class="time_off col-sm-12 row m-0 my-2">
+                                    <div class="col-sm-6 text-start p-0">
+                                        <b>Từ:</b> 01/01/2024 8:00
+                                    </div>
+                                    <div class="col-sm-6 text-end p-0">
+                                        <b>Đến:</b> 02/01/2024 6:00
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="float-start">
-                                <i class="fa-regular fa-clock"></i>
-                            </div>
-                            <div class="float-end">
-                                <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                    class="img" alt="Profile Photo">
+                                <div class="float-start">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class="float-end">
+                                    <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="img" alt="Profile Photo">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <b>Đã xét duyệt</b>
-                </div>
-                <div class="col-sm-3">
-                    <b>Đã từ chối</b>
-                </div>
-                <div class="col-sm-3">
-                    <b>Đã hủy</b>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,10 +159,6 @@
     width: 500px;
 }
 
-.search:hover {
-    color: rgb(69, 134, 237);
-}
-
 .content {
     font-size: 12px;
 }
@@ -172,23 +184,9 @@ img {
     color: white;
 }
 
-.btn-edit:hover {
-    background: rgb(16, 179, 16);
-    color: white;
-}
-
 .btn-cancel {
     border-radius: 5px;
     background: rgb(225, 104, 104);
     color: white;
-}
-
-.btn-cancel:hover {
-    background: rgb(215, 67, 67);
-    color: white;
-}
-
-.btn.show {
-    border-color: white;
 }
 </style>

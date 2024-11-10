@@ -8,16 +8,17 @@
                         <div class="account-settings">
                             <div class="user-profile text-center">
                                 <img class="img rounded-circle border"
-                                    src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-                                <h5 class="user-name my-3">Nguyễn Minh Nam</h5>
-                                <p class="fw-bold">Nhân viên - Ban quản lý nhân sự</p>
-                                <div class="col-sm-12 row m-0 ps-4 text-start">
-                                    <h6 class="col-sm-5">Email: </h6>
-                                    <span class="col-sm-7">xxxx@gmail.com</span>
+                                    :src=infoNV.hinhAnh>
+                                <h5 class="user-name my-3">{{ infoNV.hoTen }}</h5>
+                                <p class="fw-bold">{{ infoNV.tenChucVu }} - {{ infoNV.tenPhongBan }}</p>
+                                <p class="fw-bold">{{ infoNV.tenBoPhan }}</p>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <h6 class="m-0 p-2">Email: </h6>
+                                    <span class="p-2">{{ infoNV.email }}</span>
                                 </div>
-                                <div class="col-sm-12 row m-0 ps-4 text-start">
-                                    <h6 class="col-sm-5">Số điện thoại: </h6>
-                                    <span class="col-sm-7">0823 667 555</span>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <h6 class="m-0 p-2">Số điện thoại: </h6>
+                                    <span class="p-2">{{ infoNV.dienThoai }}</span>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +33,7 @@
                                 <h6 class="mb-0">CCCD:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                052204008381
+                                {{ infoNV.cccd }}
                             </div>
                         </div>
                         <hr>
@@ -41,7 +42,7 @@
                                 <h6 class="mb-0">Ngày sinh:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                10/11/2004
+                                {{ infoNV.ngaySinh }}
                             </div>
                         </div>
                         <hr>
@@ -50,7 +51,7 @@
                                 <h6 class="mb-0">Giới tính:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                Nam
+                                {{ infoNV.gioiTinh ? 'Nam' : 'Nữ' }}
                             </div>
                         </div>
                         <hr>
@@ -59,7 +60,7 @@
                                 <h6 class="mb-0">Email:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                xxxxx@gmail.com
+                                {{ infoNV.email }}
                             </div>
                         </div>
                         <hr>
@@ -68,7 +69,7 @@
                                 <h6 class="mb-0">Điện thoại:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                0823 667 555
+                                {{ infoNV.dienThoai }}
                             </div>
                         </div>
                         <hr>
@@ -77,13 +78,13 @@
                                 <h6 class="mb-0">Địa chỉ:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                TP. Hồ Chí Minh
+                                {{ infoNV.diaChi }}
                             </div>
                         </div>
                         <hr>
                         <div class="row text-end">
                             <div class="col-sm-12">
-                                <router-link :to="{ path: '/user/information/0' }">
+                                <router-link :to="{ path: `/user/information/${infoNV.maNhanVien}` }">
                                     <button class="btn btn-info">Edit</button>
                                 </router-link>
                             </div>
@@ -97,7 +98,53 @@
 </template>
 
 <script setup>
-    
+import { onMounted, ref } from 'vue'
+import { get } from '@/stores/https'
+
+const infoNV = ref({})
+
+const loadInfoUser = async () => {
+    try {
+        const userName = sessionStorage.getItem('user');
+        const response = await get('/api/v1/employees/me', { username: userName })
+        const maNV = response.data.maNhanVien
+        const maNVSession = sessionStorage.setItem('maNhanVien', maNV);
+        const responseInfo = await get(`/api/v1/employees/${maNV}`)
+        console.log(responseInfo)
+        if (response.success) {
+            infoNV.value = {
+                maNhanVien: responseInfo.data.maNhanVien,
+                hoTen: responseInfo.data.hoTen,
+                gioiTinh: responseInfo.data.gioiTinh,
+                ngaySinh: responseInfo.data.ngaySinh,
+                dienThoai: responseInfo.data.dienThoai,
+                email: responseInfo.data.email,
+                cccd: responseInfo.data.cccd,
+                diaChi: responseInfo.data.diaChi,
+                hinhAnh: responseInfo.data.hinhAnh,
+                maBoPhan: responseInfo.data.maBoPhan,
+                maChucVu: responseInfo.data.maChucVu,
+                maPhongBan: responseInfo.data.maPhongBan,
+                tenBoPhan: responseInfo.data.tenBoPhan,
+                tenChucVu: responseInfo.data.tenChucVu,
+                tenPhongBan: responseInfo.data.tenPhongBan,
+                tenTruongPhong: responseInfo.data.tenTruongPhong
+            }
+        }
+    } catch (error) {
+        await Swal.fire({
+            title: ('login.messages.login_fail_server.title'),
+            text: ('login.messages.login_fail_server.text'),
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error('Error during login:', error)
+    }
+}
+
+onMounted(async () => {
+    await loadInfoUser()
+})
 </script>
 
 <style scoped>

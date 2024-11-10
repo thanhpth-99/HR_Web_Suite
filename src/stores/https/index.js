@@ -17,10 +17,7 @@ const environment = 1
 
 const https = axios.create({
     baseURL: 'http://localhost:1688',
-    timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    timeout: 10000
 })
 
 let isRefreshing = false

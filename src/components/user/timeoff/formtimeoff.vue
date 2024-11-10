@@ -6,30 +6,30 @@
         <div class="py-2">
             <div class="row py-2">
                 <div class="col-md-6">
-                    <label for="firstname" class="form-label">Họ và tên:</label>
-                    <input type="text" id="firstname" class="bg-active form-control disabled" value="Nguyễn Minh Nam"
+                    <label for="hoTen" class="form-label">Họ và tên:</label>
+                    <input type="text" id="hoTen" class="bg-active form-control disabled" v-model="data.hoTen"
                         disabled>
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="lastname" class="form-label disabled">Mã nhân viên:</label>
-                    <input type="text" id="lastname" class="bg-active form-control" value="NV51" disabled>
+                    <label for="maNhanVien" class="form-label disabled">Mã nhân viên:</label>
+                    <input type="text" id="maNhanVien" class="bg-active form-control" v-model="data.maNhanVien" disabled>
                 </div>
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
-                    <label for="firstname" class="form-label">Vị trí công việc:</label>
-                    <input type="text" id="firstname" class="bg-active form-control disabled" value="Nhân viên"
+                    <label for="chucVu" class="form-label">Vị trí công việc:</label>
+                    <input type="text" id="chucVu" class="bg-active form-control disabled" v-model="data.tenChucVu"
                         disabled>
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label for="lastname" class="form-label disabled">Phòng Ban:</label>
-                    <input type="text" id="lastname" class="bg-active form-control" value="Ban quản lý nhân sự"
+                    <label for="phongBan" class="form-label disabled">Phòng Ban:</label>
+                    <input type="text" id="phongBan" class="bg-active form-control" v-model="data.tenPhongBan"
                         disabled>
                 </div>
             </div>
             <div class="col-md-12">
-                <label for="address" class="form-label">Người duyệt:</label>
-                <input type="text" id="phone" class="bg-light form-control" placeholder="Vui lòng nhập địa chỉ"
+                <label for="truongPhong" class="form-label">Người duyệt:</label>
+                <input type="text" id="truongPhong" class="bg-light form-control"
                     value="Phạm Hoàng Hà">
             </div>
             <div class="row py-2">
@@ -52,13 +52,11 @@
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label for="ketthuc" class="form-label">Đến ngày:</label>
                     <input type="datetime-local" v-model="dateTime" id="ketthuc" class="bg-light form-control">
-                    <!-- Lấy thử giá trị -->
-                    <!-- <button @click="getDateTime">Lấy giá trị</button> -->
                 </div>
             </div>
             <div class="row py-2">
                 <div class="col-md-12">
-                    <label for="ghichu"  class="form-label">Ghi chú</label>
+                    <label for="ghichu" class="form-label">Ghi chú</label>
                     <textarea type="text" id="phone" rows="5" class="bg-light form-control"></textarea>
                 </div>
             </div>
@@ -83,22 +81,47 @@
 </style>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { post, get } from '@/stores/https';
+
+const data = ref({})
+
+const loadInfoUser = async () => {
+    try {
+        const response = await get(`/api/v1/employees/${sessionStorage.getItem('maNhanVien')}`)
+
+        if (response.success) {
+            data.value = {
+                hoTen: response.data.hoTen,
+                maNhanVien: response.data.maNhanVien,
+                tenChucVu: response.data.tenChucVu,
+                tenPhongBan: response.data.tenPhongBan
+            }
+
+            console.log(data.value)
+        }
+        else {
+            await Swal.fire({
+            title: 'Lỗi',
+            text: 'Lấy thông tin thất bại',
+            icon: 'error',
+            timer: 1500,
+        })
+        }
+    } catch (error) {
+        await Swal.fire({
+            title: 'Error',
+            text: error,
+            icon: 'error',
+            timer: 1500,
+        })
+        console.log(error)
+    }
+}
 
 const dateTime = ref('');
 
-const getDateTime = () => {
-    if (dateTime.value) {
-        const dateTimeObj = new Date(dateTime.value);
-        const date = dateTimeObj.toLocaleDateString();
-        const hours = dateTimeObj.getHours();
-        const minutes = dateTimeObj.getMinutes();
-
-        console.log(`Ngày: ${date}`);
-        console.log(`Giờ: ${hours}`);
-        console.log(`Phút: ${minutes}`);
-    } else {
-        console.log("Vui lòng chọn ngày và giờ.");
-    }
-};
+onMounted(async () => {
+    await loadInfoUser()
+})
 </script>
