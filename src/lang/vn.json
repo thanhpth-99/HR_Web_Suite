@@ -48,7 +48,7 @@
             },
             "login_success": {
                 "title": "Đăng nhập thành công.",
-                "text": "Chào mùng bạn trở lại."
+                "text": "Chào mừng bạn trở lại."
             },
             "validate": {
                 "username_required": "Tên đăng nhập còn trống.",
@@ -139,5 +139,24 @@
                 "text": "Đã xảy ra lỗi"
             }
         }
-    }
+    },
+    "create_onleave": {
+            "title": "Tạo đơn nghỉ phép",
+            "buttons": {
+                "send": "Gửi",
+                "back": "Quay lại"
+            },
+            "items": {
+                "full_name": "Họ và tên",
+                "employee_id": "Mã nhân viên",
+                "position": "Chức vụ",
+                "job_title": "Bộ phận",
+                "department": "Phòng ban",
+                "approver": "Người duyệt",
+                "reason": "Lý do",
+                "from_day": "Từ ngày",
+                "to_day": "Đến ngày",
+                "note": "Ghi chú"
+            }
+        }
 }

@@ -139,5 +139,24 @@
                 "text": "An error occurred"
             }
         }
+    },
+    "create_onleave": {
+        "title": "Create a leave request",
+        "buttons": {
+            "send": "Send",
+            "back": "Back"
+        },
+        "items": {
+            "full_name": "Full name",
+            "employee_id": "Employee ID",
+            "position": "Position",
+            "job_title": "Job title",
+            "department": "Department",
+            "approver": "Approver",
+            "reason": "Reason",
+            "from_day": "From day",
+            "to_day": "To day",
+            "note": "Note"
+        }
     }
 }
