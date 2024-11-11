@@ -8,7 +8,7 @@
                         <div class="account-settings">
                             <div class="user-profile text-center">
                                 <img class="img rounded-circle border"
-                                    :src="infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'" >
+                                    :src="infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'">
                                 <h5 class="user-name my-3">{{ infoNV.hoTen }}</h5>
                                 <p class="fw-bold">{{ infoNV.tenChucVu }} - {{ infoNV.tenPhongBan }}</p>
                                 <p class="fw-bold">{{ infoNV.tenBoPhan }}</p>
@@ -39,7 +39,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{ $t('profile.items.birthday') }}</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.birthday') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
                                 {{ infoNV.ngaySinh }}
@@ -48,7 +48,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{ $t('profile.items.gender') }}</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.gender') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
                                 {{ infoNV.gioiTinh ? 'Nam' : 'Nữ' }}
@@ -66,7 +66,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{ $t('profile.items.phone') }}</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.phone') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
                                 {{ infoNV.dienThoai }}
@@ -75,7 +75,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{ $t('profile.items.address') }}</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.address') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
                                 {{ infoNV.diaChi }}
@@ -110,7 +110,6 @@ const loadInfoUser = async () => {
         const maNV = response.data.maNhanVien
         const maNVSession = sessionStorage.setItem('maNhanVien', maNV);
         const responseInfo = await get(`/api/v1/employees/${maNV}`)
-        console.log(responseInfo)
         if (response.success) {
             infoNV.value = {
                 maNhanVien: responseInfo.data.maNhanVien,
@@ -130,6 +129,14 @@ const loadInfoUser = async () => {
                 tenPhongBan: responseInfo.data.tenPhongBan,
                 tenTruongPhong: responseInfo.data.tenTruongPhong
             }
+
+            const date = new Date(infoNV.value.ngaySinh);
+            const formattedDate =
+                ('0' + date.getDate()).slice(-2) + '-' +
+                ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                date.getFullYear();
+            
+            infoNV.value.ngaySinh = formattedDate
         }
     } catch (error) {
         await Swal.fire({
