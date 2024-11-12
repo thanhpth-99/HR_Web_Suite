@@ -77,7 +77,7 @@
             </div>
             <div class="py-3 pb-4 border-bottom text-center">
                 <button class="btn btn-primary me-3" @click.prevent="btnCreateDonYeuCau_click">{{ $t('create_onleave.buttons.send') }}</button>
-                <router-link :to="{ path: '/user/staff' }">
+                <router-link :to="{ path: '/user/timeoff' }">
                     <button class="btn btn-outline-secondary">{{ $t('create_onleave.buttons.back') }}</button>
                 </router-link>
             </div>

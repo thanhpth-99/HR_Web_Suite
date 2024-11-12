@@ -31,20 +31,20 @@
         <!-- Main Content Section -->
         <div class="card-body">
             <div class="col-sm-12 row m-0">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <b>Chờ phê duyệt</b>
                     <!-- Card Item with Modal Trigger -->
-                    <div class="card p-2 my-1">
+                    <div v-for="item in listChoDuyet" :key="item.maDon" class="card p-2 my-2">
                         <div class="title d-flex justify-content-between align-items-center">
                             <div>
-                                <b>Nghỉ phép</b>
+                                <b>{{ item.loaiDon }}</b>
                             </div>
                             <div class="dropdown">
                                 <button class="btn p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><router-link :to="{ path: '/user/timeoff/0' }" class="dropdown-item btn-edit">
+                                    <li><router-link :to="{ path: '/user/timeoff/' + item.maDon }" class="dropdown-item btn-edit">
                                             Chỉnh sửa
                                             <i class="ms-2 fa-solid fa-pen-to-square"></i>
                                         </router-link></li>
@@ -55,13 +55,109 @@
                             </div>
                         </div>
                         <div class="content my-2">
-                            <label class="w-100">Nghỉ có lương</label>
+                            <label class="w-100">{{ item.loaiDon }}</label>
                             <div class="time_off col-sm-12 row m-0 my-2">
                                 <div class="col-sm-6 text-start p-0">
-                                    <b>Từ:</b> 01/01/2024 8:00
+                                    <b>Từ ngày:</b> {{ item.ngayBatDau }}
                                 </div>
                                 <div class="col-sm-6 text-end p-0">
-                                    <b>Đến:</b> 02/01/2024 6:00
+                                    <b>Đến ngày:</b> {{ item.ngayKetThuc }}
+                                </div>
+                            </div>
+                            <div class="float-start">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="float-end">
+                                <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                    class="img" alt="Profile Photo">
+                            </div>
+                        </div>
+                        <!-- Modal Trigger Button -->
+                        <button type="button" class="btn btn-info mt-2 w-100" data-bs-toggle="modal"
+                            data-bs-target="#timeOffModal">
+                            Xem chi tiết
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <b>Đã phê duyệt</b>
+                    <!-- Card Item with Modal Trigger -->
+                    <div v-for="item in listDaDuyet" :key="item.maDon" class="card p-2 my-2">
+                        <div class="title d-flex justify-content-between align-items-center">
+                            <div>
+                                <b>{{ item.loaiDon }}</b>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><router-link :to="{ path: '/user/timeoff/' + item.maDon }" class="dropdown-item btn-edit">
+                                            Chỉnh sửa
+                                            <i class="ms-2 fa-solid fa-pen-to-square"></i>
+                                        </router-link></li>
+                                    <li><a class="dropdown-item btn-cancel mt-1" href="#">Hủy bỏ
+                                            <i class="fa-solid fa-trash-can ms-4"></i>
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="content my-2">
+                            <label class="w-100">{{ item.loaiDon }}</label>
+                            <div class="time_off col-sm-12 row m-0 my-2">
+                                <div class="col-sm-6 text-start p-0">
+                                    <b>Từ ngày:</b> {{ item.ngayBatDau }}
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <b>Đến ngày:</b> {{ item.ngayKetThuc }}
+                                </div>
+                            </div>
+                            <div class="float-start">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="float-end">
+                                <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                    class="img" alt="Profile Photo">
+                            </div>
+                        </div>
+                        <!-- Modal Trigger Button -->
+                        <button type="button" class="btn btn-info mt-2 w-100" data-bs-toggle="modal"
+                            data-bs-target="#timeOffModal">
+                            Xem chi tiết
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <b>Đã từ chối</b>
+                    <!-- Card Item with Modal Trigger -->
+                    <div v-for="item in listTuChoi" :key="item.maDon" class="card p-2 my-2">
+                        <div class="title d-flex justify-content-between align-items-center">
+                            <div>
+                                <b>{{ item.loaiDon }}</b>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><router-link :to="{ path: '/user/timeoff/' + item.maDon }" class="dropdown-item btn-edit">
+                                            Chỉnh sửa
+                                            <i class="ms-2 fa-solid fa-pen-to-square"></i>
+                                        </router-link></li>
+                                    <li><a class="dropdown-item btn-cancel mt-1" href="#">Hủy bỏ
+                                            <i class="fa-solid fa-trash-can ms-4"></i>
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="content my-2">
+                            <label class="w-100">{{ item.loaiDon }}</label>
+                            <div class="time_off col-sm-12 row m-0 my-2">
+                                <div class="col-sm-6 text-start p-0">
+                                    <b>Từ ngày:</b> {{ item.ngayBatDau }}
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <b>Đến ngày:</b> {{ item.ngayKetThuc }}
                                 </div>
                             </div>
                             <div class="float-start">
@@ -148,6 +244,55 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import { get } from '@/stores/https';
+import { onMounted, ref } from 'vue'
+
+const listYeuCau = ref([])
+const listChoDuyet = ref([])
+const listDaDuyet = ref([])
+const listTuChoi = ref([])
+
+const loadYeuCau = async() => {
+    try {
+        const response = await get('/api/v1/don-yeu-cau', {maNhanVien: sessionStorage.getItem('maNhanVien')})
+        console.log(response.data)
+        listYeuCau.value = response.data
+
+        listChoDuyet.value = []
+        listDaDuyet.value = []
+        listTuChoi.value = []
+
+        listYeuCau.value.forEach(item => {
+            if (item.trangThai === 1) {
+                listChoDuyet.value.push(item)
+            } else if (item.trangThai === 2) {
+                listDaDuyet.value.push(item)
+            } else {
+                listTuChoi.value.push(item)
+            }
+        })
+
+        console.log("Cho Duyet:", listChoDuyet.value)
+        console.log("Da Duyet:", listDaDuyet.value)
+        console.log("Tu Choi:", listTuChoi.value)
+    } catch (error) {
+        Swal.fire({
+            title: 'Lỗi',
+            text: 'Lỗi',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error('Error during update info:', error)
+    }
+}
+
+
+onMounted(async () => {
+    await loadYeuCau()
+})
+</script>
 
 <style scoped>
 .card-header {

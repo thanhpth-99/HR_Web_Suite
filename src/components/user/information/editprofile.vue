@@ -10,7 +10,7 @@
             </div>
         </div> -->
         <div class="d-flex align-items-start py-3 border-bottom">
-            <img :src="previewImage || infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'"
+            <img :src="previewImage || infoNV.hinhAnh"
                 class="img rounded-circle" alt="Profile Photo" width="100" height="100">
             <div class="ps-sm-4 ps-2" id="img-section">
                 <b class="d-block mb-2">{{ $t('edit_profile.items.profile_picture') }}</b>
@@ -134,15 +134,12 @@ const previewImage = ref(null);
 
 const fileInput = ref(null);
 
+const file = ref(null)
+
 const uploadImage = (event) => {
-    const file = event.target.files[0];
-    console.log(file)
-    if (file) {
-        previewImage.value = URL.createObjectURL(file);
-        console.log(previewImage.value);
-        const formData = new FormData();
-        formData.append("file", file);
-        infoNV.hinhAnh = formData;
+    file.value = event.target.files[0];
+    if (file.value) {
+        previewImage.value = URL.createObjectURL(file.value);
     }
 };
 
@@ -193,6 +190,12 @@ const btnUpdateInfo_Click = async () => {
         return
     }
     try {
+        const formData = new FormData();
+        formData.append("file", file.value);
+
+        const taiAnh = await post('/api/v1/upload-file/image', formData)
+        console.log(taiAnh.data)
+
         const updateInfo = {
             maNhanVien: infoNV.maNhanVien,
             hoTen: infoNV.hoTen,
@@ -202,13 +205,10 @@ const btnUpdateInfo_Click = async () => {
             email: infoNV.email,
             cccd: infoNV.cccd,
             diaChi: infoNV.diaChi,
-            hinhAnh: infoNV.hinhAnh,
+            hinhAnh: taiAnh.data,
         }
 
-        console.log(updateInfo)
-
         Object.assign(infoNV, updateInfo);
-        console.log(infoNV)
 
         const response = await put('/api/v1/employees', infoNV)
         if (response.success) {
