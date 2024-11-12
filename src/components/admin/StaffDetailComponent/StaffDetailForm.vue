@@ -154,7 +154,7 @@ const setTruongPhongByMaPhongBan = (maPhongBan) => {
 }
 
 const getAllPhongBan = async () => {
-    const response = await get('/api/v1/phong_ban')
+    const response = await get('/api/v1/departments')
     listPhongBan.value = response.data
 }
 

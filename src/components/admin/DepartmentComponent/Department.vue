@@ -61,7 +61,7 @@ const nextPage = () => {
 
 const getDepartments = async () => {
     try {
-        const response = await get('/api/v1/phong_ban')
+        const response = await get('/api/v1/departments')
         if (response) {
             departments.value = response.data
             filteredDepartments.value = departments.value

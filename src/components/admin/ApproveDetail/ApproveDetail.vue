@@ -13,7 +13,7 @@
 
 <script setup>
 import HeadMenu from './HeadMenu.vue'
-import ApproveDetailForm from './ApproveDetailForm.vue'
+import ApproveDetailForm from '@/components/admin/ApproveDetail/ApproveDetailForm.vue'
 import { ref, onMounted, reactive } from 'vue'
 import { get, put } from '@/stores/https'
 import ApproveTab from './ApproveTab.vue'
@@ -25,11 +25,11 @@ const activeTab = ref('Note')
 const userLogin = ref({})
 const approveDetail = ref({})
 const loading = ref(false)
-const maDon = ref(router.currentRoute.value.params)
+const maDon = ref(router.currentRoute.value.params.id)
 
 onMounted(async () => {
-    await getAproveInfoByMaDon(maDon.value)
     await getUserLogin()
+    await getAproveInfoByMaDon(maDon.value)
 })
 
 const approveInfo = reactive({
@@ -60,7 +60,6 @@ const setApproveInfo = async (maDon, trangThai, ghiChu) => {
     approveInfo.maNhanVien = userLogin.value.maNhanVien
     approveInfo.trangThai = trangThai
     approveInfo.ghiChu = ghiChu
-    console.log(approveInfo)
     updateApprove()
 }
 
@@ -88,11 +87,15 @@ const updateApprove = async () => {
 }
 
 const getAproveInfoByMaDon = async (maDon) => {
+    const maNhanVien = userLogin.value.maNhanVien
+    console.log(maDon)
+    console.log(maNhanVien)
     try {
-        const response = await get(`/api/v1/approvals/${maDon.id}`)
-        if (response) {
+        const response = await get(`/api/v1/approvals/search`, { maDon, maNhanVien })
+        if (response && response.data) {
             approveDetail.value = response.data
         }
+        console.log(approveDetail.value)
     } catch (error) {
         Swal.fire({
             title: 'Thất bại',
