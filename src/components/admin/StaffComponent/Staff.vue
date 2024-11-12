@@ -52,7 +52,7 @@ const getAllStaff = async () => {
 }
 
 const getDepartments = async () => {
-    const response = await get('/api/v1/phong_ban')
+    const response = await get('/api/v1/departments')
     departments.value = response.data
 }
 
