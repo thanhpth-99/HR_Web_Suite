@@ -43,6 +43,7 @@ const props = defineProps({
     loading: Boolean,
     approveDetail: Object,
 })
+
 </script>
 
 <style scoped>

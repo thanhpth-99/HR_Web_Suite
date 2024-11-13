@@ -124,7 +124,7 @@ import { ref } from 'vue'
 const searchQuery = ref('')
 const showPopup = ref(false)
 
-// defineEmits(['search', 'prevPage', 'nextPage', 'tab-change'])
+const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
 
 const props = defineProps({
     activeTab: {
