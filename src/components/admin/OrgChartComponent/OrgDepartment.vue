@@ -29,7 +29,6 @@ onMounted(async () => {
 
 const getAllDataChart = async () => {
     const response = await get('/api/v1/departments/orgchart')
-    console.log(response.data)
     dataChart.value = response.data
 }
 

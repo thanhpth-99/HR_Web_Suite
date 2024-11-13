@@ -83,6 +83,7 @@ import { ref, computed } from 'vue'
 import AddDepartmentPopup from './AddDepartmentPopup.vue'
 const searchQuery = ref('')
 const showPopup = ref(false)
+const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
 
 const props = defineProps({
     activeTab: {

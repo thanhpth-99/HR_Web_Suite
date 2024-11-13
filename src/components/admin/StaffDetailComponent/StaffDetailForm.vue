@@ -139,17 +139,14 @@ const props = defineProps({
 onMounted(async () => {
     await getAllPhongBan()
     await getAllViTri()
-    console.log(props.error)
 })
 
 const setTruongPhongByMaPhongBan = (maPhongBan) => {
     const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
-
     if (selectedObject) {
         props.staff.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
     } else {
         props.staff.tenTruongPhong = ''
-        console.log('Không tìm thấy phòng ban tương ứng.')
     }
 }
 

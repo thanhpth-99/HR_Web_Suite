@@ -74,7 +74,6 @@ const applyFilters = () => {
 const filterStaffBySearchQuery = (query) => {
     searchQuery.value = query
     applyFilters()
-    console.log(query)
 }
 
 const filterStaffByDepartment = (selectedOptions) => {
