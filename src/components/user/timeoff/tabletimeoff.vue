@@ -4,22 +4,7 @@
         <div class="card-header border-bottom text-center d-flex align-items-center justify-content-between px-4 fs-4">
             <div class="float-start mt-2">
                 Đơn nghỉ phép của tôi
-                <!-- <i class="fa-solid fa-gear"></i> -->
             </div>
-            <!-- <div class="search_input d-flex justify-content-center">
-                <div class="search input-group">
-                    <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Tìm kiếm"
-                        id="example-search-input">
-                    <span class="input-group-append">
-                        <button
-                            class="search btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5"
-                            type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </div> -->
-            <!-- <label class="fw-normal small">Số ngày nghỉ: 1/10</label> -->
             <router-link :to="{ path: '/user/timeoff/0' }">
                 <div class="btn btn-add float-end">
                     Tạo đơn nghỉ phép
@@ -226,6 +211,7 @@ const listTuChoi = ref([])
 const userInfo = ref({})
 const selectedItem = ref({})
 
+//Định dạng ngày theo dạng dd-mm-yyyy
 const formatDate = (dateString) => {
     const date = new Date(dateString)
     const day = String(date.getDate()).padStart(2, '0')
@@ -234,6 +220,7 @@ const formatDate = (dateString) => {
     return `${day}-${month}-${year}`
 }
 
+//Lấy tất cả yêu cầu của user
 const loadYeuCau = async () => {
     try {
         const response = await get('/api/v1/don-yeu-cau', { maNhanVien: sessionStorage.getItem('maNhanVien') })
@@ -243,6 +230,7 @@ const loadYeuCau = async () => {
         listDaDuyet.value = []
         listTuChoi.value = []
 
+        //Phân các list theo các trạng thái tương ứng: 1-chờ duyệt, 2-đã duyệt, 3-từ chối
         listYeuCau.value.forEach(item => {
             if (item.trangThai === 1) {
                 listChoDuyet.value.push(item)
@@ -263,6 +251,7 @@ const loadYeuCau = async () => {
     }
 }
 
+//Lấy thông tin user
 const loadInfoUser = async () => {
     try {
         const response = await get(`/api/v1/employees/${sessionStorage.getItem('maNhanVien')}`)
@@ -293,6 +282,7 @@ const loadInfoUser = async () => {
     }
 }
 
+//Truyền item vào modal, hiển thị thông tin tổng thể của yêu cầu
 const openModal = (item) => {
     selectedItem.value = item
 }

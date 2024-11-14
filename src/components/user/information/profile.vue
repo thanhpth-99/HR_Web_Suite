@@ -28,7 +28,7 @@
             <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">CCCD:</h6>
                             </div>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">{{ $t('profile.items.birthday') }}:</h6>
                             </div>
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">{{ $t('profile.items.gender') }}:</h6>
                             </div>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Email:</h6>
                             </div>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">{{ $t('profile.items.phone') }}:</h6>
                             </div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">{{ $t('profile.items.address') }}:</h6>
                             </div>
@@ -103,6 +103,8 @@ import { get } from '@/stores/https'
 
 const infoNV = ref({})
 
+
+//Lấy thông tin user
 const loadInfoUser = async () => {
     try {
         const userName = sessionStorage.getItem('user');
@@ -130,6 +132,7 @@ const loadInfoUser = async () => {
                 tenTruongPhong: responseInfo.data.tenTruongPhong
             }
 
+            //Định dạng kiểu dd-mm-yyyy
             const date = new Date(infoNV.value.ngaySinh);
             const formattedDate =
                 ('0' + date.getDate()).slice(-2) + '-' +

@@ -1,14 +1,6 @@
 <template>
     <div class="wrapper bg-white">
         <h4 class="pb-4 border-bottom fw-medium">Thay đổi thông tin cá nhân</h4>
-        <!-- <div class="d-flex align-items-start py-3 border-bottom">
-            <img :src="infoNV.hinhAnh || 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'"
-                class="img rounded-circle" alt="Profile Photo">
-            <div class="ps-sm-4 ps-2" id="img-section">
-                <b class="d-block mb-2">Ảnh đại diện</b>
-                <button class="btn btn-outline-secondary"><b>Upload</b></button>
-            </div>
-        </div> -->
         <div class="d-flex align-items-start py-3 border-bottom">
             <img :src="previewImage || infoNV.hinhAnh"
                 class="img rounded-circle" alt="Profile Photo" width="100" height="100">
@@ -139,10 +131,13 @@ const file = ref(null)
 const uploadImage = (event) => {
     file.value = event.target.files[0];
     if (file.value) {
+        //Cho người dùng xem trước ảnh tải lên
         previewImage.value = URL.createObjectURL(file.value);
     }
 };
 
+
+//Lấy thông tin user
 const loadInfoUser = async () => {
     try {
         const userName = sessionStorage.getItem('user');
@@ -179,6 +174,7 @@ const error = reactive({
     diaChi: ''
 })
 
+//Cập nhật thông tin user
 const btnUpdateInfo_Click = async () => {
     if (!validate()) {
         await Swal.fire({

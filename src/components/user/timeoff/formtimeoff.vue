@@ -112,6 +112,8 @@ const formData = reactive({
     ngayKetThuc: '',
     moTa: ''
 })
+
+//Lấy thông tin nhân viên
 const loadInfoUser = async () => {
     try {
         const response = await get(`/api/v1/employees/${sessionStorage.getItem('maNhanVien')}`)
@@ -146,6 +148,7 @@ const loadInfoUser = async () => {
     }
 }
 
+//Gửi đơn yêu cầu
 const btnCreateDonYeuCau_click = async () => {
     console.log(formData)
 
