@@ -2,17 +2,9 @@ import axios from 'axios'
 import { useAuthStore } from '../auth'
 import router from '@/router'
 
-const url = [
-    { dev: 'http://localhost:1688' },
-    { prod: '' },
-    { test: '' }
-]
+const url = [{ dev: 'http://localhost:1688' }, { prod: '' }, { test: '' }]
 
-const env = [
-    { 1: 'dev' },
-    { 2: 'prod' },
-    { 3: 'test' }
-]
+const env = [{ 1: 'dev' }, { 2: 'prod' }, { 3: 'test' }]
 const environment = 1
 
 const https = axios.create({
@@ -24,7 +16,7 @@ let isRefreshing = false
 let failedQueue = []
 
 const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
+    failedQueue.forEach((prom) => {
         if (error) {
             prom.reject(error)
         } else {
@@ -61,7 +53,7 @@ https.interceptors.response.use(
                 try {
                     const token = await new Promise((resolve, reject) => {
                         // Kiểm tra để tránh lặp lại các yêu cầu trong hàng chờ
-                        if (!failedQueue.find(req => req === originalRequest)) {
+                        if (!failedQueue.find((req) => req === originalRequest)) {
                             failedQueue.push({ resolve, reject })
                         }
                     })
@@ -104,7 +96,7 @@ https.interceptors.response.use(
         }
 
         return Promise.reject(error)
-    }
+    },
 )
 
 export const get = (url, params = {}) => {

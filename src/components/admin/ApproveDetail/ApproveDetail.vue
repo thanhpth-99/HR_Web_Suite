@@ -13,21 +13,23 @@
 
 <script setup>
 import HeadMenu from './HeadMenu.vue'
-import ApproveDetailForm from './ApproveDetailForm.vue'
+import ApproveDetailForm from '@/components/admin/ApproveDetail/ApproveDetailForm.vue'
 import { ref, onMounted, reactive } from 'vue'
 import { get, put } from '@/stores/https'
-import router from '@/router'
 import ApproveTab from './ApproveTab.vue'
 import Note from './Note.vue'
 import ListApprove from './ListApprove.vue'
+import router from '@/router'
 
 const activeTab = ref('Note')
 const userLogin = ref({})
 const approveDetail = ref({})
 const loading = ref(false)
+const maDon = ref(router.currentRoute.value.params.id)
+
 onMounted(async () => {
-    await getAproveInfoByMaDon()
     await getUserLogin()
+    await getAproveInfoByMaDon(maDon.value)
 })
 
 const approveInfo = reactive({
@@ -38,10 +40,15 @@ const approveInfo = reactive({
 })
 
 const getUserLogin = async () => {
-    const username = sessionStorage.getItem('user')
-    const response = await get('/api/v1/employees/me', { username })
-    userLogin.value = response.data
-    console.log(userLogin.value)
+    try {
+        const username = sessionStorage.getItem('user')
+        const response = await get('/api/v1/employees/me', { username })
+        if (response) {
+            userLogin.value = response.data
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 const setActiveTab = (tab) => {
@@ -53,21 +60,50 @@ const setApproveInfo = async (maDon, trangThai, ghiChu) => {
     approveInfo.maNhanVien = userLogin.value.maNhanVien
     approveInfo.trangThai = trangThai
     approveInfo.ghiChu = ghiChu
-    console.log(approveInfo)
     updateApprove()
 }
 
 const updateApprove = async () => {
-    const response = await put('/api/v1/approvals', approveInfo)
-    if (response) {
-        getAproveInfoByMaDon()
+    try {
+        const response = await put('/api/v1/approvals', approveInfo)
+        if (response) {
+            getAproveInfoByMaDon(maDon.value)
+        }
+        Swal.fire({
+            title: 'Thành công',
+            text: 'Cập nhật trạng thái phê duyệt thành công',
+            icon: 'success',
+            timer: 1500,
+        })
+    } catch (error) {
+        Swal.fire({
+            title: 'Thất bại',
+            text: 'Cập nhật trạng thái phê duyệt thất bại',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error(error)
     }
 }
 
-const getAproveInfoByMaDon = async () => {
-    const { id } = router.currentRoute.value.params
-    const response = await get(`/api/v1/approvals/${id}`)
-    approveDetail.value = response.data
-    console.log(approveDetail.value)
+const getAproveInfoByMaDon = async (maDon) => {
+    const maNhanVien = userLogin.value.maNhanVien
+    console.log(maDon)
+    console.log(maNhanVien)
+    try {
+        const response = await get(`/api/v1/approvals/search`, { maDon, maNhanVien })
+        if (response && response.data) {
+            approveDetail.value = response.data
+        }
+        console.log(approveDetail.value)
+    } catch (error) {
+        Swal.fire({
+            title: 'Thất bại',
+            text: 'Không thể tải lên dữ liệu phê duyệt',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error(error)
+    }
 }
 </script>

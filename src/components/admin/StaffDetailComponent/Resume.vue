@@ -31,9 +31,7 @@
                     </div>
 
                     <div class="experience-entry mt-4" v-for="hocVan in listHocVan" :key="hocVan.maNhanVien">
-                        <span class="experience-date"
-                            >Năm tốt nghiệp: {{ hocVan.namTotNghiep }}</span
-                        >
+                        <span class="experience-date">Năm tốt nghiệp: {{ hocVan.namTotNghiep }}</span>
                         <p>
                             <strong>{{ hocVan.coSoGiaoDuc }}</strong>
                         </p>
@@ -48,16 +46,15 @@
     </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { get } from '@/stores/https'
 
 const listKinhNghiem = ref([])
 const listHocVan = ref([])
 
 const props = defineProps({
-    nhanVien: Object,
+    staff: Object,
 })
 
 onMounted(async () => {
@@ -66,15 +63,19 @@ onMounted(async () => {
 })
 
 const getAllKinhNghiem = async () => {
-    const maNhanVien = props.nhanVien.maNhanVien
-    const response = await get('/api/v1/work-histories', { maNhanVien })
-    listKinhNghiem.value = response.data
+    if (props.staff.maNhanVien) {
+        const maNhanVien = props.staff.maNhanVien
+        const response = await get('/api/v1/work-histories', { maNhanVien })
+        listKinhNghiem.value = response.data
+    }
 }
 
 const getAllHocVan = async () => {
-    const maNhanVien = props.nhanVien.maNhanVien
-    const response = await get(`/api/v1/educations/${maNhanVien}`)
-    listHocVan.value = response.data
+    if (props.staff.maNhanVien) {
+        const maNhanVien = props.staff.maNhanVien
+        const response = await get(`/api/v1/educations/${maNhanVien}`)
+        listHocVan.value = response.data
+    }
 }
 </script>
 

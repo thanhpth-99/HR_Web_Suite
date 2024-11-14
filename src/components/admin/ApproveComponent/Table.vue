@@ -3,9 +3,7 @@
         <table class="table table-hover align-middle table-responsive">
             <thead class="table-light">
                 <tr class="text-center">
-                    <th scope="col">
-                        <input class="form-check-input" type="checkbox" />
-                    </th>
+                    <th scope="col">STT</th>
                     <th scope="col">Mã phê duyệt</th>
                     <th scope="col">Người yêu cầu</th>
                     <th scope="col">Danh mục</th>
@@ -17,22 +15,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="approve in props.listApprove" :key="approve.maDon">
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">
-                        <input class="form-check-input" type="checkbox" />
-                    </td>
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">{{ approve.maDon }}</td>
+                <tr
+                    v-for="(approve, index) in listApprove"
+                    :key="approve.maDon"
+                    @click="$router.push(`/admin/approve/${approve.maDon}`)"
+                    style="cursor: pointer"
+                >
                     <td>
-                        <span class="badge bg-danger">{{ approve.hoTenNguoiTao.charAt(0) }}</span>
-                        {{ approve.hoTenNguoiTao }}
+                        <p>{{ index + 1 }}</p>
                     </td>
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">{{ approve.loaiDon }}</td>
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">{{ approve.ngayTao }}</td>
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">
-                        <span class="badge bg-warning">{{ approve.hoTenNguoiPheDuyet.charAt(0) }}</span>
-                        {{ approve.hoTenNguoiPheDuyet }}
+                    <td>{{ approve.maDon }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-warning me-2">{{ approve.hoTenNguoiTao.charAt(0) }}</span>
+                            <p class="mb-0">{{ approve.hoTenNguoiTao }}</p>
+                        </div>
                     </td>
-                    <td @click="$router.push('/admin/approve/' + approve.maDon)">{{ approve.ngayPheDuyet }}</td>
+                    <td>{{ approve.loaiDon }}</td>
+                    <td>{{ approve.ngayTao }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-danger me-2">{{ approve.hoTenNguoiPheDuyet.charAt(0) }}</span>
+                            <p class="mb-0">{{ approve.hoTenNguoiPheDuyet }}</p>
+                        </div>
+                    </td>
+                    <td>{{ approve.ngayPheDuyet }}</td>
                     <td>
                         <span v-if="approve.trangThai === 1" class="badge bg-warning">Đã gửi</span>
                         <span v-if="approve.trangThai === 2" class="badge bg-success">Đã phê duyệt</span>
@@ -41,11 +48,11 @@
                     <td>
                         <button
                             class="btn btn-success me-2"
-                            @click="$emit('setTrangThaiApprove', approve.maDon, 2, '')"
+                            @click.stop="$emit('setTrangThaiApprove', approve.maDon, 2, '')"
                         >
                             <i class="fa-regular fa-circle-check me-2"></i>Xác nhận
                         </button>
-                        <button class="btn btn-danger" @click="$emit('setTrangThaiApprove', approve.maDon, 3, '')">
+                        <button class="btn btn-danger" @click.stop="$emit('setTrangThaiApprove', approve.maDon, 3, '')">
                             <i class="fa-regular fa-circle-xmark me-2"></i>Từ chối
                         </button>
                     </td>
@@ -54,6 +61,7 @@
         </table>
     </div>
 </template>
+
 
 <script setup>
 const props = defineProps({
