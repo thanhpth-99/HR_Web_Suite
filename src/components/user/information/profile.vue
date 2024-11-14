@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper bg-white">
-        <h4 class="pb-4 border-bottom">Thông tin cá nhân</h4>
+        <h4 class="pb-4 border-bottom fw-medium">{{ $t('profile.title') }}</h4>
         <div class="row g-3 border-bottom pb-4 mt-2">
             <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -8,16 +8,17 @@
                         <div class="account-settings">
                             <div class="user-profile text-center">
                                 <img class="img rounded-circle border"
-                                    src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-                                <h5 class="user-name my-3">Nguyễn Minh Nam</h5>
-                                <p class="fw-bold">Nhân viên - Ban quản lý nhân sự</p>
-                                <div class="col-sm-12 row m-0 ps-4 text-start">
-                                    <h6 class="col-sm-5">Email: </h6>
-                                    <span class="col-sm-7">xxxx@gmail.com</span>
+                                    :src="infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'">
+                                <h5 class="user-name my-3">{{ infoNV.hoTen }}</h5>
+                                <p class="fw-bold">{{ infoNV.tenChucVu }} - {{ infoNV.tenPhongBan }}</p>
+                                <p class="fw-bold">{{ infoNV.tenBoPhan }}</p>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <h6 class="m-0 p-2">Email: </h6>
+                                    <span class="p-2">{{ infoNV.email }}</span>
                                 </div>
-                                <div class="col-sm-12 row m-0 ps-4 text-start">
-                                    <h6 class="col-sm-5">Số điện thoại: </h6>
-                                    <span class="col-sm-7">0823 667 555</span>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <h6 class="m-0 p-2">{{ $t('profile.items.phone') }} </h6>
+                                    <span class="p-2">{{ infoNV.dienThoai }}</span>
                                 </div>
                             </div>
                         </div>
@@ -27,64 +28,64 @@
             <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">CCCD:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                052204008381
+                                {{ infoNV.cccd }}
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Ngày sinh:</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.birthday') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                10/11/2004
+                                {{ infoNV.ngaySinh }}
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Giới tính:</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.gender') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                Nam
+                                {{ infoNV.gioiTinh ? 'Nam' : 'Nữ' }}
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Email:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                xxxxx@gmail.com
+                                {{ infoNV.email }}
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Điện thoại:</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.phone') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                0823 667 555
+                                {{ infoNV.dienThoai }}
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Địa chỉ:</h6>
+                                <h6 class="mb-0">{{ $t('profile.items.address') }}:</h6>
                             </div>
                             <div class="col-sm-9 text-body-secondary">
-                                TP. Hồ Chí Minh
+                                {{ infoNV.diaChi }}
                             </div>
                         </div>
                         <hr>
                         <div class="row text-end">
                             <div class="col-sm-12">
-                                <router-link :to="{ path: '/user/information/0' }">
-                                    <button class="btn btn-info">Edit</button>
+                                <router-link :to="{ path: `/user/information/${infoNV.maNhanVien}` }">
+                                    <button class="btn btn-info">{{ $t('profile.buttons.edit') }}</button>
                                 </router-link>
                             </div>
                         </div>
@@ -97,7 +98,63 @@
 </template>
 
 <script setup>
-    
+import { onMounted, ref } from 'vue'
+import { get } from '@/stores/https'
+
+const infoNV = ref({})
+
+
+//Lấy thông tin user
+const loadInfoUser = async () => {
+    try {
+        const userName = sessionStorage.getItem('user');
+        const response = await get('/api/v1/employees/me', { username: userName })
+        const maNV = response.data.maNhanVien
+        const maNVSession = sessionStorage.setItem('maNhanVien', maNV);
+        const responseInfo = await get(`/api/v1/employees/${maNV}`)
+        if (response.success) {
+            infoNV.value = {
+                maNhanVien: responseInfo.data.maNhanVien,
+                hoTen: responseInfo.data.hoTen,
+                gioiTinh: responseInfo.data.gioiTinh,
+                ngaySinh: responseInfo.data.ngaySinh,
+                dienThoai: responseInfo.data.dienThoai,
+                email: responseInfo.data.email,
+                cccd: responseInfo.data.cccd,
+                diaChi: responseInfo.data.diaChi,
+                hinhAnh: responseInfo.data.hinhAnh,
+                maBoPhan: responseInfo.data.maBoPhan,
+                maChucVu: responseInfo.data.maChucVu,
+                maPhongBan: responseInfo.data.maPhongBan,
+                tenBoPhan: responseInfo.data.tenBoPhan,
+                tenChucVu: responseInfo.data.tenChucVu,
+                tenPhongBan: responseInfo.data.tenPhongBan,
+                tenTruongPhong: responseInfo.data.tenTruongPhong
+            }
+
+            //Định dạng kiểu dd-mm-yyyy
+            const date = new Date(infoNV.value.ngaySinh);
+            const formattedDate =
+                ('0' + date.getDate()).slice(-2) + '-' +
+                ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                date.getFullYear();
+            
+            infoNV.value.ngaySinh = formattedDate
+        }
+    } catch (error) {
+        await Swal.fire({
+            title: ('login.messages.login_fail_server.title'),
+            text: ('login.messages.login_fail_server.text'),
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error('Error during login:', error)
+    }
+}
+
+onMounted(async () => {
+    await loadInfoUser()
+})
 </script>
 
 <style scoped>

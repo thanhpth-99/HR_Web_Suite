@@ -63,6 +63,7 @@ const calendarRows = computed(() => {
 
 th {
     background-color: var(--color-sidebar) !important;
+    color: white;
 }
 
 td.day-cell {
