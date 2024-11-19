@@ -2,14 +2,14 @@
     <HeadMenu :loading="loading" :listCandidate="candidate" />
 
     <div class="container-fluid">
-        <RecruitmentDetailForm @setTrangThai="setInfo" :listCandidate="candidate" />
+        <RecruitmentStageCard @setTrangThai="setInfo" :listCandidate="candidate" />
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import { get, post } from '@/stores/https';
-import RecruitmentDetailForm from './RecruitmentDetailForm.vue';
+import RecruitmentStageCard from './RecruitmentStageCard.vue';
 import HeadMenu from './HeadMenu.vue';
 import router from '@/router'
 
