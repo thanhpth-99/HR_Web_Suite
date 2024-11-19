@@ -42,7 +42,7 @@ const validate = () => {
     const formRule = {
         hoTen: { required: true },
         dienThoai: { pattern: /^[0-9]{10}$/ },
-        email: { required: true, email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ },
+        email: { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ },
         maPhongBan: { required: true },
         maChucVu: { required: true },
         gioiTinh: { required: true },

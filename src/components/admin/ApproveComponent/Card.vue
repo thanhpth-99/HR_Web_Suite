@@ -2,17 +2,17 @@
     <div class="p-4">
         <div class="row row-cols-md-3s g-4">
             <div class="col">
-                <h4>Đã phê duyệt</h4>
+                <h4>Chờ phê duyệt</h4>
                 <div class="mb-3" v-for="approve in listApprove" :key="approve.maDon">
-                    <div class="card h-100" v-if="approve.trangThai === 1">
+                    <div class="card h-100" v-if="approve.trangThai === 1" >
                         <div class="card-body d-flex p-0">
                             <div class="px-3 py-2 flex-grow-1 p-3">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <h5 class="card-title">{{ approve.maDon }}</h5>
-                                    <span class="status-indicator">:</span>
+                                    <span class="status-indicator"></span>
                                 </div>
                                 <div class="mb-2">
-                                    <p class="m-0">{{ approve.loaiDon }}</p>
+                                    <p class="m-0">Danh mục: {{ approve.loaiDon }}</p>
                                     <p class="m-0">Ngày yêu cầu: {{ approve.ngayTao }}</p>
                                 </div>
                                 <div class="row">
@@ -31,7 +31,7 @@
                                         </button>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end fs-4">
-                                        <span class="badge bg-danger rounded-pill">N</span>
+                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -64,15 +64,14 @@
                                         </button>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end fs-4">
-                                        <span class="badge bg-danger rounded-pill">N</span>
+                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>  
             <div class="col">
                 <h4>Từ chối</h4>
                 <div class="mb-3" v-for="approve in listApprove" :key="approve.maDon">
@@ -97,7 +96,7 @@
                                         </button>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end fs-4">
-                                        <span class="badge bg-danger rounded-pill">N</span>
+                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
                                     </div>
                                 </div>
                             </div>
