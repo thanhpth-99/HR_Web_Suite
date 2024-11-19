@@ -3,8 +3,8 @@
         <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="filterRecruitmentBySearchQuery"/>
         <div class="row">
             <div>
-                <Card @setTrangThaiApprove="setApproveInfo" :listRecruitment="listRecruitment" v-if="activeTab === 'card'" />
-                <Table @setTrangThaiApprove="setApproveInfo" :listRecruitment="listRecruitment" v-if="activeTab === 'table'" />
+                <Card v-if="activeTab === 'card'" :listRecruitment="listRecruitment"/>
+                <Table  v-if="activeTab === 'table'" :listRecruitment="listRecruitment" />
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { get, put } from '@/stores/https'
+import { get } from '@/stores/https'
 
 import Card from './Card.vue'
 import HeadMenu from './HeadMenu.vue'

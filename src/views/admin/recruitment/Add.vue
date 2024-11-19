@@ -11,9 +11,7 @@
                         <Aside />
                     </div>
                     <div class="col-10">
-                        <div class="me-2">
-                            <RecruitmentDetail />
-                        </div>
+                        <Add/>
                     </div>
                 </div>
             </main>
@@ -26,5 +24,5 @@
 <script setup>
 import Header from '@/components/main/Header.vue'
 import Aside from '@/components/main/Aside.vue'
-import RecruitmentDetail from '@/components/admin/RecruitmentDetailComponet/RecruitmentDetail.vue';
+import Add from '@/components/admin/RecruitmentDetailComponet/Add.vue';
 </script>

@@ -2,18 +2,18 @@
     <div class="p-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div
-                v-for="recruitment in listRecruitment"
-                :key="recruitment.maViTri"
-                class="col"
-                @click="$router.push('/admin/recruitment/' + recruitment.maViTri)"
-            >
+            v-for="(Recruitment, index) in listRecruitment"
+                    :key="Recruitment.viTriTuyenDung || index" 
+                    @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
+                    style="cursor: pointer" 
+                >
                 <div class="card h-100">
                     <div class="card-body d-flex p-0">
                         <div class="recruitment-avatar">
                             <img
-                                v-if="recruitment.logo"
-                                :src="recruitment.logo"
-                                :alt="recruitment.tenViTri"
+                                v-if="Recruitment.logo"
+                                :src="Recruitment.logo"
+                                :alt="Recruitment.tenViTri"
                                 class="img-fluid"
                             />
                             <div v-else>
@@ -25,15 +25,15 @@
                         </div>
                         <div class="recruitment-info px-3 py-0 flex-grow-1">
                             <div class="d-flex justify-content-between align-items-start mt-2">
-                                <h5 class="card-title">{{ recruitment.tenViTri }}</h5>
-                                <span class="status-indicator" :class="getStatusClass(recruitment.trangThai)"></span>
+                                <h5 class="card-title">{{ Recruitment.tenViTri }}</h5>
+                                <span class="status-indicator" :class="getStatusClass(Recruitment.trangThai)"></span>
                             </div>
-                            <p class="card-subtitle">{{ recruitment.maPhongBan }}</p>
+                            <p class="card-subtitle">{{ Recruitment.maPhongBan }}</p>
                             <p class="card-text">
-                                <i class="bi bi-people"></i> Số lượng tuyển: {{ recruitment.soLuongTuyen }}
+                                <i class="bi bi-people"></i> Số lượng tuyển: {{ Recruitment.soLuongTuyen }}
                             </p>
                             <p class="card-text">
-                                <button class="btn btn-primary oe_kanban_action oe_kanban_action_button" type="action"><span>{{recruitment.soLuongUngTuyen}}</span> Các hồ sơ ứng viên mới </button>                            </p>
+                                <button class="btn btn-primary oe_kanban_action oe_kanban_action_button" type="action"><span>{{Recruitment.soLuongUngTuyen}}</span> Các hồ sơ ứng viên mới </button>                            </p>
                         </div>
                     </div>
                 </div>
@@ -44,10 +44,7 @@
 
 <script setup>
 const props = defineProps({
-    listRecruitment: {
-        type: Array,
-        required: true,
-    },
+    listRecruitment: Array,
 })
 
 const getStatusClass = (status) => {

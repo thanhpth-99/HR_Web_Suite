@@ -14,13 +14,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="listRecruitment.length === 0" style="text-align: center; font-style: italic">
-                    <td colspan="8">Không tìm thấy tuyển dụng</td> 
-                </tr>
                 <tr
                     v-for="(Recruitment, index) in listRecruitment"
                     :key="Recruitment.viTriTuyenDung || index" 
-                    @click="$router.push('/admin/recruitment/recruitmentPlace' + Recruitment.viTriTuyenDung)"
+                    @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
                     style="cursor: pointer"
                 >
                     <td>{{ index + 1 }}</td>
@@ -46,9 +43,6 @@
 
 <script setup>
 const props = defineProps({
-    listRecruitment: {
-        type: Array,
-        default: () => [],
-    },
+    listRecruitment: Array,
 })
 </script>
