@@ -2,9 +2,8 @@
     <div class="head-menu border-0 border-bottom border-secondary-subtle col-12">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <!-- Nút 'New' để bật popup -->
-                <button @click="showPopup = true" class="btn btn-success me-2">New</button>
-                <h5 class="mb-0">Job Vacancy</h5>
+                <button @click="showPopup = true" class="btn btn-primary me-2">New</button>
+                <h5 class="mb-0">Recruitment</h5>
             </div>
             <div class="form-group fs has-search me-2">
                 <span class="material-symbols-outlined form-control-feedback">search</span>
@@ -43,20 +42,24 @@
         </div>
     </div>
 
-    <!-- Popup hiển thị form AddRecruitment khi showPopup = true -->
-    <div :class="['popup', { show: showPopup }]" tabindex="-1">
-        <div class="popup-content modal-dialog">
-            <div class="modal-content p-4">
-                <h2 class="modal-title border-bottom mb-4">Add Recruitment</h2>
-                <div class="modal-body">
-                    <AddRecruitment />
-                </div>
-                <div class="modal-footer d-flex justify-content-end align-items-end">
-                    <i @click="showPopup = false" class="text-danger fs-3 fa-solid fa-circle-xmark"></i>
-                </div>
+   <!-- Popup hiển thị form AddRecruitment khi showPopup = true -->
+<div :class="['popup', { show: showPopup }]" tabindex="-1">
+    <div class="popup-content modal-dialog">
+        <div class="modal-content p-4">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h2 class="modal-title border-bottom mb-0">Add Recruitment</h2>
+                <button @click="showPopup = false" class="close-btn" aria-label="Close">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <AddRecruitment />
             </div>
         </div>
     </div>
+</div>
+
+
 </template>
 
 <script setup>
@@ -92,26 +95,46 @@ const props = defineProps({
     transition: var(--tran-05);
     border: 1px solid var(--color-border);
 }
+
 .popup {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1050;
-}
-.popup.show {
     display: flex;
+    justify-content: center;
+    align-items: start;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
 .popup-content {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 600px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    max-width: 500px;
     width: 90%;
+    margin-top: 1rem;
+}
+
+.popup.show .popup-content {
+    transform: translateY(0);
+}
+.modal-footer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
 }
 </style>
