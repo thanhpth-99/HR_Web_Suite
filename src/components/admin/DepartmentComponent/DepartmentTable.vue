@@ -22,7 +22,6 @@
                     </td>
                     <td>{{ department.tenPhongBan }}</td>
                     <td>
-                        <span class="badge bg-success">{{ department.truongPhong.charAt(0) }}</span>
                         {{ department.truongPhong }}
                     </td>
                     <td>{{ department.soLuongNhanVien }}</td>

@@ -22,27 +22,80 @@
 </template>
   
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { get } from '@/stores/https'
 import axios from 'axios'
+import * as XLSX from 'xlsx'
 
 const loading = ref(false)
 const fileInput = ref(null)
+const data = ref([])
+const listStaff = ref([])
+const MAX_FILE_SIZE = 5 * 1024 * 1024
+
+onMounted(async () => {
+    await getAllStaff()
+})
+
+const getAllStaff = async () => {
+    const response = await get('/api/v1/employees')
+    listStaff.value = response.data
+}
 
 const handleFileUpload = (event) => {
     const file = event.target.files[0]
-    if (!file) {
-        alert('Please select a file.')
+    if (file.size > MAX_FILE_SIZE) {
+        Swal.fire({
+            title: 'File quá lớn',
+            text: `Dung lượng file không được vượt quá ${MAX_FILE_SIZE / (1024 * 1024)} MB.`,
+            icon: 'warning',
+            timer: 2000,
+        })
+        event.target.value = ''
+        return
+    }
+
+    if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            const excelData = new Uint8Array(e.target.result)
+            const workbook = XLSX.read(excelData, { type: 'array' })
+            const worksheet = workbook.Sheets[workbook.SheetNames[0]]
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
+            const headers = jsonData[0]
+            const rows = jsonData.slice(1)
+            const objects = rows.map((row) => {
+                const obj = {}
+                headers.forEach((header, index) => {
+                    let value = row[index] || null
+                    if (header === 'Giới tính') {
+                        value = value === 'nam'
+                    }
+                    obj[header] = value
+                })
+                return obj
+            })
+            data.value = objects
+        }
+        reader.readAsArrayBuffer(file)
     }
 }
 
 const saveStaffs = async () => {
-    const file = fileInput.value?.files[0] // Lấy tệp từ input
+    if (await isExist()) {
+        resetFileInput()
+        return
+    }
+    if (isExistInExcel()) {
+        resetFileInput()
+        return
+    }
 
+    const file = fileInput.value?.files[0]
     if (file) {
-        loading.value = true // Bắt đầu loading
+        loading.value = true
         const formData = new FormData()
-        formData.append('file', file) // Thêm tệp vào FormData
-
+        formData.append('file', file)
         try {
             const responseData = await axios.post('http://localhost:1688/api/v1/upload-file/employees', formData)
             Swal.fire({
@@ -60,7 +113,8 @@ const saveStaffs = async () => {
                 timer: 1500,
             })
         } finally {
-            loading.value = false // Kết thúc loading
+            loading.value = false
+            resetFileInput()
         }
     } else {
         Swal.fire({
@@ -69,6 +123,48 @@ const saveStaffs = async () => {
             icon: 'error',
             timer: 1500,
         })
+    }
+}
+
+const isExist = async () => {
+    await getAllStaff()
+    const staffCCCDSet = new Set(listStaff.value.map((staff) => staff.cccd))
+    const duplicateRecords = data.value.filter((record) => staffCCCDSet.has(record.CCCD))
+    if (duplicateRecords.length > 0) {
+        console.log(duplicateRecords)
+        console.log(staffCCCDSet)
+        Swal.fire({
+            title: 'Nhân viên tồn tại',
+            text: `Nhân viên trong file excel đã tồn tại`,
+            icon: 'warning',
+            timer: 2000,
+        })
+        return true
+    }
+}
+
+const resetFileInput = () => {
+    fileInput.value.value = null
+}
+
+const isExistInExcel = () => {
+    const seenCCCD = new Set()
+    const isDuplicateInExcel = data.value.some((record) => {
+        if (seenCCCD.has(record.CCCD)) {
+            return true
+        }
+        seenCCCD.add(record.CCCD)
+        return false
+    })
+
+    if (isDuplicateInExcel) {
+        Swal.fire({
+            title: 'Dữ liệu trùng lặp',
+            text: 'Dữ liệu trong file excel bị trùng lặp',
+            icon: 'warning',
+            timer: 2000,
+        })
+        return true
     }
 }
 </script>
