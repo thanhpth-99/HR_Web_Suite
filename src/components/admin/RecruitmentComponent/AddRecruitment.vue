@@ -61,11 +61,13 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import { get, post } from '@/stores/https'
 
 const listPhongBan = ref([])
+
 const info = reactive({
     tenViTri: '',
     soLuongTuyen: '',
@@ -153,36 +155,3 @@ button.btn-success:disabled {
     background-color: #6c757d;
 }
 </style>
-
-}
-
-button.btn-success:hover {
-    background-color: cornflowerblue;
-}
-
-button.btn-success:disabled {
-    background-color: #6c757d;
-}
-</style>
-  owerblue;
-}
-
-button.btn-success:disabled {
-    background-color: #6c757d;
-}
-</style>
-  owerblue;
-}
-
-button.btn-success:disabled {
-    background-color: #6c757d;
-}
-</style>
-  lowerblue;
-}
-
-button.btn-success:disabled {
-    background-color: #6c757d;
-}
-</style>
-  
