@@ -55,11 +55,16 @@ export const useValidation = () => {
             if (fieldsRule.date) {
                 checkDate(value) ? null : (error[field] = 'date')
             }
+            // if (fieldsRule.compareDate) {
+            //     let rule = fieldsRule.compareDate.split(' ')[0]
+            //     let valueCompare = fieldsRule.compareDate.split(' ')[2] || fieldsRule.compareDate.split(' ')[1]
+            //     compareDate(value, rule, valueCompare) ? null : (error[field] = 'compareDate')
+            // }
             if (fieldsRule.compareDate) {
-                let rule = fieldsRule.compareNumber.split(' ')[0]
-                let valueCompare = fieldsRule.compareNumber.split(' ')[2] || fieldsRule.compareNumber.split(' ')[1]
-                compareDate(value, rule, valueCompare) ? null : (error[field] = 'compareDate')
+                const [rule, , valueCompare = fieldsRule.compareDate.split(' ')[1]] = fieldsRule.compareDate.split(' ');
+                compareDate(value, rule, valueCompare) ? null : (error[field] = 'compareDate');
             }
+            
             if (!error[field]) {
                 error[field] = false
             }
@@ -93,16 +98,25 @@ export const useValidation = () => {
         }
         const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-        if (month === 2) {
-            if (isLeapYear && day > 29) {
-                return false
-            } else if (!isLeapYear && day > 28) {
-                return false
-            }
-        } else {
-            if (day < 1 || day > daysInMonth[month - 1]) {
-                return false
-            }
+        // if (month === 2) {
+        //     if (isLeapYear && day > 29) {
+        //         return false
+        //     } else if (!isLeapYear && day > 28) {
+        //         return false
+        //     }
+        // } else {
+        //     if (day < 1 || day > daysInMonth[month - 1]) {
+        //         return false
+        //     }
+        // }
+        // Điều chỉnh số ngày của tháng 2 nếu là năm nhuận
+        if (month === 2 && isLeapYear) {
+            daysInMonth[1] = 29;
+        }
+
+        // Kiểm tra ngày có hợp lệ không
+        if (day < 1 || day > daysInMonth[month - 1]) {
+            return false;
         }
         return true
     }

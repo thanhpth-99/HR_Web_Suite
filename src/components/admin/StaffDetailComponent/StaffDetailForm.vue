@@ -139,17 +139,14 @@ const props = defineProps({
 onMounted(async () => {
     await getAllPhongBan()
     await getAllViTri()
-    console.log(props.error)
 })
 
 const setTruongPhongByMaPhongBan = (maPhongBan) => {
     const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
-
     if (selectedObject) {
         props.staff.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
     } else {
         props.staff.tenTruongPhong = ''
-        console.log('Không tìm thấy phòng ban tương ứng.')
     }
 }
 
@@ -159,13 +156,7 @@ const getAllPhongBan = async () => {
 }
 
 const getAllViTri = async () => {
-    listViTri.value = [
-        { maChucVu: 'CV00', tenChucVu: 'Giám đốc' },
-        { maChucVu: 'CV01', tenChucVu: 'Phó giám đốc' },
-        { maChucVu: 'CV02', tenChucVu: 'Trưởng phòng' },
-        { maChucVu: 'CV03', tenChucVu: 'Phó trưởng phòng' },
-        { maChucVu: 'CV04', tenChucVu: 'Nhân viên' },
-        { maChucVu: 'CV05', tenChucVu: 'Thực tập sinh' },
-    ]
+    response = await get('/api/v1/chuc-vu')
+    listViTri.value = response.data
 }
 </script>

@@ -22,12 +22,12 @@ const featureAdmin = [
     {
         path: '/admin/departments',
         icon: 'fa-building',
-        text: 'Phòng ban',
+        text: 'home.menu_item_admin.departments',
     },
     {
         path: '/admin/approve',
         icon: 'fa-person-circle-check',
-        text: 'Phê duyệt',
+        text: 'home.menu_item_admin.approve',
     },
     {
         path: '/admin/activity',

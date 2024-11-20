@@ -27,7 +27,6 @@
                     <td>{{ approve.maDon }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <span class="badge bg-warning me-2">{{ approve.hoTenNguoiTao.charAt(0) }}</span>
                             <p class="mb-0">{{ approve.hoTenNguoiTao }}</p>
                         </div>
                     </td>
@@ -35,7 +34,6 @@
                     <td>{{ approve.ngayTao }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <span class="badge bg-danger me-2">{{ approve.hoTenNguoiPheDuyet.charAt(0) }}</span>
                             <p class="mb-0">{{ approve.hoTenNguoiPheDuyet }}</p>
                         </div>
                     </td>

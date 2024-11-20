@@ -2,7 +2,6 @@
     <div class="head-menu border-0 border-bottom border-secondary-subtle col-12">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <router-link class="btn btn-success me-2">Quay lại</router-link>
                 <h5 class="mb-0">Approve manager</h5>
             </div>
             <div class="form-group fs has-search me-2">
@@ -49,6 +48,7 @@
 <script setup>
 import { ref } from 'vue'
 const searchQuery = ref('')
+const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
 
 const props = defineProps({
     activeTab: String,

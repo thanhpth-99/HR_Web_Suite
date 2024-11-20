@@ -48,7 +48,7 @@
             },
             "login_success": {
                 "title": "Đăng nhập thành công.",
-                "text": "Chào mùng bạn trở lại."
+                "text": "Chào mừng bạn trở lại."
             },
             "validate": {
                 "username_required": "Tên đăng nhập còn trống.",
@@ -63,6 +63,8 @@
         "menu_item_admin": {
             "staff": "Nhân viên",
             "activitive": "Hoạt động",
+            "departments": "Phòng ban",
+            "approve": "Phê duyệt",
             "position": "Chức vụ",
             "payroll": "Bảng lương",
             "job_structure": "Sơ đồ tổ chức",
@@ -76,5 +78,88 @@
             "checkin": "Theo dõi chấm công",
             "timeoff": "Nghỉ phép"
         }
-    }
+    },
+    "profile": {
+        "title": "Thông tin cá nhân",
+        "buttons": {
+            "edit": "Chỉnh sửa"
+        },
+        "items": {
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "phone": "Điện thoại",
+            "address": "Địa chỉ"
+        }
+    },
+    "edit_profile": {
+        "title": "Chỉnh sửa thông tin cá nhân",
+        "buttons": {
+            "upload": "Tải ảnh lên",
+            "change": "Lưu thay đổi",
+            "back": "Quay lại"
+        },
+        "items": {
+            "profile_picture": "Ảnh đại diện",
+            "identity_card": "Căn cước công dân",
+            "full_name": "Họ và tên",
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "phone": "Điện thoại",
+            "address": "Địa chỉ",
+            "male": "Nam",
+            "female": "Nữ"
+        },
+        "errors": {
+            "identity_card": "Căn cước không hợp lệ",
+            "full_name": "Họ tên không hợp lệ",
+            "birthday": "Ngày sinh không hợp lệ",
+            "email": "Email không hợp lệ",
+            "phone": "Số điện thoại không hợp lệ",
+            "address": "Địa chỉ không hợp lệ"
+        },
+        "placeholder": {
+            "identity_card": "Vui lòng nhập căn cước công dân",
+            "full_name": "Vui lòng nhập họ tên",
+            "email": "Vui lòng nhập email",
+            "phone": "Vui lòng nhập số điện thoại",
+            "address": "Vui lòng nhập địa chỉ"
+        },
+        "message": {
+            "validate_fail": {
+                "title": "Lưu không thành công",
+                "text": "Thông tin không hợp lệ"
+            },
+            "update_success": {
+                "title": "Cập nhật thông tin thành công",
+                "text": "Đã thay đổi"
+            },
+            "update_fail": {
+                "title": "Cập nhật thông tin không thành công",
+                "text": "Không thay đổi"
+            },
+            "update_error": {
+                "title": "Cập nhật thông tin không thành công",
+                "text": "Đã xảy ra lỗi"
+            }
+        }
+    },
+    "create_onleave": {
+            "title": "Tạo đơn nghỉ phép",
+            "buttons": {
+                "send": "Gửi",
+                "back": "Quay lại"
+            },
+            "items": {
+                "full_name": "Họ và tên",
+                "employee_id": "Mã nhân viên",
+                "position": "Chức vụ",
+                "job_title": "Bộ phận",
+                "department": "Phòng ban",
+                "approver": "Người duyệt",
+                "reason": "Lý do",
+                "from_day": "Từ ngày",
+                "to_day": "Đến ngày",
+                "note": "Ghi chú"
+            }
+        }
 }
