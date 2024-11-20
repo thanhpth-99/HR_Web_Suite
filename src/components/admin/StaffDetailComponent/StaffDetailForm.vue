@@ -156,13 +156,7 @@ const getAllPhongBan = async () => {
 }
 
 const getAllViTri = async () => {
-    listViTri.value = [
-        { maChucVu: 'CV00', tenChucVu: 'Giám đốc' },
-        { maChucVu: 'CV01', tenChucVu: 'Phó giám đốc' },
-        { maChucVu: 'CV02', tenChucVu: 'Trưởng phòng' },
-        { maChucVu: 'CV03', tenChucVu: 'Phó trưởng phòng' },
-        { maChucVu: 'CV04', tenChucVu: 'Nhân viên' },
-        { maChucVu: 'CV05', tenChucVu: 'Thực tập sinh' },
-    ]
+    response = await get('/api/v1/chuc-vu')
+    listViTri.value = response.data
 }
 </script>

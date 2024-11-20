@@ -39,14 +39,9 @@
                 <div class="form-group row mb-3">
                     <label for="ngaySinh" class="col-sm-4 col-form-label">Ngày sinh</label>
                     <div class="col-sm-8">
-                        <input
-                            type="text"
-                            :class="{ 'is-invalid': error.ngaySinh }"
-                            class="form-control"
-                            id="ngaySinh"
-                            v-model="props.staff.ngaySinh"
-                        />
-                        <div v-if="error.ngaySinh" class="invalid-feedback">Ngày sinh phải có dd-MM-yyyy</div>
+                        <div class="mb-3">
+                            <input type="date" class="form-control" v-model="props.staff.ngaySinh" />
+                        </div>
                     </div>
                 </div>
             </div>

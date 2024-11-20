@@ -33,7 +33,6 @@
                     <td>{{ staff.tenChucVu }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <span class="badge bg-success me-2">{{ staff.tenTruongPhong.charAt(0) }}</span>
                             <p class="mb-0">{{ staff.tenTruongPhong }}</p>
                         </div>
                     </td>
