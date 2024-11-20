@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
-        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="filterRecruitmentBySearchQuery"/>
+        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="filterRecruitmentBySearchQuery" />
         <div class="row">
             <div>
-                <Card v-if="activeTab === 'card'" :listRecruitment="listRecruitment"/>
-                <Table  v-if="activeTab === 'table'" :listRecruitment="listRecruitment" />
+                <Card v-if="activeTab === 'card'" :listRecruitment="listRecruitment" />
+                <Table v-if="activeTab === 'table'" :listRecruitment="listRecruitment" />
             </div>
         </div>
     </div>
@@ -47,11 +47,4 @@ const applyFilters = () => {
         return matchesQuery
     })
 }
-const filterRecruitmentBySearchQuery = (query) => {
-    searchQuery.value = query
-    applyFilters()
-    console.log(query)
-}
-
-
 </script>

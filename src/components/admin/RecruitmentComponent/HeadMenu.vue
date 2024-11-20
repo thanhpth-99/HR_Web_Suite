@@ -20,7 +20,10 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active text-primary': activeTab === 'table', 'text-dark': activeTab !== 'table' }"
+                            :class="{
+                                'active text-primary': activeTab === 'table',
+                                'text-dark': activeTab !== 'table',
+                            }"
                             @click.prevent="$emit('tab-change', 'table')"
                             href="#"
                         >
@@ -42,24 +45,22 @@
         </div>
     </div>
 
-   <!-- Popup hiển thị form AddRecruitment khi showPopup = true -->
-<div :class="['popup', { show: showPopup }]" tabindex="-1">
-    <div class="popup-content modal-dialog">
-        <div class="modal-content p-4">
-            <div class="modal-header d-flex justify-content-between align-items-center">
-                <h2 class="modal-title border-bottom mb-0">Add Recruitment</h2>
-                <button @click="showPopup = false" class="close-btn" aria-label="Close">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <AddRecruitment />
+    <!-- Popup hiển thị form AddRecruitment khi showPopup = true -->
+    <div :class="['popup', { show: showPopup }]" tabindex="-1">
+        <div class="popup-content modal-dialog">
+            <div class="modal-content p-4">
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <h2 class="modal-title border-bottom mb-0">Add Recruitment</h2>
+                    <button @click="showPopup = false" class="close-btn" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <AddRecruitment />
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
 </template>
 
 <script setup>
@@ -109,7 +110,9 @@ const props = defineProps({
     z-index: 10;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 .popup.show {

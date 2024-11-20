@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
     loading: Boolean,
     recruitment: Object,
@@ -23,7 +22,7 @@ const clearForm = () => {
     props.recruitment.maPhongBan = ''
     props.recruitment.soLuongTuyen = ''
     props.recruitment.soLuongUngTuyen = ''
-    props.recruitment.trangThai  = 'true'
+    props.recruitment.trangThai = 'true'
     props.recruitment.mota = ''
     props.recruitment.yeuCau = ''
 }

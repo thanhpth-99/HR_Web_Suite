@@ -2,11 +2,11 @@
     <div class="p-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div
-            v-for="(Recruitment, index) in listRecruitment"
-                    :key="Recruitment.viTriTuyenDung || index" 
-                    @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
-                    style="cursor: pointer" 
-                >
+                v-for="(Recruitment, index) in listRecruitment"
+                :key="Recruitment.viTriTuyenDung || index"
+                @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
+                style="cursor: pointer"
+            >
                 <div class="card h-100">
                     <div class="card-body d-flex p-0">
                         <div class="recruitment-avatar">
@@ -33,7 +33,10 @@
                                 <i class="bi bi-people"></i> Số lượng tuyển: {{ Recruitment.soLuongTuyen }}
                             </p>
                             <p class="card-text">
-                                <button class="btn btn-primary oe_kanban_action oe_kanban_action_button" type="action"><span>{{Recruitment.soLuongUngTuyen}}</span> Các hồ sơ ứng viên mới </button>                            </p>
+                                <button class="btn btn-primary oe_kanban_action oe_kanban_action_button" type="action">
+                                    <span>{{ Recruitment.soLuongUngTuyen }}</span> Các hồ sơ ứng viên mới
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>
