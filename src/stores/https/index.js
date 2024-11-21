@@ -2,13 +2,13 @@ import axios from 'axios'
 import { useAuthStore } from '../auth'
 import router from '@/router'
 
-const url = [{ dev: 'http://localhost:1688' }, { prod: '' }, { test: '' }]
+const url = [{ dev: 'http://157.66.26.146:1688' }, { prod: '' }, { test: '' }]
 
 const env = [{ 1: 'dev' }, { 2: 'prod' }, { 3: 'test' }]
 const environment = 1
 
 const https = axios.create({
-    baseURL: 'http://localhost:1688',
+    baseURL: 'http://157.66.26.146:1688',
     timeout: 20000
 })
 
