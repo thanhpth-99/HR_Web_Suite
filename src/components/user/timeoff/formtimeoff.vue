@@ -26,13 +26,10 @@
                     <input type="text" id="phongBan" class="bg-active form-control" v-model="data.tenBoPhan" disabled>
                 </div>
                 <div class="col-md-4 pt-md-0 pt-3">
-                    <label for="phongBan" class="form-label disabled">{{ $t('create_onleave.items.department') }}</label>
+                    <label for="phongBan" class="form-label disabled">{{ $t('create_onleave.items.department')
+                        }}</label>
                     <input type="text" id="phongBan" class="bg-active form-control" v-model="data.tenPhongBan" disabled>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <label for="truongPhong" class="form-label">{{ $t('create_onleave.items.approver') }}</label>
-                <input type="text" id="truongPhong" class="bg-light form-control" value="Phạm Hoàng Hà">
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
@@ -76,7 +73,8 @@
                 </div>
             </div>
             <div class="py-3 pb-4 border-bottom text-center">
-                <button class="btn btn-primary me-3" @click.prevent="btnCreateDonYeuCau_click">{{ $t('create_onleave.buttons.send') }}</button>
+                <button class="btn btn-primary me-3" @click.prevent="btnCreateDonYeuCau_click">{{
+                    $t('create_onleave.buttons.send') }}</button>
                 <router-link :to="{ path: '/user/timeoff' }">
                     <button class="btn btn-outline-secondary">{{ $t('create_onleave.buttons.back') }}</button>
                 </router-link>
@@ -148,10 +146,8 @@ const loadInfoUser = async () => {
     }
 }
 
-//Gửi đơn yêu cầu
+//Tạo đơn yêu cầu
 const btnCreateDonYeuCau_click = async () => {
-    console.log(formData)
-
     if (!validate()) {
         await Swal.fire({
             title: 'Có lỗi xảy',

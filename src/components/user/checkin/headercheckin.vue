@@ -1,7 +1,12 @@
 <template>
     <div class="col-12 row m-0 p-0 align-items-center text-center my-3 fw-bold">
-        <h2 class="text-start text-black mb-1 col-5">Theo dõi chấm công</h2>
-        <div class="col-5 row justify-content-center align-items-center">
+        <h2 class="text-start text-black mb-1 col-4">Theo dõi chấm công</h2>
+        <div class="col-2">
+            <button v-if="!todayTask?.gioVao" class="btn btn-success px-1 py-1" @click="btnCheckIn_Click()">Check
+                In</button>
+            <button v-if="todayTask?.gioVao && !todayTask?.gioRa" class="btn btn-danger px-1 py-1" @click="btnCheckOut_Click()">Check Out</button>
+        </div>
+        <div class="col-4 row justify-content-center align-items-center">
             <select v-model="month" class="form-select mx-2 fw-bold" style="width: 150px;" @change="onMonthChange">
                 <option v-for="(monthName, index) in monthNames" :value="index + 1" :key="index">
                     Tháng {{ monthName }}
@@ -17,19 +22,25 @@
         </div>
     </div>
 </template>
+
 <script setup>
+import { post } from '@/stores/https';
 import { ref, watch } from 'vue';
-// Month and year state
+
+const props = defineProps(['todayTask']);
+const emit = defineEmits(['updateDate']);
+
 const month = ref(new Date().getMonth() + 1);
 const year = ref(new Date().getFullYear());
-// Month names
 const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-// Emit month and year when they change
-const emit = defineEmits(['updateDate']);
+
+const now = new Date();
+const currentDateTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
 watch([month, year], () => {
     emit('updateDate', { month: month.value, year: year.value });
 });
-// Functions to change month
+
 const nextMonth = () => {
     if (month.value === 12) {
         month.value = 1;
@@ -38,6 +49,7 @@ const nextMonth = () => {
         month.value++;
     }
 };
+
 const prevMonth = () => {
     if (month.value === 1) {
         month.value = 12;
@@ -46,4 +58,68 @@ const prevMonth = () => {
         month.value--;
     }
 };
+
+const btnCheckIn_Click = async () => {
+    try {
+        const response = await post('/api/v1/attendances/checkin', { maNhanVien: sessionStorage.getItem('maNhanVien') })
+
+        if (response.success) {
+            Swal.fire({
+                title: 'Checkin thành công',
+                text: `Đã checkin: ${currentDateTime}`,
+                icon: 'success',
+                timer: 1500,
+            }).then(() => {
+                location.reload();
+            })
+        } else {
+            Swal.fire({
+            title: 'Checkout không thành công',
+            text: 'Checkout Lỗi',
+            icon: 'error',
+            timer: 1500,
+        })
+        }
+    } catch (error) {
+        Swal.fire({
+            title: 'Checkin không thành công',
+            text: 'Checkin Lỗi',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.log("Lỗi: ", error)
+    }
+}
+
+const btnCheckOut_Click = async () => {
+    try {
+        const response = await post('/api/v1/attendances/checkout', { maNhanVien: sessionStorage.getItem('maNhanVien') })
+
+        if (response.success) {
+            Swal.fire({
+                title: 'Checkout thành công',
+                text: `Đã checkout: ${currentDateTime}`,
+                icon: 'success',
+                timer: 1500,
+            }).then(() => {
+                location.reload();
+            })
+        } else {
+            Swal.fire({
+            title: 'Checkout không thành công',
+            text: 'Checkout Lỗi',
+            icon: 'error',
+            timer: 1500,
+        })
+        }
+    } catch (error) {
+        Swal.fire({
+            title: 'Checkout không thành công',
+            text: 'Checkout Lỗi',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.log("Lỗi: ", error)
+    }
+}
 </script>
