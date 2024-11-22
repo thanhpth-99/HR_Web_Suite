@@ -48,7 +48,7 @@ onMounted(async () => {
 const getAllStaff = async () => {
     const response = await get('/api/v1/employees')
     listStaff.value = response.data
-    applyFilters() // Gọi lọc ngay sau khi có dữ liệu ban đầu
+    applyFilters()
 }
 
 const getDepartments = async () => {
@@ -74,7 +74,6 @@ const applyFilters = () => {
 const filterStaffBySearchQuery = (query) => {
     searchQuery.value = query
     applyFilters()
-    console.log(query)
 }
 
 const filterStaffByDepartment = (selectedOptions) => {

@@ -63,6 +63,8 @@
         "menu_item_admin": {
             "staff": "Nhân viên",
             "activitive": "Hoạt động",
+            "departments": "Phòng ban",
+            "approve": "Phê duyệt",
             "position": "Chức vụ",
             "payroll": "Bảng lương",
             "job_structure": "Sơ đồ tổ chức",

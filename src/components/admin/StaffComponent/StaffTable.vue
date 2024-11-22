@@ -29,11 +29,10 @@
                     <td>{{ staff.dienThoai }}</td>
                     <td>{{ staff.email }}</td>
                     <td><span class="material-symbols-outlined" :class="index%2==0 && !index%3==0 ? 'text-danger' : 'text-success'"> radio_button_checked </span></td>
-                    <td>{{ staff.maChucVu }}</td>
-                    <td>{{ staff.maPhongBan }}</td>
+                    <td>{{ staff.tenPhongBan }}</td>
+                    <td>{{ staff.tenChucVu }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <span class="badge bg-success me-2">{{ staff.tenTruongPhong.charAt(0) }}</span>
                             <p class="mb-0">{{ staff.tenTruongPhong }}</p>
                         </div>
                     </td>
@@ -47,4 +46,5 @@
 const props = defineProps({
     listStaff: Array,
 })
+
 </script>

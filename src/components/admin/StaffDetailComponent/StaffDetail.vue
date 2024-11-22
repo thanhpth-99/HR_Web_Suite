@@ -42,7 +42,7 @@ const validate = () => {
     const formRule = {
         hoTen: { required: true },
         dienThoai: { pattern: /^[0-9]{10}$/ },
-        email: { required: true, email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ },
+        email: { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ },
         maPhongBan: { required: true },
         maChucVu: { required: true },
         gioiTinh: { required: true },
@@ -53,7 +53,6 @@ const validate = () => {
     for (let key in error) {
         if (error[key] !== false) return false
     }
-    console.log(error)
     return true
 }
 
@@ -86,7 +85,6 @@ const getStaffById = async () => {
         if (id) {
             const response = await get(`/api/v1/employees/${id}`)
             staff.value = response.data
-            console.log(staff.value)
         }
     } catch (error) {
         console.error(error)
@@ -141,7 +139,5 @@ const setStaffInfo = () => {
     staffInfo.maPhongBan = staff.value.maPhongBan
     staffInfo.maBoPhan = 'BP01'
     staffInfo.maChucVu = staff.value.maChucVu
-
-    console.log(staffInfo)
 }
 </script>

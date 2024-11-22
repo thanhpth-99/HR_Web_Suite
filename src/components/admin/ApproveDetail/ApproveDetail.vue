@@ -88,14 +88,11 @@ const updateApprove = async () => {
 
 const getAproveInfoByMaDon = async (maDon) => {
     const maNhanVien = userLogin.value.maNhanVien
-    console.log(maDon)
-    console.log(maNhanVien)
     try {
         const response = await get(`/api/v1/approvals/search`, { maDon, maNhanVien })
         if (response && response.data) {
             approveDetail.value = response.data
         }
-        console.log(approveDetail.value)
     } catch (error) {
         Swal.fire({
             title: 'Thất bại',

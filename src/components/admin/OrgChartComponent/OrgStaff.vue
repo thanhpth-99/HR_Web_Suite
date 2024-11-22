@@ -26,8 +26,6 @@ const mapData = (data) => {
             tenPhongBan: item.tenPhongBan,
             tenChucVu: item.tenChucVu,
         }
-
-        // Nếu không có quản lý (quanLy === null), thêm trường tag với giá trị "manager"
         if (item.quanLy === null) {
             mappedItem.tags = ['Management']
         }
