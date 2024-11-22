@@ -8,7 +8,7 @@
                         <div class="account-settings">
                             <div class="user-profile text-center">
                                 <img class="img rounded-circle border"
-                                    :src="infoNV.hinhAnh || 'http://res.cloudinary.com/dqqqjxnfh/image/upload/21885d26-2818-4cdb-ad00-49369a91b11a_GF4VwGiaYAAsI_t.jpg'">
+                                    :src="infoNV.hinhAnh || 'https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg'">
                                 <h5 class="user-name my-3">{{ infoNV.hoTen }}</h5>
                                 <p class="fw-bold">{{ infoNV.tenChucVu }} - {{ infoNV.tenPhongBan }}</p>
                                 <p class="fw-bold">{{ infoNV.tenBoPhan }}</p>

@@ -42,6 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
         clearRole()
 
         sessionStorage.clear()
+        setupInactivityTimer()
     }
 
     const setupInactivityTimer = () => {

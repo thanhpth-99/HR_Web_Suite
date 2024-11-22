@@ -93,6 +93,11 @@ const featureUser = [
         icon: 'fa-tasks',
         text: 'home.menu_item_user.timeoff',
     },
+    {
+        path: '/user/rewardanddiscipline',
+        icon: 'fa-bookmark',
+        text: 'home.menu_item_user.rewar_discipline',
+    },
 ]
 onMounted(() => {
     if (sessionStorage.getItem('role') === 'ADMIN') {
@@ -109,7 +114,7 @@ onMounted(() => {
         <header class="position-relative">
             <div class="image-text d-flex align-items-center">
                 <span class="image d-flex align-items-center">
-                    <img src="@/assets/images/logo.png" alt="VitaminCode" />
+                    <img class="bg-white rounded-circle" src="@/assets/images/logo.png" alt="VanguardHRM" />
                 </span>
                 <div class="text header-text d-flex flex-column">
                     <span class="name text-white">VANGUARD</span>
