@@ -9,9 +9,9 @@
             <main class="container-fluid" :class="{ close: !isShow }" >
                 <div class="card p-3">
                     <!-- Lắng nghe sự kiện từ HeaderCalendar lấy tháng bà năm -->
-                    <HeaderCalendar class="card-header p-2 mt-0" @updateDate="updateMonthYear" />
+                    <HeaderCalendar class="card-header p-2 mt-0" @updateDate="updateMonthYear" :todayTask="todayTask" />
                     <!-- Truyền tháng và năm xuống Table -->
-                    <Table :month="selectedMonth" :year="selectedYear" />
+                    <Table :month="selectedMonth" :year="selectedYear" @updateTodayTask="handleUpdateTodayTask" />
                 </div>
             </main>
             <!--  End Main  -->
@@ -36,6 +36,13 @@ const updateMonthYear = ({ month, year }) => {
 const handleToggleSidebar = (show) => {
     isShow.value = show;
 };
+
+const todayTask = ref(null);
+const handleUpdateTodayTask = (task) => {
+    todayTask.value = task;
+};
+
+
 </script>
 <style scoped>
 main {

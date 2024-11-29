@@ -18,6 +18,7 @@ export default defineConfig({
     server: {
         port: 1668,
         open: true,
+        host: '0.0.0.0',
     },
     optimizeDeps: {
         include: ['bootstrap'],

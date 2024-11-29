@@ -75,8 +75,9 @@
         },
         "menu_item_user": {
             "information": "Profile",
-            "checkin": "Check in",
-            "timeoff": "Time off"
+            "checkin": "Timekeeping",
+            "timeoff": "Time off",
+            "rewar_discipline": "Rewar/Discipline"
         }
     },
     "profile": {

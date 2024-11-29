@@ -2,7 +2,7 @@
     <div class="wrapper bg-white">
         <h4 class="pb-4 border-bottom fw-medium">Thay đổi thông tin cá nhân</h4>
         <div class="d-flex align-items-start py-3 border-bottom">
-            <img :src="previewImage || infoNV.hinhAnh"
+            <img :src="previewImage || infoNV.hinhAnh || 'https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg'"
                 class="img rounded-circle" alt="Profile Photo" width="100" height="100">
             <div class="ps-sm-4 ps-2" id="img-section">
                 <b class="d-block mb-2">{{ $t('edit_profile.items.profile_picture') }}</b>
