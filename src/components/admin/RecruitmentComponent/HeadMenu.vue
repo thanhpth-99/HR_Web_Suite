@@ -69,6 +69,7 @@ import AddRecruitment from './AddRecruitment.vue'
 
 const searchQuery = ref('')
 const showPopup = ref(false)
+const emit = defineEmits(['tab-change', 'search'])
 
 const props = defineProps({
     activeTab: {
@@ -110,9 +111,7 @@ const props = defineProps({
     z-index: 10;
     opacity: 0;
     visibility: hidden;
-    transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .popup.show {

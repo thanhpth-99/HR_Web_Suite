@@ -28,7 +28,14 @@
                     <td>{{ staff.hoTen }}</td>
                     <td>{{ staff.dienThoai }}</td>
                     <td>{{ staff.email }}</td>
-                    <td><span class="material-symbols-outlined" :class="index%2==0 && !index%3==0 ? 'text-danger' : 'text-success'"> radio_button_checked </span></td>
+                    <td>
+                        <span
+                            class="material-symbols-outlined"
+                            :class="index % 2 == 0 && !index % 3 == 0 ? 'text-danger' : 'text-success'"
+                        >
+                            radio_button_checked
+                        </span>
+                    </td>
                     <td>{{ staff.tenPhongBan }}</td>
                     <td>{{ staff.tenChucVu }}</td>
                     <td>
@@ -46,5 +53,4 @@
 const props = defineProps({
     listStaff: Array,
 })
-
 </script>

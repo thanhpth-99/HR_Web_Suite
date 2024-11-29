@@ -156,7 +156,7 @@ const getAllPhongBan = async () => {
 }
 
 const getAllViTri = async () => {
-    response = await get('/api/v1/chuc-vu')
+    const response = await get('/api/v1/chuc-vu')
     listViTri.value = response.data
 }
 </script>

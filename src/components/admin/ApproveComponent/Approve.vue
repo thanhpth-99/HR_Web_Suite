@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
         <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" />
-        <div class="row">
+        <div class="row p-0">
             <div>
                 <Card @setTrangThaiApprove="setApproveInfo" :listApprove="listApprove" v-if="activeTab === 'card'" />
                 <Table @setTrangThaiApprove="setApproveInfo" :listApprove="listApprove" v-if="activeTab === 'table'" />

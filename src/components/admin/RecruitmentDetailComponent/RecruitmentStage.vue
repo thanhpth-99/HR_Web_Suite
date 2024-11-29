@@ -1,35 +1,39 @@
 <template>
-    <HeadMenu :loading="loading" :listCandidate="candidate" />
-
-    <div class="container-fluid">
-        <RecruitmentStageCard @setTrangThai="setInfo" :listCandidate="candidate" />
+    <HeadMenu :loading="loading" :listCandidate="candidates"/>
+    <div class="container-fluid p-0">
+        <RecruitmentStageCard :listCandidate="candidates" />
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue'
-import { get, post } from '@/stores/https'
+import { ref, onMounted } from 'vue'
+import { get } from '@/stores/https'
 import RecruitmentStageCard from './RecruitmentStageCard.vue'
 import HeadMenu from './HeadMenu.vue'
-import router from '@/router'
-const candidate = ref([])
-const tenViTri = ref('')
-const loading = ref(false)
+import { useRoute } from 'vue-router'
 
-onMounted(async () => {
-    const param = router.currentRoute.value.params.id
-    tenViTri.value = param
+const candidates = ref([]) // Tên biến rõ nghĩa hơn
+const positionName = ref('') // Đổi tên từ 'tenViTri' để dễ hiểu
+const loading = ref(false) // Giữ nguyên, nhưng dùng hợp lý trong thực tế
 
-    if (tenViTri.value) {
-        await getAllCandidate(tenViTri.value)
-    }
-})
-const getAllCandidate = async (tenViTri) => {
+const route = useRoute() // Sử dụng composable của Vue Router để truy cập route
+
+const fetchCandidates = async (positionName) => {
     try {
-        const response = await get(`/api/v1/ung-vien?tenViTri=${tenViTri}`)
-        candidate.value = response.data
+        loading.value = true
+        const response = await get(`/api/v1/ung-vien?tenViTri=${positionName}`)
+        candidates.value = response.data
     } catch (error) {
-        console.error('Lỗi khi gọi API:', error)
+        console.error('Error fetching candidates:', error)
+    } finally {
+        loading.value = false
     }
 }
+
+onMounted(async () => {
+    positionName.value = route.params.id || ''
+    if (positionName.value) {
+        await fetchCandidates(positionName.value)
+    }
+})
 </script>

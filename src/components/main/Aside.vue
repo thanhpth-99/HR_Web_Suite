@@ -261,7 +261,7 @@ aside main li a:hover {
 }
 
 aside main li a:hover .fa-solid,
-aside main li a:hover .text{
+aside main li a:hover .text {
     color: #1c212d !important;
     font-weight: 600;
 }

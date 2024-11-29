@@ -4,13 +4,13 @@
             <div class="d-flex align-items-center">
                 <div class="dropdown">
                     <button
-                        class="btn btn-primary dropdown-toggle"
+                        class="btn btn-primary d-flex align-items-center me-2"
                         type="button"
                         id="drop_save"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        New
+                        New <span class="material-symbols-outlined ms-1">keyboard_arrow_down</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="drop_save">
                         <li>
@@ -23,7 +23,7 @@
                                 class="dropdown-item"
                                 ></router-link
                             > -->
-                            <p @click="showPopup = true" class="dropdown-item">Add staff by excel</p>
+                            <span @click="showPopup = true" class="dropdown-item">Add staff by excel</span>
                         </li>
                     </ul>
                 </div>
@@ -65,7 +65,7 @@
                         <a
                             class="nav-link"
                             :class="{
-                                'active text-primary': activeTab === 'table',
+                                'active': activeTab === 'table',
                                 'text-dark': activeTab !== 'table',
                             }"
                             @click.prevent="$emit('tab-change', 'table')"
@@ -77,7 +77,7 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active text-primary': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
+                            :class="{ 'active': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
                             @click.prevent="$emit('tab-change', 'card')"
                             href="#"
                         >
@@ -193,5 +193,64 @@ const props = defineProps({
     top: 10px;
     right: 10px;
     z-index: 1;
+}
+
+.dropdown-menu {
+  min-width: 190px;
+  padding: 8px;
+  border-radius: 1rem;
+  background-color: #fff;
+  border: 1px solid #e4e4e7;
+}
+
+.dropdown-item {
+  font-size: 0.875rem;
+  padding: 8px;
+  border-radius: 0.625rem;
+  transition: all 0.2s ease;
+  color: #000;
+}
+
+.dropdown-item:hover {
+  background-color: #f4f4f5;
+  color: #000;
+}
+
+.dropdown-item:focus {
+  background-color: #f4f4f5;
+  color: #000;
+}
+
+.dropdown-item:active {
+  background-color: #f4f4f5;
+  color: #000;
+}
+
+.nav-tabs {
+    background-color: #f4f4f5 !important;
+    border-radius: 0.75rem !important;
+    padding: 6px !important;
+    min-width: fit-content !important;
+}
+
+.nav-link {
+    padding: 6px 12px !important;
+    border: none !important;
+    background-color: transparent !important;
+    color: #52525b !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border-radius: calc(0.75rem - 2px) !important;
+    font-size: 0.875rem !important;
+}
+
+.nav-link.active {
+    background-color: #fff !important;
+    color: #000 !important;
+    border: none !important;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 </style>

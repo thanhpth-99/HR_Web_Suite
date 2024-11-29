@@ -17,6 +17,15 @@ importers:
       bootstrap:
         specifier: 5.3.3
         version: 5.3.3(@popperjs/core@2.11.8)
+      datatables.net-dt:
+        specifier: ^2.1.8
+        version: 2.1.8
+      datatables.net-vue3:
+        specifier: ^3.0.2
+        version: 3.0.2(datatables.net@2.1.8)(vue@3.4.38)
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
       pinia:
         specifier: ^2.1.7
         version: 2.2.2(vue@3.4.38)
@@ -753,6 +762,19 @@ packages:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
     engines: {node: '>=18'}
 
+  datatables.net-dt@2.1.8:
+    resolution: {integrity: sha512-/ScKmyKIpKXzjOJrnJLOWMf2jOQfrYjayNMhUyeMzf3jKhNevHNvImU9MQ/Bab9yheKLjHLL24IgnshAvRFrng==}
+
+  datatables.net-vue3@3.0.2:
+    resolution: {integrity: sha512-UJs3IrKS+gsaPSy3CeL5ny/hGWm8xs77DZLYSW8QXPpDhMS7ZZfC4AGKNvXa2C9J1OllWhiR20dScpi0lKdCvQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      datatables.net: ^2
+      vue: ^3.0.5
+
+  datatables.net@2.1.8:
+    resolution: {integrity: sha512-47ULt+U4bcjbuGTpTlT6SnCuSFVRBxxdWa6X3NfvTObBJ2BZU0o+JUIl05wQ6cABNIavjbAV51gpgvFsMHL9zA==}
+
   debug@4.3.6:
     resolution: {integrity: sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==}
     engines: {node: '>=6.0'}
@@ -956,6 +978,9 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
+
+  jquery@3.7.1:
+    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
 
   js-beautify@1.15.1:
     resolution: {integrity: sha512-ESjNzSlt/sWE8sciZH8kBF8BPlwXPwhR6pWKAw8bw4Bwj+iZcnKW6ONWUutJ7eObuBZQpiIb8S7OYspWrKt7rA==}
@@ -2230,6 +2255,20 @@ snapshots:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
 
+  datatables.net-dt@2.1.8:
+    dependencies:
+      datatables.net: 2.1.8
+      jquery: 3.7.1
+
+  datatables.net-vue3@3.0.2(datatables.net@2.1.8)(vue@3.4.38):
+    dependencies:
+      datatables.net: 2.1.8
+      vue: 3.4.38
+
+  datatables.net@2.1.8:
+    dependencies:
+      jquery: 3.7.1
+
   debug@4.3.6:
     dependencies:
       ms: 2.1.2
@@ -2420,6 +2459,8 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
+
+  jquery@3.7.1: {}
 
   js-beautify@1.15.1:
     dependencies:

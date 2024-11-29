@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h5>Thông tin cá nhân</h5>
-                <div class="form-group row mb-3" :class="{ 'is-invalid': error.gioiTinh }">
+                <div class="form-group row mb-3">
                     <label for="gioiTinh" class="col-sm-4 col-form-label">Giới tính</label>
                     <div class="col-sm-8">
                         <div class="form-check form-check-inline">
@@ -27,10 +27,6 @@
                                 :value="false"
                             />
                             <label class="form-check-label" for="nu">Nữ</label>
-                        </div>
-                        <!-- Hiển thị thông báo lỗi -->
-                        <div v-if="error.gioiTinh" class="invalid-feedback">
-                            {{ error.gioiTinh }}
                         </div>
                     </div>
                 </div>

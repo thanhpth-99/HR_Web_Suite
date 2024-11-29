@@ -3,11 +3,17 @@
 </template>
 
 <script setup>
-import { get } from '@/stores/https'
-import { ref, onMounted } from 'vue'
+import { get, post } from '@/stores/https'
+import { ref, onMounted, reactive } from 'vue'
 import OrgChart from '@balkangraph/orgchart.js'
 
 const dataChart = ref([])
+const phongBan = reactive({
+    maPhongBan: '',
+    tenPhongBan: '',
+    truongPhong: '',
+    maPhongBanCapTren: '',
+})
 
 const mapData = (data) => {
     return data.map((item) => ({
@@ -30,6 +36,28 @@ onMounted(async () => {
 const getAllDataChart = async () => {
     const response = await get('/api/v1/departments/orgchart')
     dataChart.value = response.data
+}
+
+const getPhongBanByMaPhongBan = async (maPhongBan) => {
+    const response = await get('/api/v1/departments/search', { maPhongBan })
+    if (response.data) {
+        const data = response.data
+        phongBan.maPhongBan = data.maPhongBan
+        phongBan.tenPhongBan = data.tenPhongBan
+        phongBan.truongPhong = data.truongPhong
+        phongBan.maPhongBanCapTren = data.maPhongBanCapTren
+    }
+}
+
+const updatePhongBanCapTren = async (maPhongBan, maPhongBanCapTren) => {
+    await getPhongBanByMaPhongBan(maPhongBan)
+    phongBan.maPhongBanCapTren = maPhongBanCapTren
+    try {
+        const response = await post('/api/v1/departments', phongBan)
+        getAllDataChart()
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 const renderChart = () => {
@@ -72,9 +100,8 @@ const renderChart = () => {
             },
         },
     })
-
-    chart.onUpdated(function () {
-        console.log('Nodes updated')
+    chart.onDrop((sender) => {
+        updatePhongBanCapTren(sender.dragId, sender.dropId)
     })
 }
 </script>

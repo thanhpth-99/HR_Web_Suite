@@ -1,23 +1,42 @@
 <template>
     <div class="container-fluid">
-        <!-- Mã phòng ban -->
-        <div class="d-flex align-items-center mb-2">
-            <label for="maPhongBan" class="form-label me-2 text-nowrap" style="width: 12rem"> Mã phòng ban </label>
-            <input type="text" class="form-control" id="maPhongBan" placeholder="Mã phòng ban" />
-        </div>
-
-        <!-- Tên phòng ban -->
         <div class="d-flex align-items-center mb-2">
             <label for="tenPhongBan" class="form-label me-2 text-nowrap" style="width: 12rem"> Tên phòng ban </label>
-            <input type="text" class="form-control" id="tenPhongBan" placeholder="Tên phòng ban" />
+            <input
+                v-model="phongBanInfo.tenPhongBan"
+                type="text"
+                class="form-control"
+                id="tenPhongBan"
+                placeholder="Tên phòng ban"
+            />
         </div>
+
+        <div class="row mb-3">
+            <div class="d-flex align-items-center">
+                <label for="superiorDepartmentSelect" class="form-label me-2 text-nowrap" style="width: 9rem">
+                    Phòng ban cấp trên
+                </label>
+                <div class="w-100">
+                    <select v-model="phongBanInfo.maPhongBanCapTren" id="superiorDepartmentSelect" class="slim-select">
+                        <option
+                            v-for="department in superiorDepartments"
+                            :key="department.maPhongBan"
+                            :value="department.maPhongBan"
+                        >
+                            {{ department.tenPhongBan }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row mb-3">
             <div class="d-flex align-items-center">
                 <label for="truongPhongSelect" class="form-label me-2 text-nowrap" style="width: 9rem">
                     Tên trưởng phòng
                 </label>
                 <div class="w-100">
-                    <select id="truongPhongSelect" class="slim-select">
+                    <select v-model="phongBanInfo.truongPhong" id="truongPhongSelect" class="slim-select">
                         <option
                             v-for="leadStaff in listLeadStaff"
                             :key="leadStaff.maNhanVien"
@@ -29,51 +48,81 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-end"><button class="btn btn-success">Save</button></div>
+        <div class="d-flex justify-content-end">
+            <button @click="saveDepartment()" class="btn btn-success">Save</button>
+        </div>
     </div>
 </template>
     
   <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import { get, post } from '@/stores/https'
 import SlimSelect from 'slim-select'
-const loading = ref(false)
+
 const listLeadStaff = ref([])
 const slimSelectInstance = ref('')
+const superiorDepartments = ref([])
+
+const phongBanInfo = reactive({
+    tenPhongBan: '',
+    truongPhong: '',
+    maPhongBanCapTren: '',
+})
 
 onMounted(async () => {
     await getListLeadStaff()
+    await getSuperiorDepartments()
     createSlimSelect()
 })
+
+const saveDepartment = async () => {
+    try {
+        const response = await post('/api/v1/departments', phongBanInfo)
+        if (response) {
+            Swal.fire({
+                title: 'Thành công',
+                text: 'Thêm phòng ban thành công',
+                icon: 'success',
+                timer: 1500,
+            })
+        }
+    } catch (error) {
+        Swal.fire({
+            title: 'Thất bại',
+            text: 'Thêm phòng ban thất bại',
+            icon: 'error',
+            timer: 1500,
+        })
+        console.error(error)
+    }
+}
 
 const createSlimSelect = () => {
     slimSelectInstance.value = new SlimSelect({
         select: '#truongPhongSelect',
         closeOnSelect: false,
     })
+
+    slimSelectInstance.value = new SlimSelect({
+        select: '#superiorDepartmentSelect',
+        closeOnSelect: false,
+    })
 }
+
+const getSuperiorDepartments = async () => {
+    try {
+        const response = await get('/api/v1/departments')
+        if (response) {
+            superiorDepartments.value = response.data
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const getListLeadStaff = async () => {
-    listLeadStaff.value = [
-        {
-            maNhanVien: 'NV01',
-            hoTen: 'Nguyen Van A',
-        },
-        {
-            maNhanVien: 'NV02',
-            hoTen: 'Nguyen Van B',
-        },
-        {
-            maNhanVien: 'NV03',
-            hoTen: 'Nguyen Van C',
-        },
-        {
-            maNhanVien: 'NV04',
-            hoTen: 'Nguyen Van E',
-        },
-        {
-            maNhanVien: 'NV05',
-            hoTen: 'Nguyen Van F',
-        },
-    ]
+    const response = await get('/api/v1/employees')
+    listLeadStaff.value = response.data
 }
 </script>
     

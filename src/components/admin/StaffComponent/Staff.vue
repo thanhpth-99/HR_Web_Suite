@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mt-3" style="overflow-x: auto; background-color: var(--color-main);">
+    <div class="container-fluid mt-3" style="overflow-x: auto; background-color: var(--color-main)">
         <div class="row">
             <HeadMenu
                 @tab-change="setActiveTab"
@@ -10,10 +10,10 @@
                 @nextPage="nextPage"
                 @search="filterStaffBySearchQuery"
             />
-            <div class="col-2">
+            <div class="col-2 p-0">
                 <ListgroupItem :departments="departments" @filterStaffByDepartment="filterStaffByDepartment" />
             </div>
-            <div class="col-10" style="overflow-x: auto">
+            <div class="col-10 p-0" style="overflow-x: auto">
                 <div>
                     <StaffTable v-if="activeTab === 'table'" :listStaff="paginatedStaff" />
                     <StaffCard v-if="activeTab === 'card'" :listStaff="paginatedStaff" />
@@ -28,7 +28,7 @@ import HeadMenu from './HeadMenu.vue'
 import StaffTable from './StaffTable.vue'
 import StaffCard from './StaffCard.vue'
 import ListgroupItem from './ListgroupItem.vue'
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { get } from '@/stores/https'
 
 const listStaff = ref([])

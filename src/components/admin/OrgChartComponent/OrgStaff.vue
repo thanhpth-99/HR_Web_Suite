@@ -37,6 +37,7 @@ const mapData = (data) => {
 const getAllDataChart = async () => {
     const response = await get('/api/v1/employees/orgchart')
     dataChart.value = response.data
+    console.log(dataChart.value);
 }
 
 const renderChart = () => {

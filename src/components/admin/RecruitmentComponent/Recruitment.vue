@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
-        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="filterRecruitmentBySearchQuery" />
+        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab"/>
         <div class="row">
             <div>
                 <Card v-if="activeTab === 'card'" :listRecruitment="listRecruitment" />

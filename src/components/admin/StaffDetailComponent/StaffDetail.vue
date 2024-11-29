@@ -34,8 +34,6 @@ const error = reactive({
     email: '',
     maPhongBan: '',
     maChucVu: '',
-    gioiTinh: '',
-    ngaySinh: '',
 })
 
 const validate = () => {
@@ -45,8 +43,6 @@ const validate = () => {
         email: { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ },
         maPhongBan: { required: true },
         maChucVu: { required: true },
-        gioiTinh: { required: true },
-        ngaySinh: { date: true },
     }
 
     Object.assign(error, validateForm(formRule, staff.value))
@@ -99,6 +95,7 @@ const saveStaff = async () => {
             icon: 'error',
             timer: 1500,
         })
+        console.log(staffInfo)
         return
     }
 

@@ -1,13 +1,13 @@
 <template>
-    <div class="p-4">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="p-0">
+        <div class="row row-cols-1 row-cols-md-3 g-4 p-0">
             <div
                 v-for="(Recruitment, index) in listRecruitment"
                 :key="Recruitment.viTriTuyenDung || index"
                 @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
                 style="cursor: pointer"
             >
-                <div class="card h-100">
+                <div class="card h-100 p-0">
                     <div class="card-body d-flex p-0">
                         <div class="recruitment-avatar">
                             <img
@@ -28,7 +28,6 @@
                                 <h5 class="card-title">{{ Recruitment.tenViTri }}</h5>
                                 <span class="status-indicator" :class="getStatusClass(Recruitment.trangThai)"></span>
                             </div>
-                            <p class="card-subtitle">{{ Recruitment.maPhongBan }}</p>
                             <p class="card-text">
                                 <i class="bi bi-people"></i> Số lượng tuyển: {{ Recruitment.soLuongTuyen }}
                             </p>

@@ -1,33 +1,38 @@
 <template>
     <div class="p-4 border-0 border-bottom border-secondary-subtle">
-        <div class="head-menu col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <button
-                        @click="update()"
-                        type="submit"
-                        class="btn btn-success w-100 fw-bold me-2"
-                        :disabled="loading"
-                        :class="{ loading: loading }"
-                    >
-                        <span
-                            v-if="loading"
-                            class="spinner-border me-2 spinner-border-sm"
-                            role="status"
-                            aria-hidden="true"
-                        ></span>
-                        <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
-                    </button>
-                    <h5 class="mb-0">Candidate</h5>
-                    <div class="row">
-                        <div class="col-8 d-flex justify-content-start" v-if="ungVien.maUngVien">
-                            <Button class="btn btn-success me-2" @click="setInfo(2)">Phỏng vấn lần đầu</Button>
-                            <Button class="btn btn-success me-2" @click="setInfo(3)">Phỏng vấn lần 2</Button>
-                            <Button class="btn btn-success me-2" @click="setInfo(4)">Nhận việc</Button>
-                            <button class="btn btn-danger me-2" @click="setInfo(5)">Từ chối</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="head-menu col-12 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <button
+                    @click="saveUngVien()"
+                    type="submit"
+                    class="btn btn-success w-100 fw-bold me-2"
+                    :disabled="loading"
+                    :class="{ loading: loading }"
+                >
+                    <span
+                        v-if="loading"
+                        class="spinner-border me-2 spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
+                </button>
+                <h5 class="mb-0 me-2">Candidate</h5>
+            </div>
+            <div class="tab-container ms-auto">
+                <button class="tab-button" :class="{ active: ungVien.trangThai === 1 }">Chờ duyệt</button>
+                <button @click="setInfo(2)" class="tab-button" :class="{ active: ungVien.trangThai === 2 }">
+                    Phỏng vấn lần 1
+                </button>
+                <button @click="setInfo(3)" class="tab-button" :class="{ active: ungVien.trangThai === 3 }">
+                    Phỏng vấn lần 2
+                </button>
+                <button @click="setInfo(4)" class="tab-button" :class="{ active: ungVien.trangThai === 4 }">
+                    Đạt yêu cầu
+                </button>
+                <button @click="setInfo(5)" class="tab-button" :class="{ active: ungVien.trangThai === 5 }">
+                    Từ chối
+                </button>
             </div>
         </div>
     </div>
@@ -66,13 +71,13 @@
             </div>
 
             <div class="row mb-3">
-                <label for="trangThai" class="col-3 col-form-label">Trạng thái</label>
-                <div class="col-9">
-                    <span v-if="ungVien.trangThai === 1" class="badge bg-warning">Tạo và cập nhật hồ sơ</span>
-                    <span v-if="ungVien.trangThai === 2" class="badge bg-success">Phỏng vấn lần đầu</span>
-                    <span v-if="ungVien.trangThai === 3" class="badge bg-danger">Phỏng vấn lần hai</span>
-                    <span v-if="ungVien.trangThai === 4" class="badge bg-danger">Hợp đồng</span>
-                    <span v-if="ungVien.trangThai === 5" class="badge bg-secondary">Từ chối</span>
+                <label for="trangThai" class="col-4 col-form-label">Trạng thái</label>
+                <div class="col-8">
+                    <span v-if="ungVien.trangThai === 1" class="badge bg-warning">Chờ duyệt</span>
+                    <span v-if="ungVien.trangThai === 2" class="badge bg-info">Phỏng vấn lần 1</span>
+                    <span v-if="ungVien.trangThai === 3" class="badge bg-primary">Phỏng vấn lần 2</span>
+                    <span v-if="ungVien.trangThai === 4" class="badge bg-success">Đạt yêu cầu</span>
+                    <span v-if="ungVien.trangThai === 5" class="badge bg-danger">Từ chối</span>
                 </div>
             </div>
         </div>
@@ -153,12 +158,12 @@ const info = reactive({
 const setInfo = async (trangThai) => {
     try {
         ungVien.value.trangThai = trangThai
-        update()
+        saveUngVien()
     } catch (error) {
         console.error('Lỗi khi gọi API:', error)
     }
 }
-const update = async () => {
+const saveUngVien = async () => {
     try {
         const response = await post('/api/v1/ung-vien', ungVien.value)
         if (response) {
@@ -168,7 +173,7 @@ const update = async () => {
                 icon: 'success',
                 timer: 1500,
             })
-            if ((ungVien.value.trangThai == 2, 3, 4, 5)) {
+            if (ungVien.value.trangThai == 5) {
                 router.go(-1)
                 return
             }
@@ -207,3 +212,33 @@ const getInfoByMaUngVien = async (maUngVien) => {
     }
 }
 </script>
+
+<style scoped>
+/* Tab */
+.tab-container {
+    background-color: #f4f4f5 !important;
+    border-radius: 0.75rem !important;
+    padding: 4px !important;
+    min-width: fit-content !important;
+}
+
+.tab-button {
+    padding: 4px 10px !important;
+    border: none !important;
+    background-color: transparent !important;
+    color: #52525b !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border-radius: calc(0.75rem - 2px) !important;
+    font-size: 0.875rem !important;
+}
+
+.tab-button.active {
+    background-color: #fff !important;
+    color: #000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+</style>
