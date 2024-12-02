@@ -2,19 +2,10 @@
     <div class="p-4 border-0 border-bottom border-secondary-subtle">
         <div class="head-menu col-12 d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <button
-                    @click="saveUngVien()"
-                    type="submit"
-                    class="btn btn-success w-100 fw-bold me-2"
-                    :disabled="loading"
-                    :class="{ loading: loading }"
-                >
-                    <span
-                        v-if="loading"
-                        class="spinner-border me-2 spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                    ></span>
+                <button @click="saveUngVien()" type="submit" class="btn btn-success w-100 fw-bold me-2"
+                    :disabled="loading" :class="{ loading: loading }">
+                    <span v-if="loading" class="spinner-border me-2 spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
                     <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
                 </button>
                 <h5 class="mb-0 me-2">Candidate</h5>
@@ -30,7 +21,7 @@
                 <button @click="setInfo(4)" class="tab-button" :class="{ active: ungVien.trangThai === 4 }">
                     Đạt yêu cầu
                 </button>
-                <button @click="setInfo(5)" class="tab-button" :class="{ active: ungVien.trangThai === 5 }">
+                <button @click="setInfo(5)" class="btn btn-danger" :class="{ active: ungVien.trangThai === 5 }">
                     Từ chối
                 </button>
             </div>
@@ -102,36 +93,28 @@
                 <label for="gioiTinh" class="col-sm-4 col-form-label">Giới tính</label>
                 <div class="col-sm-8">
                     <div class="form-check form-check-inline">
-                        <input
-                            class="form-check-input"
-                            v-model="ungVien.gioiTinh"
-                            type="radio"
-                            name="gioiTinh"
-                            id="nam"
-                            :value="true"
-                        />
+                        <input class="form-check-input" v-model="ungVien.gioiTinh" type="radio" name="gioiTinh" id="nam"
+                            :value="true" />
                         <label class="form-check-label" for="nam">Nam</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input
-                            v-model="ungVien.gioiTinh"
-                            class="form-check-input"
-                            type="radio"
-                            name="gioiTinh"
-                            id="nu"
-                            :value="false"
-                        />
+                        <input v-model="ungVien.gioiTinh" class="form-check-input" type="radio" name="gioiTinh" id="nu"
+                            :value="false" />
                         <label class="form-check-label" for="nu">Nữ</label>
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-3">
-                <label for="position" class="col-sm-4 col-form-label">Vị trí tuyển dụng</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="position" v-model="ungVien.maViTriTuyenDung" />
+                <div class="row mb-3">
+                    <label for="position" class="col-sm-4 col-form-label">Vị trí tuyển dụng</label>
+                    <div class="col-sm-8">
+                        <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
+                            <option value="">Chọn vị trí tuyển dụng</option>
+                            <option v-for="viTri in listTuyenDung" :key="viTri.maViTriTuyenDung" :value="viTri.maViTriTuyenDung">
+                                {{ viTri.tenViTri }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </template>
@@ -155,6 +138,8 @@ const info = reactive({
     email: '',
     maViTriTuyenDung: '',
 })
+const listTuyenDung = ref([])
+
 const setInfo = async (trangThai) => {
     try {
         ungVien.value.trangThai = trangThai
@@ -211,6 +196,14 @@ const getInfoByMaUngVien = async (maUngVien) => {
         console.error(error)
     }
 }
+const getAllViTri = async () => {
+    const response = await get('/api/v1/vi-tri-tuyen-dung')
+    listTuyenDung.value = response.data
+}
+
+onMounted(async () => {
+    await getAllViTri()
+})
 </script>
 
 <style scoped>
