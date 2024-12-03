@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
         <HeadMenu @tab-change="setActiveTab" @search="handleSearch" :activeTab="activeTab" />
-        <div class="row p-0">
+        <div class="row p-0" style="overflow-x: auto">
             <div>
                 <Card
                     @setTrangThaiApprove="setApproveInfo"

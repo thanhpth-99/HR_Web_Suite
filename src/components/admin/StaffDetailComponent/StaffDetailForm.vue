@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { get } from '@/stores/https'
 
 const listPhongBan = ref([])
@@ -133,7 +133,7 @@ const listViTri = ref([])
 
 const props = defineProps({
     staff: Object,
-    error: Object,
+    error: Object
 })
 
 onMounted(async () => {
