@@ -70,6 +70,7 @@
             "job_structure": "Organizational Chart",
             "chart": "Organizational Chart",
             "recruitment": "Recruitment",
+            "contract" : "Contract",
             "site": "Location",
             "documentation": "Documentation"
         },
