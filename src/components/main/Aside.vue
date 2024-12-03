@@ -55,6 +55,11 @@ const featureAdmin = [
         text: 'home.menu_item_admin.recruitment',
     },
     {
+        path: '/admin/contract',
+        icon: 'fa fa-file-contract',
+        text: 'home.menu_item_admin.contract',
+    },
+    {
         path: '/admin/site',
         icon: 'fa-map-marker-alt',
         text: 'home.menu_item_admin.site',

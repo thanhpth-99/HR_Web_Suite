@@ -71,6 +71,7 @@
             "chart": "Sơ đồ tổ chức",
             "site": "Vị trí",
             "recruitment":"Tuyển dụng",
+            "contract" : "Hợp Đồng",
             "documentation": "Tài liệu"
         },
         "menu_item_user": {
