@@ -162,7 +162,6 @@ aside {
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
     z-index: 100;
-    border: 1px solid var(--color-border);
 }
 
 aside .text {

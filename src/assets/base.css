@@ -165,3 +165,32 @@ select {
         border: 1.5px solid #16a5ed !important;
     }
 }
+
+
+.nav-tabs {
+    background-color: #f4f4f5 !important;
+    border-radius: 0.75rem !important;
+    padding: 6px !important;
+    min-width: fit-content !important;
+}
+
+.nav-link {
+    padding: 6px 12px !important;
+    border: none !important;
+    background-color: transparent !important;
+    color: #52525b !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border-radius: calc(0.75rem - 2px) !important;
+    font-size: 0.875rem !important;
+}
+
+.nav-link.active {
+    background-color: #fff !important;
+    color: #000 !important;
+    border: none !important;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}

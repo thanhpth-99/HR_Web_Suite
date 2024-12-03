@@ -20,7 +20,7 @@
                         <a
                             class="nav-link"
                             :class="{
-                                'active text-primary': activeTab === 'table',
+                                active: activeTab === 'table',
                                 'text-dark': activeTab !== 'table',
                             }"
                             @click.prevent="$emit('tab-change', 'table')"
@@ -32,7 +32,7 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active text-primary': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
+                            :class="{ active: activeTab === 'card', 'text-dark': activeTab !== 'card' }"
                             @click.prevent="$emit('tab-change', 'card')"
                             href="#"
                         >
@@ -52,6 +52,14 @@ const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
 
 const props = defineProps({
     activeTab: String,
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    totalPages: {
+        type: Number,
+        default: 1,
+    },
 })
 </script>
 

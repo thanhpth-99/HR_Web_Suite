@@ -142,6 +142,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { get, post } from '@/stores/https'
 const loading = ref(false)
 const ungVien = ref({})
+const maUngVien = ref('')
 const info = reactive({
     maUngVien: '',
     trangThai: 1,
@@ -189,9 +190,9 @@ const saveUngVien = async () => {
     }
 }
 onMounted(() => {
-    const param = router.currentRoute.value.params.id
-    if (param) {
-        ungVien.maUngVien = param
+    maUngVien.value = router.currentRoute.value.params.id
+    if (maUngVien.value) {
+        ungVien.maUngVien = maUngVien.value
         getInfoByMaUngVien(ungVien.maUngVien)
     }
 })
@@ -214,7 +215,6 @@ const getInfoByMaUngVien = async (maUngVien) => {
 </script>
 
 <style scoped>
-/* Tab */
 .tab-container {
     background-color: #f4f4f5 !important;
     border-radius: 0.75rem !important;

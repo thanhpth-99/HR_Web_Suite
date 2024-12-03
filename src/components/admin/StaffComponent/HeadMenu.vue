@@ -17,12 +17,6 @@
                             <router-link :to="{ path: '/admin/staff/AddStaff' }" class="dropdown-item">New</router-link>
                         </li>
                         <li>
-                            <!-- <router-link
-                                :to="{ path: '/admin/staff/AddStaffByFileExcel' }"
-                                @click="showPopup = true"
-                                class="dropdown-item"
-                                ></router-link
-                            > -->
                             <span @click="showPopup = true" class="dropdown-item">Add staff by excel</span>
                         </li>
                     </ul>
@@ -40,24 +34,6 @@
                     placeholder="Search"
                     v-model="searchQuery"
                 />
-            </div>
-
-            <div class="pagination d-flex justify-content-center align-items-center">
-                <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-                <button
-                    class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
-                    :disabled="currentPage === 1"
-                    @click="$emit('prevPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
-                </button>
-                <button
-                    class="btn btn-secondary rounded-0 d-flex align-items-center"
-                    :disabled="currentPage === totalPages"
-                    @click="$emit('nextPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
-                </button>
             </div>
             <div class="pagination d-flex justify-content-center align-items-center">
                 <ul class="nav nav-tabs">
@@ -224,33 +200,5 @@ const props = defineProps({
 .dropdown-item:active {
   background-color: #f4f4f5;
   color: #000;
-}
-
-.nav-tabs {
-    background-color: #f4f4f5 !important;
-    border-radius: 0.75rem !important;
-    padding: 6px !important;
-    min-width: fit-content !important;
-}
-
-.nav-link {
-    padding: 6px 12px !important;
-    border: none !important;
-    background-color: transparent !important;
-    color: #52525b !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    border-radius: calc(0.75rem - 2px) !important;
-    font-size: 0.875rem !important;
-}
-
-.nav-link.active {
-    background-color: #fff !important;
-    color: #000 !important;
-    border: none !important;
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 </style>

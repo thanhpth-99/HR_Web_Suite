@@ -5,7 +5,6 @@
                 <div class="summary-card">
                     <div class="row">
                         <div class="col-6"><h6>Kinh nghiệm</h6></div>
-                        <div class="col-6"><button class="btn btn-secondary add-btn">THÊM VÀO</button></div>
                     </div>
 
                     <div class="experience-entry mt-4" v-for="kinhNghiem in listKinhNghiem" :key="kinhNghiem.tenCongTy">
@@ -27,7 +26,6 @@
                 <div class="summary-card">
                     <div class="row">
                         <div class="col-6"><h6>Học vấn</h6></div>
-                        <div class="col-6"><button class="btn btn-secondary add-btn">THÊM VÀO</button></div>
                     </div>
 
                     <div class="experience-entry mt-4" v-for="hocVan in listHocVan" :key="hocVan.maNhanVien">

@@ -1,10 +1,24 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
-        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab"/>
+        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="handleSearch" />
         <div class="row">
             <div>
-                <Card v-if="activeTab === 'card'" :listRecruitment="listRecruitment" />
-                <Table v-if="activeTab === 'table'" :listRecruitment="listRecruitment" />
+                <Card
+                    v-if="activeTab === 'card'"
+                    :searchQuery="searchQuery"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :listRecruitment="listRecruitment"
+                    @updatePage="currentPage = $event"
+                />
+                <Table
+                    v-if="activeTab === 'table'"
+                    :searchQuery="searchQuery"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :listRecruitment="listRecruitment"
+                    @updatePage="currentPage = $event"
+                />
             </div>
         </div>
     </div>
@@ -21,9 +35,16 @@ import Table from './Table.vue'
 const activeTab = ref('table')
 const listRecruitment = ref([])
 const searchQuery = ref('')
+const currentPage = ref(1)
+const pageSize = ref(9)
 
 const setActiveTab = (tab) => {
     activeTab.value = tab
+    currentPage.value = 1
+}
+
+const handleSearch = (query) => {
+    searchQuery.value = query
 }
 
 onMounted(async () => {
@@ -37,14 +58,5 @@ const getAllRecruitment = async () => {
     } catch (error) {
         console.error('Error fetching recruitment data:', error)
     }
-}
-const applyFilters = () => {
-    filteredRecruitments.value = listRecruitment.value.filter((recruitment) => {
-        const matchesQuery =
-            searchQuery.value === '' ||
-            (recruitment.tenViTri && recruitment.tenViTri.toLowerCase().includes(searchQuery.value.toLowerCase())) ||
-            (recruitment.moTa && recruitment.moTa.toLowerCase().includes(searchQuery.value.toLowerCase()))
-        return matchesQuery
-    })
 }
 </script>

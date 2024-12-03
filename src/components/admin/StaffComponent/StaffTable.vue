@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <table class="table table-hover align-middle table-responsive">
@@ -14,17 +15,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="listStaff.length === 0" style="text-align: center; font-style: italic">
+                <tr v-if="paginatedStaffs.length === 0" style="text-align: center; font-style: italic">
                     <td colspan="10">Không tìm thấy nhân viên</td>
                 </tr>
                 <tr
-                    v-for="(staff, index) in listStaff"
+                    v-for="(staff, index) in paginatedStaffs"
                     :key="staff.maNhanVien"
-                    @click="$router.push('/admin/staff/' + staff.maNhanVien)"
+                    @dblclick="$router.push('/admin/staff/' + staff.maNhanVien)"
                 >
-                    <td>
-                        {{ index + 1 }}
-                    </td>
+                    <td>{{ (props.currentPage - 1) * props.pageSize + index + 1 }}</td>
                     <td>{{ staff.hoTen }}</td>
                     <td>{{ staff.dienThoai }}</td>
                     <td>{{ staff.email }}</td>
@@ -46,11 +45,82 @@
                 </tr>
             </tbody>
         </table>
+        <div class="pagination d-flex justify-content-center align-items-center">
+            <button
+                class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
+                :disabled="props.currentPage === 1"
+                @click="goToPage(props.currentPage - 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+            </button>
+            <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
+            <button
+                class="btn btn-secondary rounded-0 d-flex align-items-center"
+                :disabled="props.currentPage === totalPages"
+                @click="goToPage(props.currentPage + 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+            </button>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+
+// Props nhận từ parent
 const props = defineProps({
-    listStaff: Array,
+    listStaff: {
+        type: Array,
+        default: () => [],
+    },
+    searchQuery: {
+        type: String,
+        default: '',
+    },
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    pageSize: {
+        type: Number,
+        default: 10,
+    },
+    departmentSelected: {
+        type: Array,
+        default: () => [],
+    },
 })
+const filteredStaffs = computed(() => {
+    console.log(props.departmentSelected)
+    let staffs = props.listStaff
+
+    // Lọc theo từ khóa
+    if (props.searchQuery) {
+        staffs = staffs.filter((staff) => staff.hoTen.toLowerCase().includes(props.searchQuery.toLowerCase()))
+    }
+
+    // Lọc theo phòng ban
+    if (props.departmentSelected.length > 0) {
+        staffs = staffs.filter((staff) => props.departmentSelected.includes(staff.maPhongBan))
+    }
+
+    return staffs
+})
+
+const paginatedStaffs = computed(() => {
+    const start = (props.currentPage - 1) * props.pageSize
+    const end = start + props.pageSize
+    return filteredStaffs.value.slice(start, end)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(filteredStaffs.value.length / props.pageSize)
+})
+
+const emit = defineEmits(['updatePage'])
+
+const goToPage = (page) => {
+    emit('updatePage', page)
+}
 </script>

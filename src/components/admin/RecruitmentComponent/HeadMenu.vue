@@ -49,14 +49,12 @@
     <div :class="['popup', { show: showPopup }]" tabindex="-1">
         <div class="popup-content modal-dialog">
             <div class="modal-content p-4">
-                <div class="modal-header d-flex justify-content-between align-items-center">
-                    <h2 class="modal-title border-bottom mb-0">Add Recruitment</h2>
-                    <button @click="showPopup = false" class="close-btn" aria-label="Close">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </button>
-                </div>
+                <h2 class="modal-title border-bottom mb-4">Add Recruitment</h2>
                 <div class="modal-body">
                     <AddRecruitment />
+                </div>
+                <div class="modal-footer d-flex justify-content-end align-items-end">
+                    <i @click="showPopup = false" class="text-danger fs-3 fa-solid fa-circle-xmark"></i>
                 </div>
             </div>
         </div>
@@ -75,14 +73,6 @@ const props = defineProps({
     activeTab: {
         type: String,
         required: true,
-    },
-    currentPage: {
-        type: Number,
-        default: 1,
-    },
-    totalPages: {
-        type: Number,
-        default: 1,
     },
 })
 </script>

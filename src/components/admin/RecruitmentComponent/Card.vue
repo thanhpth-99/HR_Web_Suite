@@ -2,9 +2,9 @@
     <div class="p-0">
         <div class="row row-cols-1 row-cols-md-3 g-4 p-0">
             <div
-                v-for="(Recruitment, index) in listRecruitment"
+                v-for="(Recruitment, index) in paginatedRecruitment"
                 :key="Recruitment.viTriTuyenDung || index"
-                @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
+                @dblclick="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
                 style="cursor: pointer"
             >
                 <div class="card h-100 p-0">
@@ -41,13 +41,70 @@
                 </div>
             </div>
         </div>
+        <div class="pagination d-flex justify-content-center align-items-center">
+            <button
+                class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
+                :disabled="props.currentPage === 1"
+                @click="goToPage(props.currentPage - 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+            </button>
+            <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
+            <button
+                class="btn btn-secondary rounded-0 d-flex align-items-center"
+                :disabled="props.currentPage === totalPages"
+                @click="goToPage(props.currentPage + 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+            </button>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
     listRecruitment: Array,
+    searchQuery: {
+        type: String,
+        default: '',
+    },
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    pageSize: {
+        type: Number,
+        default: 10,
+    },
 })
+
+const filteredRecruitment = computed(() => {
+    let recruitments = props.listRecruitment
+    if (props.searchQuery) {
+        recruitments = recruitments.filter((recruitment) =>
+            recruitment.tenViTri.toLowerCase().includes(props.searchQuery.toLowerCase()),
+        )
+    }
+    return recruitments
+})
+
+const paginatedRecruitment = computed(() => {
+    const start = (props.currentPage - 1) * props.pageSize
+    const end = start + props.pageSize
+    return filteredRecruitment.value.slice(start, end)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(filteredRecruitment.value.length / props.pageSize)
+})
+
+const emit = defineEmits(['updatePage'])
+
+const goToPage = (page) => {
+    emit('updatePage', page)
+}
 
 const getStatusClass = (status) => {
     switch (status) {

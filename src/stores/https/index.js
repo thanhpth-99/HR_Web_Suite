@@ -2,13 +2,13 @@ import axios from 'axios'
 import { useAuthStore } from '../auth'
 import router from '@/router'
 
-const url = [{ dev: 'https://vanguardhrm.io.vn' }, { prod: '' }, { test: '' }]
+const url = [{ dev: 'http://localhost:1688' }, { prod: 'https://vanguardhrm.io.vn' }, { test: '' }]
 
 const env = [{ 1: 'dev' }, { 2: 'prod' }, { 3: 'test' }]
 const environment = 1
 
 const https = axios.create({
-    baseURL: 'https://vanguardhrm.io.vn',
+    baseURL: 'http://localhost:1688',
     timeout: 20000
 })
 
