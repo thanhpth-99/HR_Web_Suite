@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
         <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" @search="handleSearch" />
-        <div class="row">
+        <div class="row" style="overflow-x: auto">
             <div>
                 <Card
                     v-if="activeTab === 'card'"

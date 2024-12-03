@@ -21,7 +21,7 @@
                 <button @click="setInfo(4)" class="tab-button" :class="{ active: ungVien.trangThai === 4 }">
                     Đạt yêu cầu
                 </button>
-                <button @click="setInfo(5)" class="btn btn-danger" :class="{ active: ungVien.trangThai === 5 }">
+                <button @click="setInfo(5)" class="tab-button" :class="{ active: ungVien.trangThai === 5 }">
                     Từ chối
                 </button>
             </div>

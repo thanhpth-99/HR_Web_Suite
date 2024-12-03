@@ -92,7 +92,6 @@ const props = defineProps({
     },
 })
 const filteredStaffs = computed(() => {
-    console.log(props.departmentSelected)
     let staffs = props.listStaff
 
     // Lọc theo từ khóa
