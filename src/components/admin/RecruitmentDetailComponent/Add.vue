@@ -2,26 +2,61 @@
     <div class="p-4 border-0 border-bottom border-secondary-subtle">
         <div class="head-menu col-12 d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <button @click="saveUngVien()" type="submit" class="btn btn-success w-100 fw-bold me-2"
-                    :disabled="loading" :class="{ loading: loading }">
-                    <span v-if="loading" class="spinner-border me-2 spinner-border-sm" role="status"
-                        aria-hidden="true"></span>
+                <button
+                    @click="saveUngVien()"
+                    type="submit"
+                    class="btn btn-success w-100 fw-bold me-2"
+                    :disabled="loading"
+                    :class="{ loading: loading }"
+                >
+                    <span
+                        v-if="loading"
+                        class="spinner-border me-2 spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                     <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
                 </button>
                 <h5 class="mb-0 me-2">Candidate</h5>
             </div>
             <div class="tab-container ms-auto">
-                <button class="tab-button" :class="{ active: ungVien.trangThai === 1 }">Chờ duyệt</button>
-                <button @click="setInfo(2)" class="tab-button" :class="{ active: ungVien.trangThai === 2 }">
+                <button
+                    class="tab-button"
+                    :class="{ active: ungVien.trangThai === 1 }"
+                    :disabled="ungVien.trangThai === 1"
+                >
+                    Chờ duyệt
+                </button>
+                <button
+                    @click="saveUngVien(2)"
+                    class="tab-button"
+                    :class="{ active: ungVien.trangThai === 2 }"
+                    :disabled="ungVien.trangThai === 2"
+                >
                     Phỏng vấn lần 1
                 </button>
-                <button @click="setInfo(3)" class="tab-button" :class="{ active: ungVien.trangThai === 3 }">
+                <button
+                    @click="saveUngVien(3)"
+                    class="tab-button"
+                    :class="{ active: ungVien.trangThai === 3 }"
+                    :disabled="ungVien.trangThai === 3"
+                >
                     Phỏng vấn lần 2
                 </button>
-                <button @click="setInfo(4)" class="tab-button" :class="{ active: ungVien.trangThai === 4 }">
+                <button
+                    @click="saveUngVien(4)"
+                    class="tab-button"
+                    :class="{ active: ungVien.trangThai === 4 }"
+                    :disabled="ungVien.trangThai === 4"
+                >
                     Đạt yêu cầu
                 </button>
-                <button @click="setInfo(5)" class="tab-button" :class="{ active: ungVien.trangThai === 5 }">
+                <button
+                    @click="saveUngVien(5)"
+                    class="tab-button"
+                    :class="{ active: ungVien.trangThai === 5 }"
+                    :disabled="ungVien.trangThai === 5"
+                >
                     Từ chối
                 </button>
             </div>
@@ -93,28 +128,44 @@
                 <label for="gioiTinh" class="col-sm-4 col-form-label">Giới tính</label>
                 <div class="col-sm-8">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" v-model="ungVien.gioiTinh" type="radio" name="gioiTinh" id="nam"
-                            :value="true" />
+                        <input
+                            class="form-check-input"
+                            v-model="ungVien.gioiTinh"
+                            type="radio"
+                            name="gioiTinh"
+                            id="nam"
+                            :value="true"
+                        />
                         <label class="form-check-label" for="nam">Nam</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input v-model="ungVien.gioiTinh" class="form-check-input" type="radio" name="gioiTinh" id="nu"
-                            :value="false" />
+                        <input
+                            v-model="ungVien.gioiTinh"
+                            class="form-check-input"
+                            type="radio"
+                            name="gioiTinh"
+                            id="nu"
+                            :value="false"
+                        />
                         <label class="form-check-label" for="nu">Nữ</label>
                     </div>
                 </div>
             </div>
-                <div class="row mb-3">
-                    <label for="position" class="col-sm-4 col-form-label">Vị trí tuyển dụng</label>
-                    <div class="col-sm-8">
-                        <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
-                            <option value="">Chọn vị trí tuyển dụng</option>
-                            <option v-for="viTri in listTuyenDung" :key="viTri.maViTriTuyenDung" :value="viTri.maViTriTuyenDung">
-                                {{ viTri.tenViTri }}
-                            </option>
-                        </select>
-                    </div>
+            <div class="row mb-3">
+                <label for="position" class="col-sm-4 col-form-label">Vị trí tuyển dụng</label>
+                <div class="col-sm-8">
+                    <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
+                        <option value="">Chọn vị trí tuyển dụng</option>
+                        <option
+                            v-for="viTri in listTuyenDung"
+                            :key="viTri.maViTriTuyenDung"
+                            :value="viTri.maViTriTuyenDung"
+                        >
+                            {{ viTri.tenViTri }}
+                        </option>
+                    </select>
                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -141,16 +192,10 @@ const info = reactive({
 })
 const listTuyenDung = ref([])
 
-const setInfo = async (trangThai) => {
+const saveUngVien = async (trangThai) => {
+    const oldTrangThai = ungVien.value.trangThai
     try {
         ungVien.value.trangThai = trangThai
-        saveUngVien()
-    } catch (error) {
-        console.error('Lỗi khi gọi API:', error)
-    }
-}
-const saveUngVien = async () => {
-    try {
         const response = await post('/api/v1/ung-vien', ungVien.value)
         if (response) {
             Swal.fire({
@@ -159,26 +204,29 @@ const saveUngVien = async () => {
                 icon: 'success',
                 timer: 1500,
             })
-            if (ungVien.value.trangThai == 5) {
+            if (ungVien.value.trangThai === 5) {
                 router.go(-1)
                 return
             }
         }
     } catch (error) {
+        const errorMessage = error.response?.data?.message || 'Cập nhật phê duyệt thất bại'
+        ungVien.value.trangThai = oldTrangThai
         Swal.fire({
             title: 'Thất bại',
-            text: 'Cập nhật phê duyệt thất bại',
+            text: errorMessage,
             icon: 'error',
             timer: 1500,
         })
-        console.error(error)
+        console.error('Error in saveUngVien:', error)
     }
 }
-onMounted(() => {
+
+onMounted(async () => {
     maUngVien.value = router.currentRoute.value.params.id
     if (maUngVien.value) {
         ungVien.maUngVien = maUngVien.value
-        getInfoByMaUngVien(ungVien.maUngVien)
+        await getInfoByMaUngVien(ungVien.maUngVien)
     }
 })
 const getInfoByMaUngVien = async (maUngVien) => {

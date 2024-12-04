@@ -30,16 +30,6 @@ const featureAdmin = [
         text: 'home.menu_item_admin.approve',
     },
     {
-        path: '/admin/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item_admin.activitive',
-    },
-    {
-        path: '/admin/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item_admin.position',
-    },
-    {
         path: '/admin/payroll',
         icon: 'fa-dollar-sign',
         text: 'home.menu_item_admin.payroll',
@@ -54,32 +44,12 @@ const featureAdmin = [
         icon: 'fa fa-users',
         text: 'home.menu_item_admin.recruitment',
     },
-    {
-        path: '/admin/site',
-        icon: 'fa-map-marker-alt',
-        text: 'home.menu_item_admin.site',
-    },
-    {
-        path: '/admin/document',
-        icon: 'fa-file-alt',
-        text: 'home.menu_item_admin.documentation',
-    },
 ]
 const featureManager = [
     {
         path: '/manager/staff',
         icon: 'fa-user',
         text: 'Thông tin cá nhân',
-    },
-    {
-        path: '/manager/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item.activity',
-    },
-    {
-        path: '/manager/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item.position',
     },
 ]
 const featureUser = [

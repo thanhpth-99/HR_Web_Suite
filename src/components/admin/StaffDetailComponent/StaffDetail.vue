@@ -103,6 +103,7 @@ const getStaffById = async () => {
     try {
         const response = await get(`/api/v1/employees/${id}`)
         staff.value = response.data
+        console.log(staff.value)
     } catch (error) {
         console.error(error)
     }
