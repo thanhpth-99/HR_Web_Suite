@@ -54,7 +54,10 @@ onMounted(async () => {
 const getAllRecruitment = async () => {
     try {
         const response = await get('/api/v1/vi-tri-tuyen-dung')
-        listRecruitment.value = response.data || []
+        listRecruitment.value = (response.data || []).map((item) => ({
+            ...item,
+            isFull: item.soLuongUngTuyen >= item.soLuongTuyen, // Đánh dấu "đã đầy" nếu số lượng ứng tuyển >= số lượng cần tuyển
+        }))
     } catch (error) {
         console.error('Error fetching recruitment data:', error)
     }

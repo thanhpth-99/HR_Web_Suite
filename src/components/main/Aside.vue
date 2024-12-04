@@ -44,6 +44,21 @@ const featureAdmin = [
         icon: 'fa fa-users',
         text: 'home.menu_item_admin.recruitment',
     },
+    {
+        path: '/admin/contract',
+        icon: 'fa fa-file-contract',
+        text: 'home.menu_item_admin.contract',
+    },
+    {
+        path: '/admin/site',
+        icon: 'fa-map-marker-alt',
+        text: 'home.menu_item_admin.site',
+    },
+    {
+        path: '/admin/document',
+        icon: 'fa-file-alt',
+        text: 'home.menu_item_admin.documentation',
+    },
 ]
 const featureManager = [
     {

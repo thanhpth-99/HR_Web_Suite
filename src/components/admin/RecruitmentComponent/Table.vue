@@ -26,7 +26,12 @@
                     <td>{{ Recruitment.soLuongTuyen }}</td>
                     <td>{{ Recruitment.soLuongUngTuyen }}</td>
                     <td>
-                        <span class="material-symbols-outlined"> radio_button_checked </span>
+                        <span v-if="Recruitment.soLuongUngTuyen >= Recruitment.soLuongTuyen" class="text-danger">
+                            Đã đầy
+                        </span>
+                        <span v-else class="text-success">
+                            Còn chỗ
+                        </span>
                     </td>
                     <td>{{ Recruitment.moTa }}</td>
                     <td>{{ Recruitment.yeuCau }}</td>
