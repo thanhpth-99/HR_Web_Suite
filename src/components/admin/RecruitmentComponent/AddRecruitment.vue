@@ -95,6 +95,8 @@ const saveRecruitment = async () => {
                 text: 'Thêm vị trí tuyển dụng thành công',
                 icon: 'success',
                 timer: 1500,
+            }).then(() => {
+                window.location.reload()
             })
         }
     } catch (error) {
