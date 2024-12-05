@@ -1,7 +1,7 @@
 <template>
-    <HeadMenu/>
+    <HeadMenu />
     <div class="container-fluid p-0">
-        <ContractDetailForm :Contract="Contract"  />
+        <ContractDetailForm :Contract="Contract" />
     </div>
 </template>
 
@@ -14,7 +14,6 @@ import ContractDetailForm from './ContractDetailForm.vue'
 const Contract = ref({})
 
 onMounted(() => {
-console.log(router.currentRoute.value.params.id)
     const param = router.currentRoute.value.params.id
     if (param) {
         Contract.soHopDong = param
@@ -22,9 +21,9 @@ console.log(router.currentRoute.value.params.id)
     }
 })
 
-const getInfoBysoHopDong = async (soHopDong) => {
+const getInfoBysoHopDong = async (id) => {
     try {
-        const response = await get('/api/v1/hop-dong/search', { soHopDong })
+        const response = await get('/api/v1/contracts/id', { id })
         if (response && response.data) {
             Contract.value = response.data
         }

@@ -111,7 +111,7 @@ onMounted(() => {
                     <span class="slogan text-white">HRM - Final project</span>
                 </div>
             </div>
-            <i class="fa-solid fa-arrow-left toggle" @click="btnControlSidebar_Click"></i>
+            <i class="fa-solid fa-arrow-left toggle" :class="{ 'fa-rotate-180': !isShow }" @click="btnControlSidebar_Click"></i>
         </header>
         <main>
             <div class="menu">
@@ -280,5 +280,14 @@ aside.close main .menu ul li .router-link-active {
 
 aside.close main .menu ul li .router-link-active::before {
     width: 0rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-text {
+        display: none;
+    }
+    aside {
+        width: 85px;
+    }
 }
 </style>

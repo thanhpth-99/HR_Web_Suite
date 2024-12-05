@@ -73,7 +73,6 @@
                             id="phongBanSelect"
                             v-model="props.staff.maPhongBan"
                             :class="{ 'is-invalid': error.maPhongBan }"
-                            @change="setTruongPhongByMaPhongBan(props.staff.maPhongBan)"
                             class="form-select"
                         >
                             <option value="">Chọn phòng ban</option>
@@ -106,17 +105,21 @@
                         <div class="invalid-feedback" v-if="error.maChucVu">Chức vụ không được để trống</div>
                     </div>
                 </div>
-                <!-- Manager -->
                 <div class="row mb-3">
-                    <label for="manager" class="col-sm-4 col-form-label">Quản lý</label>
+                    <label for="quanLySelect" class="col-sm-4 col-form-label">Quản lý</label>
                     <div class="col-sm-8">
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="props.staff.tenTruongPhong"
-                            id="manager"
-                            readonly
-                        />
+                        <select
+                            id="quanLySelect"
+                            v-model="props.staff.quanLy"
+                            :class="{ 'is-invalid': error.quanLy }"
+                            class="slim-select"
+                        >
+                            <option value="">Chọn Quản lý</option>
+                            <option v-for="quanLy in listStaff" :key="quanLy.maNhanVien" :value="quanLy.maNhanVien">
+                                {{ quanLy.hoTen }}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback" v-if="error.maChucVu">Chức vụ không được để trống</div>
                     </div>
                 </div>
             </div>
@@ -127,27 +130,33 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { get } from '@/stores/https'
-
+import SlimSelect from 'slim-select'
 const listPhongBan = ref([])
 const listViTri = ref([])
-
+const listStaff = ref([])
+const slimSelectInstance = ref('')
 const props = defineProps({
     staff: Object,
-    error: Object
+    error: Object,
 })
 
 onMounted(async () => {
+    await getAllStaff()
     await getAllPhongBan()
     await getAllViTri()
+    await createSlimSelect()
 })
 
-const setTruongPhongByMaPhongBan = (maPhongBan) => {
-    const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
-    if (selectedObject) {
-        props.staff.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
-    } else {
-        props.staff.tenTruongPhong = ''
-    }
+const createSlimSelect = () => {
+    slimSelectInstance.value = new SlimSelect({
+        select: '#quanLySelect',
+        closeOnSelect: false,
+    })
+}
+
+const getAllStaff = async () => {
+    const response = await get('/api/v1/employees')
+    listStaff.value = response.data.filter((staff) => staff.maNhanVien !== props.staff.maNhanVien)
 }
 
 const getAllPhongBan = async () => {
@@ -156,7 +165,11 @@ const getAllPhongBan = async () => {
 }
 
 const getAllViTri = async () => {
-    const response = await get('/api/v1/chuc-vu')
+    const response = await get('/api/v1/positions')
     listViTri.value = response.data
 }
 </script>
+
+<style scope>
+@import url('https://cdn.jsdelivr.net/npm/slim-select@latest/dist/slimselect.min.css');
+</style>

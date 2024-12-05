@@ -162,7 +162,6 @@
                 <div class="col-sm-8">
                     <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
                         <option value="">Chọn vị trí tuyển dụng</option>
-<<<<<<< HEAD
                         <option
                             v-for="viTri in listTuyenDung"
                             :key="viTri.maViTriTuyenDung"
@@ -171,14 +170,7 @@
                             {{ viTri.tenViTri }}
                         </option>
                     </select>
-=======
-                        <option v-for="viTri in listTuyenDung" :key="viTri.maViTriTuyenDung"
-                            :value="viTri.maViTriTuyenDung">
-                            {{ viTri.tenViTri }}
-                        </option>
-                    </select>
                     <span class="text-danger" v-if="error.maViTriTuyenDung">{{ error.maViTriTuyenDung }}</span>
->>>>>>> a5f016b3e3fe0d2a7cb6238669300e9bf3e08765
                 </div>
             </div>
         </div>
@@ -211,28 +203,7 @@ const saveUngVien = async (trangThai) => {
     const oldTrangThai = ungVien.value.trangThai
     try {
         ungVien.value.trangThai = trangThai
-<<<<<<< HEAD
-=======
-        saveUngVien()
-    } catch (error) {
-        console.error('Lỗi khi gọi API:', error)
-    }
-}
-const saveUngVien = async () => {
-    if (!validateUngVien()) {
-        Swal.fire({
-            title: 'Lỗi',
-            text: 'Vui lòng kiểm tra lại thông tin nhập vào.',
-            icon: 'error',
-            timer: 1500,
-        })
-        return
-    }
-
-    loading.value = true
-    try {
->>>>>>> a5f016b3e3fe0d2a7cb6238669300e9bf3e08765
-        const response = await post('/api/v1/ung-vien', ungVien.value)
+        const response = await post('/api/v1/candidates', ungVien.value)
         if (response) {
             Swal.fire({
                 title: 'Thành công',
@@ -249,20 +220,11 @@ const saveUngVien = async () => {
         ungVien.value.trangThai = oldTrangThai
         Swal.fire({
             title: 'Thất bại',
-<<<<<<< HEAD
             text: errorMessage,
             icon: 'error',
             timer: 1500,
         })
         console.error('Error in saveUngVien:', error)
-=======
-            text: 'Cập nhật thông tin ứng viên thất bại.',
-            icon: 'error',
-            timer: 1500,
-        })
-    } finally {
-        loading.value = false
->>>>>>> a5f016b3e3fe0d2a7cb6238669300e9bf3e08765
     }
 }
 
@@ -275,7 +237,7 @@ onMounted(async () => {
 })
 const getInfoByMaUngVien = async (maUngVien) => {
     try {
-        const response = await get('/api/v1/ung-vien/search', { maUngVien })
+        const response = await get('/api/v1/candidates/id', { maUngVien })
         if (response && response.data) {
             ungVien.value = response.data
             ungVien.value.gioiTinh = response.data.gioiTinh === true
@@ -291,7 +253,7 @@ const getInfoByMaUngVien = async (maUngVien) => {
     }
 }
 const getAllViTri = async () => {
-    const response = await get('/api/v1/vi-tri-tuyen-dung')
+    const response = await get('/api/v1/recruitment-positions')
     listTuyenDung.value = response.data
 }
 
@@ -311,20 +273,20 @@ const error = reactive({
 const validateUngVien = () => {
     const validationRules = {
         hoTen: { required: true, message: 'Họ và tên không được để trống.' },
-        dienThoai: { 
-            required: true, 
-            pattern: /^[0-9]{10}$/, 
-            message: 'Số điện thoại phải gồm 10 chữ số.' 
+        dienThoai: {
+            required: true,
+            pattern: /^[0-9]{10}$/,
+            message: 'Số điện thoại phải gồm 10 chữ số.',
         },
-        email: { 
-            required: true, 
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
-            message: 'Email không đúng định dạng.' 
+        email: {
+            required: true,
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: 'Email không đúng định dạng.',
         },
-        cccd: { 
-            required: true, 
-            pattern: /^[0-9]{12}$/, 
-            message: 'CCCD phải đủ 12 số.' 
+        cccd: {
+            required: true,
+            pattern: /^[0-9]{12}$/,
+            message: 'CCCD phải đủ 12 số.',
         },
         diaChi: { required: true, message: 'Địa chỉ không được để trống.' },
         ngaySinh: { required: true, message: 'Ngày sinh không được để trống.' },
@@ -349,7 +311,6 @@ const validateUngVien = () => {
 
     return isValid
 }
-
 </script>
 
 <style scoped>

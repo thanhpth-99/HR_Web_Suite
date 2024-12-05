@@ -95,7 +95,7 @@ const renderChart = () => {
     const updateQuanLy = async (maNhanVien, maQuanLy) => {
         nhanVien.maNhanVien = maNhanVien
         nhanVien.quanLy = maQuanLy
-        const response = await put('/api/v1/employees/updateQuanLy', nhanVien)
+        const response = await put('/api/v1/employees/manager', nhanVien)
     }
 }
 </script>

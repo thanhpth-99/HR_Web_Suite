@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-hover align-middle table-responsive text-center">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
             <thead class="table-light">
                 <tr class="text-center">
                     <th scope="col">STT</th>
@@ -55,23 +55,23 @@
                 </tr>
             </tbody>
         </table>
-        <div class="pagination d-flex justify-content-center align-items-center">
-            <button
-                class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
-                :disabled="props.currentPage === 1"
-                @click="goToPage(props.currentPage - 1)"
-            >
-                <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
-            </button>
-            <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
-            <button
-                class="btn btn-secondary rounded-0 d-flex align-items-center"
-                :disabled="props.currentPage === totalPages"
-                @click="goToPage(props.currentPage + 1)"
-            >
-                <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
-            </button>
-        </div>
+    </div>
+    <div class="pagination d-flex justify-content-center align-items-center">
+        <button
+            class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
+            :disabled="props.currentPage === 1"
+            @click="goToPage(props.currentPage - 1)"
+        >
+            <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+        </button>
+        <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
+        <button
+            class="btn btn-secondary rounded-0 d-flex align-items-center"
+            :disabled="props.currentPage === totalPages"
+            @click="goToPage(props.currentPage + 1)"
+        >
+            <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+        </button>
     </div>
 </template>
 

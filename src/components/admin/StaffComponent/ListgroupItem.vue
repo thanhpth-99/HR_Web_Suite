@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import SlimSelect from 'slim-select'
 
 const slimSelectInstance = ref('')

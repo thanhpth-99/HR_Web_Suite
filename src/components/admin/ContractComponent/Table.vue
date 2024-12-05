@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-hover align-middle table-responsive">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
             <thead class="table-light">
                 <tr class="text-center">
                     <th scope="col">STT</th>
@@ -18,7 +18,7 @@
                     style="cursor: pointer"
                 >
                     <td>{{ index + 1 }}</td>
-                    <td>{{ getTenNhanVien(Contract.maNhanVien)}}</td>
+                    <td>{{ getTenNhanVien(Contract.maNhanVien) }}</td>
                     <td>{{ Contract.noiDung }}</td>
                     <td>{{ Contract.ngayBatDau }}</td>
                     <td>{{ Contract.ngayKetThuc }}</td>
@@ -29,26 +29,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { get } from '@/stores/https';
-const listNhanVien = ref([]);
+import { ref, onMounted } from 'vue'
+import { get } from '@/stores/https'
+const listNhanVien = ref([])
 const props = defineProps({
     listContract: Array,
 })
 const getNhanVien = async () => {
     try {
-        const response = await get('/api/v1/employees'); // URL API danh sách nhân viên
-        listNhanVien.value = response.data;
+        const response = await get('/api/v1/employees') // URL API danh sách nhân viên
+        listNhanVien.value = response.data
     } catch (error) {
-        console.error('Lỗi khi fetch danh sách nhân viên:', error);
+        console.error('Lỗi khi fetch danh sách nhân viên:', error)
     }
-};
+}
 
 onMounted(async () => {
-    await getNhanVien();
-});
+    await getNhanVien()
+})
 const getTenNhanVien = (maNhanVien) => {
-    const nhanVien = listNhanVien.value.find((nv) => nv.maNhanVien === maNhanVien);
-    return nhanVien ? nhanVien.hoTen : 'Không xác định'; // Trả về tên hoặc giá trị mặc định
-};
+    const nhanVien = listNhanVien.value.find((nv) => nv.maNhanVien === maNhanVien)
+    return nhanVien ? nhanVien.hoTen : 'Không xác định' // Trả về tên hoặc giá trị mặc định
+}
 </script>

@@ -1,7 +1,7 @@
 
 <template>
-    <div>
-        <table class="table table-hover align-middle table-responsive">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
             <thead class="table-light">
                 <tr>
                     <th scope="col">STT</th>
@@ -39,36 +39,35 @@
                     <td>{{ staff.tenChucVu }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">{{ staff.tenTruongPhong }}</p>
+                            <p class="mb-0">{{ staff.tenQuanLy }}</p>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="pagination d-flex justify-content-center align-items-center">
-            <button
-                class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
-                :disabled="props.currentPage === 1"
-                @click="goToPage(props.currentPage - 1)"
-            >
-                <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
-            </button>
-            <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
-            <button
-                class="btn btn-secondary rounded-0 d-flex align-items-center"
-                :disabled="props.currentPage === totalPages"
-                @click="goToPage(props.currentPage + 1)"
-            >
-                <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
-            </button>
-        </div>
+    </div>
+    <div class="pagination d-flex justify-content-center align-items-center">
+        <button
+            class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
+            :disabled="props.currentPage === 1"
+            @click="goToPage(props.currentPage - 1)"
+        >
+            <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+        </button>
+        <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
+        <button
+            class="btn btn-secondary rounded-0 d-flex align-items-center"
+            :disabled="props.currentPage === totalPages"
+            @click="goToPage(props.currentPage + 1)"
+        >
+            <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+        </button>
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 
-// Props nhận từ parent
 const props = defineProps({
     listStaff: {
         type: Array,

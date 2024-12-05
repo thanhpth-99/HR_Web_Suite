@@ -27,7 +27,7 @@ const activeTab = ref('infomation')
 const loading = ref(false)
 const { validateForm } = useValidation()
 const candidate = ref({})
-const maNhanVien = ref('')
+const maNhanVien = router.currentRoute.value.params.id
 const error = reactive({
     hoTen: '',
     dienThoai: '',
@@ -37,12 +37,20 @@ const error = reactive({
 })
 
 onMounted(async () => {
-    maNhanVien.value = router.currentRoute.value.params.id
-    if (maNhanVien.value) {
-        await getStaffById()
-    } else {
-        candidate.value = JSON.parse(sessionStorage.getItem('selectedCandidate'))
-        mapToNhanVien(candidate.value)
+    try {
+        if (maNhanVien) {
+            await getStaffById()
+        } else {
+            const selectedCandidate = sessionStorage.getItem('selectedCandidate')
+            if (selectedCandidate) {
+                candidate.value = JSON.parse(selectedCandidate)
+                mapToNhanVien(candidate.value)
+            } else {
+                console.warn('No selected candidate found in session storage.')
+            }
+        }
+    } catch (error) {
+        console.error('Error in onMounted:', error)
     }
 })
 
@@ -90,8 +98,8 @@ const staffInfo = reactive({
     hinhAnh: '',
     email: '',
     maPhongBan: '',
-    maBoPhan: 'PB01',
     maChucVu: '',
+    quanLy: '',
 })
 
 const setActiveTab = (tab) => {
@@ -99,14 +107,14 @@ const setActiveTab = (tab) => {
 }
 
 const getStaffById = async () => {
-    const id = maNhanVien.value
+    const id = maNhanVien
     try {
         const response = await get(`/api/v1/employees/${id}`)
         staff.value = response.data
-        console.log(staff.value)
     } catch (error) {
         console.error(error)
     }
+    console.log(staff.value)
 }
 
 const saveStaff = async () => {
@@ -117,7 +125,6 @@ const saveStaff = async () => {
             icon: 'error',
             timer: 1500,
         })
-        console.log(staffInfo)
         return
     }
 
@@ -133,10 +140,14 @@ const saveStaff = async () => {
                 timer: 1500,
             })
         }
+        if(!staffInfo.maNhanVien) {
+            router.push('/admin/contract/addcontract')
+        }
     } catch (error) {
+        const errorMessage = error.response?.data?.message || 'Save nhân viên thất bại'
         Swal.fire({
             title: 'Save staff',
-            text: 'Failed to save staff',
+            text: errorMessage,
             icon: 'error',
             timer: 1500,
         })
@@ -156,7 +167,7 @@ const setStaffInfo = () => {
     staffInfo.hinhAnh = staff.value.hinhAnh
     staffInfo.email = staff.value.email
     staffInfo.maPhongBan = staff.value.maPhongBan
-    staffInfo.maBoPhan = 'BP01'
     staffInfo.maChucVu = staff.value.maChucVu
+    staffInfo.quanLy = staff.value.quanLy
 }
 </script>

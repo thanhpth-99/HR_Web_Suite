@@ -21,7 +21,7 @@ const route = useRoute() // Sử dụng composable của Vue Router để truy c
 const fetchCandidates = async (positionName) => {
     try {
         loading.value = true
-        const response = await get(`/api/v1/ung-vien?tenViTri=${positionName}`)
+        const response = await get(`/api/v1/candidates?tenViTri=${positionName}`)
         candidates.value = response.data
     } catch (error) {
         console.error('Error fetching candidates:', error)

@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
-        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab"/>
+        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" />
         <div class="row">
             <div>
                 <Card v-if="activeTab === 'card'" :listContract="listContract" />
@@ -32,7 +32,7 @@ onMounted(async () => {
 
 const getAllContract = async () => {
     try {
-        const response = await get('/api/v1/hop-dong')
+        const response = await get('/api/v1/contracts')
         listContract.value = response.data || []
     } catch (error) {
         console.error('Error fetching contract data:', error)

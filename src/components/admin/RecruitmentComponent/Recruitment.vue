@@ -53,7 +53,7 @@ onMounted(async () => {
 
 const getAllRecruitment = async () => {
     try {
-        const response = await get('/api/v1/vi-tri-tuyen-dung')
+        const response = await get('/api/v1/recruitment-positions')
         listRecruitment.value = (response.data || []).map((item) => ({
             ...item,
             isFull: item.soLuongUngTuyen >= item.soLuongTuyen, // Đánh dấu "đã đầy" nếu số lượng ứng tuyển >= số lượng cần tuyển
