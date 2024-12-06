@@ -3,20 +3,10 @@
         <div class="head-menu col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <button
-                        type="submit"
-                        class="btn btn-secondary w-100 fw-bold me-2"
-                        :disabled="loading"
-                        :class="{ loading: loading }"
-                        @click="$emit('setTrangThaiApprove', approveDetail.maDon, 1, props.approveDetail.ghiChu)"
-                    >
-                        <span
-                            v-if="loading"
-                            class="spinner-border me-2 spinner-border-sm"
-                            role="status"
-                            aria-hidden="true"
-                        ></span>
-                        <span v-if="!loading"><i class="fa-solid fa-rotate me-2"></i></span>Rút lại
+                    <button class="btn btn-primary me-2" @click="$router.go(-1)">
+                        <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined"> undo</span> Quay lại
+                        </div>
                     </button>
                 </div>
                 <div>
@@ -43,7 +33,6 @@ const props = defineProps({
     loading: Boolean,
     approveDetail: Object,
 })
-
 </script>
 
 <style scoped>

@@ -2,15 +2,15 @@
     <div class="p-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div
-                v-for="staff in listStaff"
+                v-for="staff in paginatedStaffs"
                 :key="staff.maNhanVien"
                 class="col"
-                @click="$router.push('/admin/staff/' + staff.maNhanVien)"
+                @dblclick="$router.push('/admin/staff/' + staff.maNhanVien)"
             >
                 <div class="card h-100">
                     <div class="card-body d-flex p-0">
                         <div class="employee-avatar">
-                            <img v-if="!staff.hinhAnh" :src="staff.hinhAnh" :alt="staff.hoTen" class="img-fluid" />
+                            <img v-if="staff.hinhAnh" :src="staff.hinhAnh" :alt="staff.hoTen" class="img-fluid" />
                             <div v-else>
                                 <img
                                     src="https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-2048x1949-pq9uiebg.png"
@@ -30,28 +30,74 @@
                             <p v-if="staff.dienThoai" class="card-text">
                                 <i class="bi bi-telephone"></i> {{ staff.dienThoai }}
                             </p>
-                            <div v-if="staff.maPhongBan && staff.maPhongBan.length" class="mt-2">
-                                <!-- <span
-                                                                    v-for="skill in employee.skills"
-                                                                    :key="skill"
-                                                                    class="badge me-1"
-                                                                    :class="getSkillClass(skill)"
-                                                                    >{{ skill }}</span> -->
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Phân Trang -->
+        <div class="pagination d-flex justify-content-center align-items-center mt-3">
+            <button
+                class="btn btn-secondary rounded-0 mx-1"
+                :disabled="currentPage === 1"
+                @click="goToPage(currentPage - 1)"
+            >
+                <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+            </button>
+            <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+            <button
+                class="btn btn-secondary rounded-0 mx-1"
+                :disabled="currentPage === totalPages"
+                @click="goToPage(currentPage + 1)"
+            >
+                <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+            </button>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
     listStaff: {
         type: Array,
+        required: true,
+    },
+    searchQuery: {
+        type: String,
+        default: '',
+    },
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    pageSize: {
+        type: Number,
+        default: 10,
     },
 })
+
+const filteredStaffs = computed(() => {
+    if (!props.searchQuery) return props.listStaff
+    return props.listStaff.filter((staff) => staff.hoTen.toLowerCase().includes(props.searchQuery.toLowerCase()))
+})
+
+const paginatedStaffs = computed(() => {
+    const start = (props.currentPage - 1) * props.pageSize
+    const end = start + props.pageSize
+    return filteredStaffs.value.slice(start, end)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(filteredStaffs.value.length / props.pageSize)
+})
+
+const emit = defineEmits(['updatePage'])
+const goToPage = (page) => {
+    emit('updatePage', page)
+}
 </script>
 
 <style scoped>

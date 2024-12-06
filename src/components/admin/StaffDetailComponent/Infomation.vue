@@ -1,9 +1,9 @@
 <template>
     <form>
         <div class="row">
+            <h5>Thông tin cá nhân</h5>
             <div class="col-md-6">
-                <h5>Thông tin cá nhân</h5>
-                <div class="form-group row mb-3" :class="{ 'is-invalid': error.gioiTinh }">
+                <div class="form-group row mb-3">
                     <label for="gioiTinh" class="col-sm-4 col-form-label">Giới tính</label>
                     <div class="col-sm-8">
                         <div class="form-check form-check-inline">
@@ -28,10 +28,6 @@
                             />
                             <label class="form-check-label" for="nu">Nữ</label>
                         </div>
-                        <!-- Hiển thị thông báo lỗi -->
-                        <div v-if="error.gioiTinh" class="invalid-feedback">
-                            {{ error.gioiTinh }}
-                        </div>
                     </div>
                 </div>
 
@@ -47,17 +43,10 @@
             </div>
 
             <div class="col-md-6">
-                <h5>GIÁO DỤC</h5>
                 <div class="form-group row mb-3">
-                    <label for="educationLevel" class="col-sm-4 col-form-label">Cấp độ chứng chỉ</label>
+                    <label for="educationLevel" class="col-sm-4 col-form-label">Căn cước công dân</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="educationLevel" value="Khác" />
-                    </div>
-                </div>
-                <div class="form-group row mb-3">
-                    <label for="field" class="col-sm-4 col-form-label">Lĩnh vực nghiên cứu</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="field" />
+                        <input type="text" v-model="props.staff.cccd" class="form-control" id="cccd" value="cccd" />
                     </div>
                 </div>
             </div>

@@ -4,60 +4,41 @@
             <div class="d-flex align-items-center">
                 <div class="dropdown">
                     <button
-                        class="btn btn-primary dropdown-toggle"
+                        class="btn btn-primary d-flex align-items-center me-2"
                         type="button"
                         id="drop_save"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        New
+                        {{ $t('staffManagement.buttons.add') }}
+                        <span class="material-symbols-outlined ms-1">keyboard_arrow_down</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="drop_save">
                         <li>
-                            <router-link :to="{ path: '/admin/staff/AddStaff' }" class="dropdown-item">New</router-link>
+                            <router-link :to="{ path: '/admin/staff/AddStaff' }" class="dropdown-item">{{
+                                $t('staffManagement.buttons.add')
+                            }}</router-link>
                         </li>
                         <li>
-                            <!-- <router-link
-                                :to="{ path: '/admin/staff/AddStaffByFileExcel' }"
-                                @click="showPopup = true"
-                                class="dropdown-item"
-                                ></router-link
-                            > -->
-                            <p @click="showPopup = true" class="dropdown-item">Add staff by excel</p>
+                            <span @click="showPopup = true" class="dropdown-item">{{
+                                $t('staffManagement.buttons.addByExcel')
+                            }}</span>
                         </li>
                     </ul>
                 </div>
 
-                <h5 class="mb-0">Employees</h5>
+                <h5 class="mb-0">{{ $t('staffManagement.title') }}</h5>
             </div>
 
             <div class="form-group fs has-search me-2">
-                <span class="material-symbols-outlined form-control-feedback">search</span>
+                <span class="material-symbols-outlined form-control-feedback"> search </span>
                 <input
                     type="search"
                     class="form-control"
                     @input="$emit('search', searchQuery)"
-                    placeholder="Search"
+                    :placeholder="$t('staffManagement.buttons.search')"
                     v-model="searchQuery"
                 />
-            </div>
-
-            <div class="pagination d-flex justify-content-center align-items-center">
-                <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-                <button
-                    class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
-                    :disabled="currentPage === 1"
-                    @click="$emit('prevPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
-                </button>
-                <button
-                    class="btn btn-secondary rounded-0 d-flex align-items-center"
-                    :disabled="currentPage === totalPages"
-                    @click="$emit('nextPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
-                </button>
             </div>
             <div class="pagination d-flex justify-content-center align-items-center">
                 <ul class="nav nav-tabs">
@@ -65,7 +46,7 @@
                         <a
                             class="nav-link"
                             :class="{
-                                'active text-primary': activeTab === 'table',
+                                active: activeTab === 'table',
                                 'text-dark': activeTab !== 'table',
                             }"
                             @click.prevent="$emit('tab-change', 'table')"
@@ -77,7 +58,7 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active text-primary': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
+                            :class="{ active: activeTab === 'card', 'text-dark': activeTab !== 'card' }"
                             @click.prevent="$emit('tab-change', 'card')"
                             href="#"
                         >
@@ -121,6 +102,8 @@
 <script setup>
 import AddStaffByFileExcel from '../AddStaffByFileExcelComponent/AddStaffByFileExcel.vue'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const searchQuery = ref('')
 const showPopup = ref(false)
 
@@ -193,5 +176,36 @@ const props = defineProps({
     top: 10px;
     right: 10px;
     z-index: 1;
+}
+
+.dropdown-menu {
+    min-width: 190px;
+    padding: 8px;
+    border-radius: 1rem;
+    background-color: #fff;
+    border: 1px solid #e4e4e7;
+}
+
+.dropdown-item {
+    font-size: 0.875rem;
+    padding: 8px;
+    border-radius: 0.625rem;
+    transition: all 0.2s ease;
+    color: #000;
+}
+
+.dropdown-item:hover {
+    background-color: #f4f4f5;
+    color: #000;
+}
+
+.dropdown-item:focus {
+    background-color: #f4f4f5;
+    color: #000;
+}
+
+.dropdown-item:active {
+    background-color: #f4f4f5;
+    color: #000;
 }
 </style>

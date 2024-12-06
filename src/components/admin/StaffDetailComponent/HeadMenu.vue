@@ -3,7 +3,14 @@
         <div class="head-menu col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <router-link :to="{ path: '/admin/staff/AddStaff' }" class="btn btn-primary me-2">New</router-link>
+                    <button class="btn btn-primary me-2" @click="$router.go(-1)">
+                        <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined"> undo</span> Quay lại
+                        </div>
+                    </button>
+                    <h5 class="mb-0">Employees</h5>
+                </div>
+                <div class="d-flex align-items-center">
                     <button
                         @click="$emit('saveNhanVien')"
                         type="submit"
@@ -19,7 +26,6 @@
                         ></span>
                         <span v-if="!loading"><i class="fa-solid fa-download me-2"></i></span>Save
                     </button>
-                    <h5 class="mb-0">Employees</h5>
                 </div>
             </div>
         </div>

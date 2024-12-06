@@ -25,9 +25,10 @@ const activeTab = ref('Note')
 const userLogin = ref({})
 const approveDetail = ref({})
 const loading = ref(false)
-const maDon = ref(router.currentRoute.value.params.id)
+const maDon = ref('')
 
 onMounted(async () => {
+    maDon.value = router.currentRoute.value.params.id
     await getUserLogin()
     await getAproveInfoByMaDon(maDon.value)
 })

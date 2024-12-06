@@ -30,16 +30,6 @@ const featureAdmin = [
         text: 'home.menu_item_admin.approve',
     },
     {
-        path: '/admin/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item_admin.activitive',
-    },
-    {
-        path: '/admin/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item_admin.position',
-    },
-    {
         path: '/admin/payroll',
         icon: 'fa-dollar-sign',
         text: 'home.menu_item_admin.payroll',
@@ -50,14 +40,14 @@ const featureAdmin = [
         text: 'home.menu_item_admin.chart',
     },
     {
-        path: '/admin/site',
-        icon: 'fa-map-marker-alt',
-        text: 'home.menu_item_admin.site',
+        path: '/admin/recruitment',
+        icon: 'fa fa-users',
+        text: 'home.menu_item_admin.recruitment',
     },
     {
-        path: '/admin/document',
-        icon: 'fa-file-alt',
-        text: 'home.menu_item_admin.documentation',
+        path: '/admin/contract',
+        icon: 'fa fa-file-contract',
+        text: 'home.menu_item_admin.contract',
     },
 ]
 const featureManager = [
@@ -65,16 +55,6 @@ const featureManager = [
         path: '/manager/staff',
         icon: 'fa-user',
         text: 'Thông tin cá nhân',
-    },
-    {
-        path: '/manager/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item.activity',
-    },
-    {
-        path: '/manager/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item.position',
     },
 ]
 const featureUser = [
@@ -126,7 +106,11 @@ onMounted(() => {
                     <span class="slogan text-white">HRM - Final project</span>
                 </div>
             </div>
-            <i class="fa-solid fa-arrow-left toggle" @click="btnControlSidebar_Click"></i>
+            <i
+                class="fa-solid fa-arrow-left toggle"
+                :class="{ 'fa-rotate-180': !isShow }"
+                @click="btnControlSidebar_Click"
+            ></i>
         </header>
         <main>
             <div class="menu">
@@ -162,7 +146,6 @@ aside {
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
     z-index: 100;
-    border: 1px solid var(--color-border);
 }
 
 aside .text {
@@ -266,7 +249,7 @@ aside main li a:hover {
 }
 
 aside main li a:hover .fa-solid,
-aside main li a:hover .text{
+aside main li a:hover .text {
     color: #1c212d !important;
     font-weight: 600;
 }
@@ -296,5 +279,14 @@ aside.close main .menu ul li .router-link-active {
 
 aside.close main .menu ul li .router-link-active::before {
     width: 0rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-text {
+        display: none;
+    }
+    aside {
+        width: 85px;
+    }
 }
 </style>

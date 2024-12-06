@@ -1,10 +1,15 @@
 <template>
-    <div class="p-4">
+    <div class="mt-3">
         <div class="row row-cols-md-3s g-4">
             <div class="col">
                 <h4>Chờ phê duyệt</h4>
-                <div class="mb-3" v-for="approve in listApprove" :key="approve.maDon">
-                    <div class="card h-100" v-if="approve.trangThai === 1" >
+                <hr />
+                <div class="mb-3" v-for="approve in filteredApprove" :key="approve.maDon">
+                    <div
+                        class="card h-100"
+                        v-if="approve.trangThai === 1"
+                        @dblclick="$router.push(`/admin/approve/${approve.maDon}`)"
+                    >
                         <div class="card-body d-flex p-0">
                             <div class="px-3 py-2 flex-grow-1 p-3">
                                 <div class="d-flex justify-content-between align-items-start">
@@ -30,9 +35,6 @@
                                             <i class="fa-regular fa-circle-xmark me-2"></i>Từ chối
                                         </button>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end fs-4">
-                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -42,8 +44,13 @@
 
             <div class="col">
                 <h4>Đã phê duyệt</h4>
-                <div class="mb-3" v-for="approve in listApprove" :key="approve.maDon">
-                    <div class="card h-100" v-if="approve.trangThai === 2">
+                <hr />
+                <div class="mb-3" v-for="approve in filteredApprove" :key="approve.maDon">
+                    <div
+                        class="card h-100"
+                        v-if="approve.trangThai === 2"
+                        @dblclick="$router.push(`/admin/approve/${approve.maDon}`)"
+                    >
                         <div class="card-body d-flex p-0">
                             <div class="px-3 py-2 flex-grow-1 p-3">
                                 <div class="d-flex justify-content-between align-items-start">
@@ -63,19 +70,21 @@
                                             <i class="fa-regular fa-circle-xmark me-2"></i>Từ chối
                                         </button>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end fs-4">
-                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
             <div class="col">
                 <h4>Từ chối</h4>
-                <div class="mb-3" v-for="approve in listApprove" :key="approve.maDon">
-                    <div class="card h-100" v-if="approve.trangThai === 3">
+                <hr />
+                <div class="mb-3" v-for="approve in filteredApprove" :key="approve.maDon">
+                    <div
+                        class="card h-100"
+                        v-if="approve.trangThai === 3"
+                        @dblclick="$router.push(`/admin/approve/${approve.maDon}`)"
+                    >
                         <div class="card-body d-flex p-0">
                             <div class="px-3 py-2 flex-grow-1 p-3">
                                 <div class="d-flex justify-content-between align-items-start">
@@ -95,9 +104,6 @@
                                             <i class="fa-regular fa-circle-check me-2"></i>Xác nhận
                                         </button>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end fs-4">
-                                        <div class=""><span class="badge bg-danger rounded">N</span></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -109,9 +115,23 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
     listApprove: {
         type: Array,
     },
+    searchQuery: {
+        type: String,
+        default: '',
+    },
+})
+
+const filteredApprove = computed(() => {
+    let approves = props.listApprove
+    if (props.searchQuery) {
+        approves = approves.filter((approve) => approve.maDon.toLowerCase().includes(props.searchQuery.toLowerCase()))
+    }
+    return approves
 })
 </script>

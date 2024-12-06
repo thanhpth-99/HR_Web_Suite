@@ -1,21 +1,13 @@
 <template>
     <div>
+        <Aside @toggle-sidebar="handleToggleSidebar" />
         <article>
             <!--  Start Header  -->
             <Header />
             <!--  End Header  -->
             <!--  Start Main  -->
-            <main>
-                <div class="row">
-                    <div class="col-2">
-                        <Aside />
-                    </div>
-                    <div class="col-10">
-                        <div class="me-2">
-                            <StaffDetail />
-                        </div>
-                    </div>
-                </div>
+            <main :class="{ close: !isShow }">
+                <StaffDetail />
             </main>
             <!--  End Main  -->
         </article>
@@ -24,11 +16,33 @@
 </template>
 
 <script setup>
-import StaffDetail from '@/components/admin/StaffDetailComponent/StaffDetail.vue';
-import Header from '@/components/main/Header.vue';
+import StaffDetail from '@/components/admin/StaffDetailComponent/StaffDetail.vue'
+import Header from '@/components/main/Header.vue'
 import Aside from '@/components/main/Aside.vue'
 
+import { ref } from 'vue'
+
+const isShow = ref(true)
+
+const handleToggleSidebar = (show) => {
+    isShow.value = show
+}
 </script>
 
-<style scope>
+<style scoped>
+main {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 18.5%;
+    width: 80%;
+    display: inline-block;
+    transition: var(--tran-04);
+}
+
+main.close {
+    margin-left: 6.5%;
+    width: 92%;
+    display: inline-block;
+    transition: var(--tran-05);
+}
 </style>

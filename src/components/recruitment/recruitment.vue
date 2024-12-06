@@ -222,7 +222,7 @@ const clearForm = () => {
 }
 
 const getAllViTri = async () => {
-    const response = await get('/api/v1/vi-tri-tuyen-dung')
+    const response = await get('/api/v1/recruitment-positions')
     listViTriTuyenDung.value = response.data
 }
 
@@ -237,7 +237,7 @@ const saveUngVien = async () => {
         return
     }
     try {
-        const response = await post('/api/v1/ung-vien', ungVien)
+        const response = await post('/api/v1/ung-candidates', ungVien)
         if (response.success) {
             Swal.fire({
                 title: 'Ứng tuyển',
