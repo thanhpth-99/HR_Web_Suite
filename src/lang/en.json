@@ -76,7 +76,8 @@
             "information": "Profile",
             "checkin": "Timekeeping",
             "timeoff": "Time off",
-            "rewar_discipline": "Rewar/Discipline"
+            "rewar_discipline": "Rewar/Discipline",
+            "payroll": "Payroll"
         }
     },
     "profile": {
@@ -161,5 +162,12 @@
             "to_day": "To day",
             "note": "Note"
         }
+    },
+    "checkin": {
+        "header": {
+            "title": "",
+            "month": "Month"
+        }
+
     }
 }
