@@ -1,8 +1,7 @@
 <template>
     <div class="vh-100 p2 border-0 border-end border-secondary-subtle rounded-0 mx-0 p-1">
         <div class="list-group">
-            <h6 class="mt-3 ms-2 text-uppercase fw-bold"><i class="fas fa-users"></i> Department</h6>
-            <label for="phongBanSelect" class="form-label">Phòng ban</label>
+            <h6 class="mt-3 ms-2 text-uppercase fw-bold"><i class="fas fa-users"></i>{{ $t('staffManagement.items.department') }}</h6>
             <select
                 id="phongBanSelect"
                 v-model="departmentSelected"
@@ -21,7 +20,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import SlimSelect from 'slim-select'
-
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const slimSelectInstance = ref('')
 const departmentSelected = ref([])
 

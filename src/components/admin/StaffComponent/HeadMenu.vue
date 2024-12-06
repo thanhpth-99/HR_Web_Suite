@@ -10,28 +10,33 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        New <span class="material-symbols-outlined ms-1">keyboard_arrow_down</span>
+                        {{ $t('staffManagement.buttons.add') }}
+                        <span class="material-symbols-outlined ms-1">keyboard_arrow_down</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="drop_save">
                         <li>
-                            <router-link :to="{ path: '/admin/staff/AddStaff' }" class="dropdown-item">New</router-link>
+                            <router-link :to="{ path: '/admin/staff/AddStaff' }" class="dropdown-item">{{
+                                $t('staffManagement.buttons.add')
+                            }}</router-link>
                         </li>
                         <li>
-                            <span @click="showPopup = true" class="dropdown-item">Add staff by excel</span>
+                            <span @click="showPopup = true" class="dropdown-item">{{
+                                $t('staffManagement.buttons.addByExcel')
+                            }}</span>
                         </li>
                     </ul>
                 </div>
 
-                <h5 class="mb-0">Employees</h5>
+                <h5 class="mb-0">{{ $t('staffManagement.title') }}</h5>
             </div>
 
             <div class="form-group fs has-search me-2">
-                <span class="material-symbols-outlined form-control-feedback">search</span>
+                <span class="material-symbols-outlined form-control-feedback"> search </span>
                 <input
                     type="search"
                     class="form-control"
                     @input="$emit('search', searchQuery)"
-                    placeholder="Search"
+                    :placeholder="$t('staffManagement.buttons.search')"
                     v-model="searchQuery"
                 />
             </div>
@@ -41,7 +46,7 @@
                         <a
                             class="nav-link"
                             :class="{
-                                'active': activeTab === 'table',
+                                active: activeTab === 'table',
                                 'text-dark': activeTab !== 'table',
                             }"
                             @click.prevent="$emit('tab-change', 'table')"
@@ -53,7 +58,7 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
+                            :class="{ active: activeTab === 'card', 'text-dark': activeTab !== 'card' }"
                             @click.prevent="$emit('tab-change', 'card')"
                             href="#"
                         >
@@ -97,6 +102,8 @@
 <script setup>
 import AddStaffByFileExcel from '../AddStaffByFileExcelComponent/AddStaffByFileExcel.vue'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const searchQuery = ref('')
 const showPopup = ref(false)
 
@@ -172,33 +179,33 @@ const props = defineProps({
 }
 
 .dropdown-menu {
-  min-width: 190px;
-  padding: 8px;
-  border-radius: 1rem;
-  background-color: #fff;
-  border: 1px solid #e4e4e7;
+    min-width: 190px;
+    padding: 8px;
+    border-radius: 1rem;
+    background-color: #fff;
+    border: 1px solid #e4e4e7;
 }
 
 .dropdown-item {
-  font-size: 0.875rem;
-  padding: 8px;
-  border-radius: 0.625rem;
-  transition: all 0.2s ease;
-  color: #000;
+    font-size: 0.875rem;
+    padding: 8px;
+    border-radius: 0.625rem;
+    transition: all 0.2s ease;
+    color: #000;
 }
 
 .dropdown-item:hover {
-  background-color: #f4f4f5;
-  color: #000;
+    background-color: #f4f4f5;
+    color: #000;
 }
 
 .dropdown-item:focus {
-  background-color: #f4f4f5;
-  color: #000;
+    background-color: #f4f4f5;
+    color: #000;
 }
 
 .dropdown-item:active {
-  background-color: #f4f4f5;
-  color: #000;
+    background-color: #f4f4f5;
+    color: #000;
 }
 </style>

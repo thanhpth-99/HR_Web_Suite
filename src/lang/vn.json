@@ -62,17 +62,14 @@
         },
         "menu_item_admin": {
             "staff": "Nhân viên",
-            "activitive": "Hoạt động",
             "departments": "Phòng ban",
             "approve": "Phê duyệt",
             "position": "Chức vụ",
             "payroll": "Bảng lương",
             "job_structure": "Sơ đồ tổ chức",
             "chart": "Sơ đồ tổ chức",
-            "site": "Vị trí",
-            "recruitment":"Tuyển dụng",
-            "contract" : "Hợp Đồng",
-            "documentation": "Tài liệu"
+            "recruitment": "Tuyển dụng",
+            "contract": "Hợp Đồng"
         },
         "menu_item_user": {
             "information": "Thông tin cá nhân",
@@ -146,22 +143,52 @@
         }
     },
     "create_onleave": {
-            "title": "Tạo đơn nghỉ phép",
-            "buttons": {
-                "send": "Gửi",
-                "back": "Quay lại"
-            },
-            "items": {
-                "full_name": "Họ và tên",
-                "employee_id": "Mã nhân viên",
-                "position": "Chức vụ",
-                "job_title": "Bộ phận",
-                "department": "Phòng ban",
-                "approver": "Người duyệt",
-                "reason": "Lý do",
-                "from_day": "Từ ngày",
-                "to_day": "Đến ngày",
-                "note": "Ghi chú"
-            }
+        "title": "Tạo đơn nghỉ phép",
+        "buttons": {
+            "send": "Gửi",
+            "back": "Quay lại"
+        },
+        "items": {
+            "full_name": "Họ và tên",
+            "employee_id": "Mã nhân viên",
+            "position": "Chức vụ",
+            "job_title": "Bộ phận",
+            "department": "Phòng ban",
+            "approver": "Người duyệt",
+            "reason": "Lý do",
+            "from_day": "Từ ngày",
+            "to_day": "Đến ngày",
+            "note": "Ghi chú"
         }
+    },
+    "staffManagement": {
+        "title": "Quản lý nhân viên",
+        "buttons": {
+            "add": "Tạo nhân viên",
+            "edit": "Chỉnh sửa",
+            "delete": "Xóa",
+            "addByExcel": "Tạo nhân viên từ Excel",
+            "search": "Tìm kiếm"
+        },
+        "items": {
+            "full_name": "Họ và tên",
+            "employee_id": "Mã nhân viên",
+            "position": "Chức vụ",
+            "job_title": "Bộ phận",
+            "department": "Phòng ban",
+            "approver": "Người duyệt",
+            "note": "Ghi chú",
+            "phone": "Số điện thoại",
+            "email": "Email",
+            "address": "Địa chỉ",
+            "gender": "Giới tính",
+            "birthday": "Ngày sinh",
+            "status": "Trạng thái",
+            "manager": "Quản lý"
+        },
+        "header": {
+            "personal_infomation": "Thông tin cá nhân",
+            "job_infomation":"Thông tin công việc"
+        }
+    }
 }

@@ -7,7 +7,7 @@
                     type="text"
                     :class="{ 'is-invalid': error.hoTen }"
                     v-model="props.staff.hoTen"
-                    placeholder="Tên nhân viên"
+                    :placeholder="$t('staffManagement.items.full_name')"
                 />
                 <div class="invalid-feedback" v-if="error.hoTen">Tên không được để trống</div>
                 <br />
@@ -18,10 +18,10 @@
 
         <div class="row mt-4">
             <div class="col-md-6">
-                <h5 class="section-title">Thông tin liên hệ</h5>
+                <h5 class="section-title">{{ $t('staffManagement.header.personal_infomation') }}</h5>
                 <!-- Work Mobile -->
                 <div class="row mb-3">
-                    <label for="phone" class="col-sm-4 col-form-label">Số điện thoại</label>
+                    <label for="phone" class="col-sm-4 col-form-label">{{ $t('staffManagement.items.phone') }}</label>
                     <div class="col-sm-8">
                         <input
                             type="text"
@@ -35,7 +35,9 @@
                 </div>
                 <!-- Work Address -->
                 <div class="row mb-3">
-                    <label for="address" class="col-sm-4 col-form-label">Địa chỉ</label>
+                    <label for="address" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.address')
+                    }}</label>
                     <div class="col-sm-8">
                         <input
                             type="text"
@@ -48,7 +50,7 @@
                 </div>
                 <!-- Work Email -->
                 <div class="row mb-3">
-                    <label for="email" class="col-sm-4 col-form-label">Email công việc</label>
+                    <label for="email" class="col-sm-4 col-form-label">{{ $t('staffManagement.items.email') }}</label>
                     <div class="col-sm-8">
                         <input
                             type="email"
@@ -64,10 +66,12 @@
             </div>
 
             <div class="col-md-6">
-                <h5 class="section-title">Thông tin công việc</h5>
+                <h5 class="section-title">{{ $t('staffManagement.header.job_infomation') }}</h5>
                 <!-- Department -->
                 <div class="row mb-3">
-                    <label for="department" class="col-sm-4 col-form-label">Phòng ban</label>
+                    <label for="department" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.department')
+                    }}</label>
                     <div class="col-sm-8">
                         <select
                             id="phongBanSelect"
@@ -89,7 +93,9 @@
                 </div>
                 <!-- Job Position -->
                 <div class="row mb-3">
-                    <label for="viTriSelect" class="col-sm-4 col-form-label">Vị trí</label>
+                    <label for="viTriSelect" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.position')
+                    }}</label>
                     <div class="col-sm-8">
                         <select
                             id="viTriSelect"
@@ -106,7 +112,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="quanLySelect" class="col-sm-4 col-form-label">Quản lý</label>
+                    <label for="quanLySelect" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.manager')
+                    }}</label>
                     <div class="col-sm-8">
                         <select
                             id="quanLySelect"
@@ -131,6 +139,8 @@
 import { ref, onMounted } from 'vue'
 import { get } from '@/stores/https'
 import SlimSelect from 'slim-select'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const listPhongBan = ref([])
 const listViTri = ref([])
 const listStaff = ref([])

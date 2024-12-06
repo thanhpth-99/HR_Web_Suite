@@ -45,8 +45,6 @@ onMounted(async () => {
             if (selectedCandidate) {
                 candidate.value = JSON.parse(selectedCandidate)
                 mapToNhanVien(candidate.value)
-            } else {
-                console.warn('No selected candidate found in session storage.')
             }
         }
     } catch (error) {
@@ -140,8 +138,8 @@ const saveStaff = async () => {
                 timer: 1500,
             })
         }
-        if(!staffInfo.maNhanVien) {
-            router.push('/admin/contract/addcontract')
+        if (!staffInfo.maNhanVien) {
+            navigateToAddContract(staffInfo.cccd)
         }
     } catch (error) {
         const errorMessage = error.response?.data?.message || 'Save nhân viên thất bại'
@@ -154,6 +152,11 @@ const saveStaff = async () => {
     } finally {
         loading.value = false
     }
+}
+
+const navigateToAddContract = (cccd) => {
+    sessionStorage.setItem('cccdStaff', cccd)
+    router.push('/admin/contract/addcontract')
 }
 
 const setStaffInfo = () => {

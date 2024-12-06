@@ -63,12 +63,30 @@
         </div>
     </div>
 
-    <div class="card custom-card border-0">
-        <div class="row">
-            <div class="col-md-9">
-                <label for="hoTen" class="col-sm-4 col-form-label">Họ và tên</label>
+    <div class="card custom-card border-0 p-4">
+        <!-- Row chung: Họ và tên + Vị trí tuyển dụng -->
+        <div class="row mb-3">
+            <!-- Cột: Họ và tên -->
+            <div class="col-md-6">
+                <label for="hoTen" class="form-label">Họ và tên</label>
                 <input type="text" id="hoTen" v-model="ungVien.hoTen" class="form-control" />
                 <span class="text-danger" v-if="error.hoTen">{{ error.hoTen }}</span>
+            </div>
+
+            <!-- Cột: Vị trí tuyển dụng -->
+            <div class="col-md-6">
+                <label for="position" class="form-label">Vị trí tuyển dụng</label>
+                <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
+                    <option value="">Chọn vị trí tuyển dụng</option>
+                    <option
+                        v-for="viTri in listTuyenDung"
+                        :key="viTri.maViTriTuyenDung"
+                        :value="viTri.maViTriTuyenDung"
+                    >
+                        {{ viTri.tenViTri }}
+                    </option>
+                </select>
+                <span class="text-danger" v-if="error.maViTriTuyenDung">{{ error.maViTriTuyenDung }}</span>
             </div>
         </div>
     </div>
@@ -97,17 +115,6 @@
                 <div class="col-sm-8">
                     <input type="text" class="form-control" id="cccd" v-model="ungVien.cccd" />
                     <span class="text-danger" v-if="error.cccd">{{ error.cccd }}</span>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="trangThai" class="col-4 col-form-label">Trạng thái</label>
-                <div class="col-8">
-                    <span v-if="ungVien.trangThai === 1" class="badge bg-warning">Chờ duyệt</span>
-                    <span v-if="ungVien.trangThai === 2" class="badge bg-info">Phỏng vấn lần 1</span>
-                    <span v-if="ungVien.trangThai === 3" class="badge bg-primary">Phỏng vấn lần 2</span>
-                    <span v-if="ungVien.trangThai === 4" class="badge bg-success">Đạt yêu cầu</span>
-                    <span v-if="ungVien.trangThai === 5" class="badge bg-danger">Từ chối</span>
                 </div>
             </div>
         </div>
@@ -157,22 +164,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label for="position" class="col-sm-4 col-form-label">Vị trí tuyển dụng</label>
-                <div class="col-sm-8">
-                    <select id="position" class="form-select" v-model="ungVien.maViTriTuyenDung">
-                        <option value="">Chọn vị trí tuyển dụng</option>
-                        <option
-                            v-for="viTri in listTuyenDung"
-                            :key="viTri.maViTriTuyenDung"
-                            :value="viTri.maViTriTuyenDung"
-                        >
-                            {{ viTri.tenViTri }}
-                        </option>
-                    </select>
-                    <span class="text-danger" v-if="error.maViTriTuyenDung">{{ error.maViTriTuyenDung }}</span>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -184,23 +175,9 @@ import { get, post } from '@/stores/https'
 const loading = ref(false)
 const ungVien = ref({})
 const maUngVien = ref('')
-const info = reactive({
-    maUngVien: '',
-    trangThai: 1,
-    hoTen: '',
-    gioiTinh: 'True',
-    ngaySinh: '',
-    dienThoai: '',
-    cccd: '',
-    diaChi: '',
-    hinhAnh: '',
-    email: '',
-    maViTriTuyenDung: '',
-})
 const listTuyenDung = ref([])
 
 const saveUngVien = async (trangThai) => {
-    const oldTrangThai = ungVien.value.trangThai
     try {
         ungVien.value.trangThai = trangThai
         const response = await post('/api/v1/candidates', ungVien.value)
@@ -217,7 +194,6 @@ const saveUngVien = async (trangThai) => {
         }
     } catch (error) {
         const errorMessage = error.response?.data?.message || 'Cập nhật phê duyệt thất bại'
-        ungVien.value.trangThai = oldTrangThai
         Swal.fire({
             title: 'Thất bại',
             text: errorMessage,
@@ -226,6 +202,7 @@ const saveUngVien = async (trangThai) => {
         })
         console.error('Error in saveUngVien:', error)
     }
+    await getInfoByMaUngVien(ungVien.maUngVien)
 }
 
 onMounted(async () => {
@@ -240,7 +217,7 @@ const getInfoByMaUngVien = async (maUngVien) => {
         const response = await get('/api/v1/candidates/id', { maUngVien })
         if (response && response.data) {
             ungVien.value = response.data
-            ungVien.value.gioiTinh = response.data.gioiTinh === true
+            console.log(ungVien.value)
         }
     } catch (error) {
         Swal.fire({

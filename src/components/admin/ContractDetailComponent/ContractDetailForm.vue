@@ -11,18 +11,28 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="tenNhanVien" class="col-sm-4 col-form-label">Họ và tên</label>
-                <input type="text" id="tenNhanVien" class="form-control" :value="getTenNhanVien(Contract.maNhanVien)"
-                    readonly />
+                <input
+                    type="text"
+                    id="tenNhanVien"
+                    class="form-control"
+                    :value="getTenNhanVien(Contract.maNhanVien)"
+                    readonly
+                />
             </div>
 
             <div class="col-md-6">
                 <label for="soHopDong" class="col-sm-4 col-form-label">Số hợp đồng</label>
-                <input type="text" id="soHopDong" class="form-control" v-model="Contract.soHopDong"
-                    placeholder="Nhập số hợp đồng" readonly />
+                <input
+                    type="text"
+                    id="soHopDong"
+                    class="form-control"
+                    v-model="Contract.soHopDong"
+                    placeholder="Nhập số hợp đồng"
+                    readonly
+                />
             </div>
         </div>
     </div>
-
 
     <div class="row mt-4">
         <div class="col-md-6">
@@ -30,8 +40,13 @@
             <div class="row mb-3">
                 <label for="noiDung" class="col-sm-4 col-form-label">Nội dung</label>
                 <div class="col-sm-8">
-                    <textarea id="noiDung" class="form-control" v-model="Contract.noiDung"
-                        placeholder="Nhập nội dung hợp đồng" readonly></textarea>
+                    <textarea
+                        id="noiDung"
+                        class="form-control"
+                        v-model="Contract.noiDung"
+                        placeholder="Nhập nội dung hợp đồng"
+                        readonly
+                    ></textarea>
                 </div>
             </div>
 
@@ -74,45 +89,44 @@
             <div class="row mb-3">
                 <label for="heSoLuong" class="col-sm-4 col-form-label">Hệ số lương</label>
                 <div class="col-sm-8">
-                    <input
-                        type="text"
-                        id="heSoLuong"
-                        class="form-control"
-                        v-model="Contract.heSoLuong"
-                        readonly
-                    />
+                    <input type="text" id="heSoLuong" class="form-control" v-model="Contract.heSoLuong" readonly />
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue';
-import { get } from '@/stores/https';
+import { ref, onMounted, onUnmounted } from 'vue'
+import { get } from '@/stores/https'
 
 const props = defineProps({
     Contract: Object,
 })
-const listNhanVien = ref([]);
+const listNhanVien = ref([])
 
 const getNhanVien = async () => {
     try {
-        const response = await get('/api/v1/employees'); // URL API danh sách nhân viên
-        listNhanVien.value = response.data;
+        const response = await get('/api/v1/employees') // URL API danh sách nhân viên
+        listNhanVien.value = response.data
     } catch (error) {
-        console.error('Lỗi khi fetch danh sách nhân viên:', error);
+        console.error('Lỗi khi fetch danh sách nhân viên:', error)
     }
-};
+}
 
 onMounted(async () => {
-    await getNhanVien();
-});
+    await getNhanVien()
+    console.log(sessionStorage.getItem('cccdStaff'))
+})
+
+onUnmounted(() => {
+    sessionStorage.removeItem('soHopDong')
+})
 
 // Hàm lấy tên nhân viên từ mã nhân viên (maNhanVien)
 const getTenNhanVien = (maNhanVien) => {
-    const nhanVien = listNhanVien.value.find((nv) => nv.maNhanVien === maNhanVien);
-    return nhanVien ? nhanVien.hoTen : 'Không xác định'; // Trả về tên hoặc giá trị mặc định
-};
+    const nhanVien = listNhanVien.value.find((nv) => nv.maNhanVien === maNhanVien)
+    return nhanVien ? nhanVien.hoTen : 'Không xác định' // Trả về tên hoặc giá trị mặc định
+}
 </script>
 
 <style scoped>

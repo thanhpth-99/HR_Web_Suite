@@ -5,13 +5,13 @@
             <thead class="table-light">
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Họ tên</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Phòng ban</th>
-                    <th scope="col">Vị trí</th>
-                    <th scope="col">Quản lý</th>
+                    <th scope="col">{{ $t('staffManagement.items.full_name') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.phone') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.email') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.status') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.department') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.position') }}</th>
+                    <th scope="col">{{ $t('staffManagement.items.manager') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +67,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const props = defineProps({
     listStaff: {
         type: Array,

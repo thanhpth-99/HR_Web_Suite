@@ -49,16 +49,6 @@ const featureAdmin = [
         icon: 'fa fa-file-contract',
         text: 'home.menu_item_admin.contract',
     },
-    {
-        path: '/admin/site',
-        icon: 'fa-map-marker-alt',
-        text: 'home.menu_item_admin.site',
-    },
-    {
-        path: '/admin/document',
-        icon: 'fa-file-alt',
-        text: 'home.menu_item_admin.documentation',
-    },
 ]
 const featureManager = [
     {
@@ -111,7 +101,11 @@ onMounted(() => {
                     <span class="slogan text-white">HRM - Final project</span>
                 </div>
             </div>
-            <i class="fa-solid fa-arrow-left toggle" :class="{ 'fa-rotate-180': !isShow }" @click="btnControlSidebar_Click"></i>
+            <i
+                class="fa-solid fa-arrow-left toggle"
+                :class="{ 'fa-rotate-180': !isShow }"
+                @click="btnControlSidebar_Click"
+            ></i>
         </header>
         <main>
             <div class="menu">

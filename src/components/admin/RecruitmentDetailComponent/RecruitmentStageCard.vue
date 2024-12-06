@@ -147,6 +147,7 @@ const props = defineProps({
     listCandidate: Array,
 })
 onMounted(async () => {})
+
 </script>
 
 <style scoped>

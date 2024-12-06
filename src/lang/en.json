@@ -63,16 +63,13 @@
         "menu_item_admin": {
             "staff": "Staff",
             "activitive": "Activities",
-            "position": "Position",
             "payroll": "Payroll",
             "departments": "Departments",
             "approve": "Approve",
             "job_structure": "Organizational Chart",
             "chart": "Organizational Chart",
             "recruitment": "Recruitment",
-            "contract" : "Contract",
-            "site": "Location",
-            "documentation": "Documentation"
+            "contract": "Contract"
         },
         "menu_item_user": {
             "information": "Profile",
@@ -162,6 +159,36 @@
             "from_day": "From day",
             "to_day": "To day",
             "note": "Note"
+        }
+    },
+    "staffManagement": {
+        "title": "Staff Management",
+        "buttons": {
+            "add": "Add",
+            "edit": "Edit",
+            "delete": "Delete",
+            "addByExcel": "Add by Excel",
+            "search": "Search"
+        },
+        "items": {
+            "full_name": "Full Name",
+            "employee_id": "Employee ID",
+            "position": "Position",
+            "job_title": "Job Title",
+            "department": "Department",
+            "approver": "Approver",
+            "note": "Note",
+            "phone": "Phone",
+            "email": "Email",
+            "address": "Address",
+            "gender": "Gender",
+            "birthday": "Birthday",
+            "status": "Status",
+            "manager": "Manager"
+        },
+        "header": {
+            "personal_infomation": "Personal information",
+            "job_infomation": "Job information"
         }
     }
 }
