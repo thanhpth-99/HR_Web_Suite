@@ -103,6 +103,7 @@ const props = defineProps({
     Contract: Object,
 })
 const listNhanVien = ref([])
+const nhanVien = ref({})
 
 const getNhanVien = async () => {
     try {
@@ -115,11 +116,17 @@ const getNhanVien = async () => {
 
 onMounted(async () => {
     await getNhanVien()
-    console.log(sessionStorage.getItem('cccdStaff'))
+    const cccd = sessionStorage.getItem('cccdStaff')
+    if (cccd) {
+        const response = await get(`/api/v1/employees/cccd/${cccd}`)
+        nhanVien.value = response.data
+        props.Contract.maNhanVien = nhanVien.value.maNhanVien
+    }
+    console.log(nhanVien.value)
 })
 
 onUnmounted(() => {
-    sessionStorage.removeItem('soHopDong')
+    sessionStorage.removeItem('cccdStaff')
 })
 
 // Hàm lấy tên nhân viên từ mã nhân viên (maNhanVien)

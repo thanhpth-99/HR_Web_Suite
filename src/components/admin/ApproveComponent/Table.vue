@@ -78,7 +78,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-
+const emits = defineEmits(['setTrangThaiApprove','updatePage'])
 const props = defineProps({
     listApprove: Array,
     searchQuery: {
@@ -112,8 +112,6 @@ const paginatedApproves = computed(() => {
 const totalPages = computed(() => {
     return Math.ceil(filteredApprove.value.length / props.pageSize)
 })
-
-const emit = defineEmits(['updatePage'])
 
 const goToPage = (page) => {
     emit('updatePage', page)

@@ -116,7 +116,7 @@
 
 <script setup>
 import { computed } from 'vue'
-
+const emits = defineEmits(['setTrangThaiApprove','updatePage']); 
 const props = defineProps({
     listApprove: {
         type: Array,
