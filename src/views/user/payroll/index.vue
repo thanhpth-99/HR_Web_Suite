@@ -17,7 +17,7 @@
 <script setup>
 import Header from '@/components/main/Header.vue';
 import Aside from '@/components/main/Aside.vue';
-import PayRoll from '@/components/admin/PayRoll/PayRoll.vue'
+import PayRoll from '@/components/user/PayRoll/PayRoll.vue'
 import { ref } from 'vue';
 const isShow = ref(true);
 const handleToggleSidebar = (show) => {

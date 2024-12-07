@@ -75,7 +75,8 @@
             "information": "Thông tin cá nhân",
             "checkin": "Chấm công",
             "timeoff": "Nghỉ phép",
-            "rewar_discipline": "Khen thưởng/Kỷ luật"
+            "rewar_discipline": "Khen thưởng/Kỷ luật",
+            "payroll": "Bảng lương"
         }
     },
     "profile": {
