@@ -45,7 +45,7 @@
                                 <div class="input-group">
                                     <input
                                         :type="showPassword ? 'text' : 'password'"
-                                        class="form-control rounded-2"
+                                        class="form-control"
                                         :class="{ 'is-invalid': error.password }"
                                         id="password"
                                         v-model="password"
