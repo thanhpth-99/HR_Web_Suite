@@ -8,11 +8,6 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/vanguard-workflow.yml'
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-      - '.github/workflows/vanguard-workflow.yml'
 
 env:
   USER_PROJECT: "vanguard"
