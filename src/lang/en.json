@@ -64,6 +64,7 @@
             "staff": "Staff",
             "activitive": "Activities",
             "position": "Position",
+            "calendar" : "Calendar",
             "payroll": "Payroll",
             "departments": "Departments",
             "approve": "Approve",
