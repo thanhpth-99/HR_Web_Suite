@@ -69,7 +69,8 @@
             "job_structure": "Organizational Chart",
             "chart": "Organizational Chart",
             "recruitment": "Recruitment",
-            "contract": "Contract"
+            "contract": "Contract",
+            "meeting": "Meeting"
         },
         "menu_item_user": {
             "information": "Profile",

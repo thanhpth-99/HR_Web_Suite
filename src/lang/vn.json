@@ -69,7 +69,8 @@
             "job_structure": "Sơ đồ tổ chức",
             "chart": "Sơ đồ tổ chức",
             "recruitment": "Tuyển dụng",
-            "contract": "Hợp Đồng"
+            "contract": "Hợp Đồng",
+            "meeting": "Cuộc họp"
         },
         "menu_item_user": {
             "information": "Thông tin cá nhân",
