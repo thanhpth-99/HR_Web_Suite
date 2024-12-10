@@ -22,7 +22,7 @@
             </table>
         </div>
         <div v-else>
-            <p>Không tìm thấy hợp đồng nào cho nhân viên này.</p>
+            <p>Nhân viên chưa có hợp đồng.</p>
         </div>
     </div>
 </template>
