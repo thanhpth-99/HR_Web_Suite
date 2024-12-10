@@ -28,33 +28,27 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { get } from '@/stores/https';  
-import router from '@/router';  
+import { onMounted, ref } from 'vue'
+import { get } from '@/stores/https'
+import router from '@/router'
 
-const Contract = ref([]);  
+const Contract = ref([])
 
 const getContractByEmployee = async (maNhanVien) => {
     try {
-        const response = await get(`/api/v1/contracts/employee/${maNhanVien}`);
+        const response = await get(`/api/v1/contracts/employee/${maNhanVien}`)
         if (response && response.data) {
-            Contract.value = response.data;  
+            Contract.value = response.data
         }
     } catch (error) {
-        Swal.fire({
-            title: 'Thất bại',
-            text: 'Không thể tải lên dữ liệu hợp đồng',
-            icon: 'error',
-            timer: 1500,
-        });
-        console.error('Error fetching contract details:', error);
+        console.error('Error fetching contract details:', error)
     }
-};
+}
 
-onMounted(() => {
-    const param = router.currentRoute.value.params.id;  
+onMounted(async () => {
+    const param = router.currentRoute.value.params.id
     if (param) {
-        getContractByEmployee(param);
+        await getContractByEmployee(param)
     }
-});
+})
 </script>
