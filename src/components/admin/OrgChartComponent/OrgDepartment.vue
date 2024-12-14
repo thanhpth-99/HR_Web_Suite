@@ -50,13 +50,15 @@ const getPhongBanByMaPhongBan = async (maPhongBan) => {
 }
 
 const updatePhongBanCapTren = async (maPhongBan, maPhongBanCapTren) => {
-    await getPhongBanByMaPhongBan(maPhongBan)
-    phongBan.maPhongBanCapTren = maPhongBanCapTren
-    try {
-        const response = await post('/api/v1/departments', phongBan)
-        getAllDataChart()
-    } catch (error) {
-        console.error(error)
+    if (maPhongBan && maPhongBanCapTren) {
+        await getPhongBanByMaPhongBan(maPhongBan)
+        phongBan.maPhongBanCapTren = maPhongBanCapTren
+        try {
+            const response = await post('/api/v1/departments', phongBan)
+            getAllDataChart()
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 

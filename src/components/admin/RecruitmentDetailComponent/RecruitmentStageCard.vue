@@ -3,7 +3,7 @@
         <div class="row row-cols-md-3s g-4">
             <div class="col">
                 <h4>Đang chờ duyệt</h4>
-                <hr>
+                <hr />
                 <div
                     class="mb-3"
                     v-for="candidate in listCandidate"
@@ -34,7 +34,7 @@
 
             <div class="col">
                 <h4>Phỏng vấn lần 1</h4>
-                <hr>
+                <hr />
                 <div
                     class="mb-3"
                     v-for="candidate in listCandidate"
@@ -64,7 +64,7 @@
             </div>
             <div class="col">
                 <h4>Phỏng vấn lần 2</h4>
-                <hr>    
+                <hr />
                 <div
                     class="mb-3"
                     v-for="candidate in listCandidate"
@@ -94,7 +94,7 @@
             </div>
             <div class="col">
                 <h4>Đạt yêu cầu</h4>
-                <hr>
+                <hr />
                 <div
                     class="mb-3"
                     v-for="candidate in listCandidate"
@@ -119,7 +119,9 @@
                                 </div>
                                 <div class="col-12 d-flex">
                                     <div class="ms-auto">
-                                        <button class="btn btn-primary">Tạo hợp đồng</button>
+                                        <button @click.stop="navigateToAddStaff(candidate)" class="btn btn-primary">
+                                            Tạo nhân viên
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -133,11 +135,19 @@
 
 <script setup>
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const navigateToAddStaff = (candidate) => {
+    sessionStorage.setItem('selectedCandidate', JSON.stringify(candidate)) // Lưu vào sessionStorage
+    router.push('/admin/staff/addstaff')
+}
 
 const props = defineProps({
     listCandidate: Array,
 })
 onMounted(async () => {})
+
 </script>
 
 <style scoped>

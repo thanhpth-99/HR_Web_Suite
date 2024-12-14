@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: "./",
     plugins: [vue(), vueDevTools()],
     resolve: {
         alias: {
@@ -18,6 +19,7 @@ export default defineConfig({
     server: {
         port: 1668,
         open: true,
+        host: '0.0.0.0',
     },
     optimizeDeps: {
         include: ['bootstrap'],

@@ -64,19 +64,22 @@
             "staff": "Staff",
             "activitive": "Activities",
             "position": "Position",
+            "calendar" : "Calendar",
             "payroll": "Payroll",
             "departments": "Departments",
             "approve": "Approve",
             "job_structure": "Organizational Chart",
             "chart": "Organizational Chart",
             "recruitment": "Recruitment",
-            "site": "Location",
-            "documentation": "Documentation"
+            "contract": "Contract",
+            "meeting": "Meeting"
         },
         "menu_item_user": {
             "information": "Profile",
-            "checkin": "Check in",
-            "timeoff": "Time off"
+            "checkin": "Timekeeping",
+            "timeoff": "Time off",
+            "rewar_discipline": "Rewar/Discipline",
+            "payroll": "Payroll"
         }
     },
     "profile": {
@@ -161,5 +164,42 @@
             "to_day": "To day",
             "note": "Note"
         }
+    },
+    "staffManagement": {
+        "title": "Staff Management",
+        "buttons": {
+            "add": "Add",
+            "edit": "Edit",
+            "delete": "Delete",
+            "addByExcel": "Add by Excel",
+            "search": "Search"
+        },
+        "items": {
+            "full_name": "Full Name",
+            "employee_id": "Employee ID",
+            "position": "Position",
+            "job_title": "Job Title",
+            "department": "Department",
+            "approver": "Approver",
+            "note": "Note",
+            "phone": "Phone",
+            "email": "Email",
+            "address": "Address",
+            "gender": "Gender",
+            "birthday": "Birthday",
+            "status": "Status",
+            "manager": "Manager"
+        },
+        "header": {
+            "personal_infomation": "Personal information",
+            "job_infomation": "Job information"
+        }
+    },
+    "checkin": {
+        "header": {
+            "title": "",
+            "month": "Month"
+        }
+
     }
 }

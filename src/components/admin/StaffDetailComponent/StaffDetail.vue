@@ -2,8 +2,7 @@
     <HeadMenu :loading="loading" @saveNhanVien="saveStaff" :staff="staff" />
 
     <div class="container-fluid">
-        <StaffDetailForm :error="error" :staff="staff" />
-
+        <StaffDetailForm :error="error" :staff="staff" :candidate="candidate" />
         <StaffDetailMenu @setActiveTab="setActiveTab" :activeTab="activeTab" />
         <div class="m-3">
             <Resume :staff="staff" v-if="activeTab === 'resume'" />
@@ -18,7 +17,7 @@ import Infomation from './Infomation.vue'
 import StaffDetailForm from './StaffDetailForm.vue'
 import StaffDetailMenu from './StaffDetailMenu.vue'
 import Resume from './Resume.vue'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, onUnmounted } from 'vue'
 import { get, post } from '@/stores/https'
 import router from '@/router'
 import { useValidation } from '@/stores/mixin/validate_form'
@@ -27,7 +26,8 @@ const staff = ref({})
 const activeTab = ref('infomation')
 const loading = ref(false)
 const { validateForm } = useValidation()
-
+const candidate = ref({})
+const maNhanVien = router.currentRoute.value.params.id
 const error = reactive({
     hoTen: '',
     dienThoai: '',
@@ -35,6 +35,39 @@ const error = reactive({
     maPhongBan: '',
     maChucVu: '',
 })
+
+onMounted(async () => {
+    try {
+        if (maNhanVien) {
+            await getStaffById()
+        } else {
+            const selectedCandidate = sessionStorage.getItem('selectedCandidate')
+            if (selectedCandidate) {
+                candidate.value = JSON.parse(selectedCandidate)
+                mapToNhanVien(candidate.value)
+            }
+        }
+    } catch (error) {
+        console.error('Error in onMounted:', error)
+    }
+})
+
+onUnmounted(() => {
+    sessionStorage.removeItem('selectedCandidate')
+})
+
+const mapToNhanVien = (candidate) => {
+    if (candidate) {
+        staff.value.hoTen = candidate.hoTen
+        staff.value.email = candidate.email
+        staff.value.cccd = candidate.cccd
+        staff.value.dienThoai = candidate.dienThoai
+        staff.value.diaChi = candidate.diaChi
+        staff.value.ngaySinh = candidate.ngaySinh
+        staff.value.gioiTinh = candidate.gioiTinh
+        staff.value.hinhAnh = candidate.hinhAnh
+    }
+}
 
 const validate = () => {
     const formRule = {
@@ -63,12 +96,8 @@ const staffInfo = reactive({
     hinhAnh: '',
     email: '',
     maPhongBan: '',
-    maBoPhan: 'PB01',
     maChucVu: '',
-})
-
-onMounted(async () => {
-    await getStaffById()
+    quanLy: '',
 })
 
 const setActiveTab = (tab) => {
@@ -76,15 +105,14 @@ const setActiveTab = (tab) => {
 }
 
 const getStaffById = async () => {
+    const id = maNhanVien
     try {
-        const { id } = router.currentRoute.value.params
-        if (id) {
-            const response = await get(`/api/v1/employees/${id}`)
-            staff.value = response.data
-        }
+        const response = await get(`/api/v1/employees/${id}`)
+        staff.value = response.data
     } catch (error) {
         console.error(error)
     }
+    console.log(staff.value)
 }
 
 const saveStaff = async () => {
@@ -95,7 +123,6 @@ const saveStaff = async () => {
             icon: 'error',
             timer: 1500,
         })
-        console.log(staffInfo)
         return
     }
 
@@ -111,16 +138,25 @@ const saveStaff = async () => {
                 timer: 1500,
             })
         }
+        if (!staffInfo.maNhanVien) {
+            navigateToAddContract(staffInfo.cccd)
+        }
     } catch (error) {
+        const errorMessage = error.response?.data?.message || 'Save nhân viên thất bại'
         Swal.fire({
             title: 'Save staff',
-            text: 'Failed to save staff',
+            text: errorMessage,
             icon: 'error',
             timer: 1500,
         })
     } finally {
         loading.value = false
     }
+}
+
+const navigateToAddContract = (cccd) => {
+    sessionStorage.setItem('cccdStaff', cccd)
+    router.push('/admin/contract/addcontract')
 }
 
 const setStaffInfo = () => {
@@ -134,7 +170,7 @@ const setStaffInfo = () => {
     staffInfo.hinhAnh = staff.value.hinhAnh
     staffInfo.email = staff.value.email
     staffInfo.maPhongBan = staff.value.maPhongBan
-    staffInfo.maBoPhan = 'BP01'
     staffInfo.maChucVu = staff.value.maChucVu
+    staffInfo.quanLy = staff.value.quanLy
 }
 </script>

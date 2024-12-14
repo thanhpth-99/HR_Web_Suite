@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuthStore } from '../auth'
 import router from '@/router'
 
-const url = [{ dev: 'http://localhost:1688' }, { prod: '' }, { test: '' }]
+const url = [{ dev: 'http://localhost:1688' }, { prod: 'https://vanguardhrm.io.vn' }, { test: '' }]
 
 const env = [{ 1: 'dev' }, { 2: 'prod' }, { 3: 'test' }]
 const environment = 1
@@ -69,7 +69,7 @@ https.interceptors.response.use(
 
             const refreshToken = authStore.refreshToken
             if (!refreshToken) {
-                await authStore.clearToken()
+                authStore.clearToken()
                 await router.push('/login')
                 return Promise.reject(error)
             }

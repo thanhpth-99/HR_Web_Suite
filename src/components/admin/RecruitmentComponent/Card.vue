@@ -2,9 +2,9 @@
     <div class="p-0">
         <div class="row row-cols-1 row-cols-md-3 g-4 p-0">
             <div
-                v-for="(Recruitment, index) in listRecruitment"
+                v-for="(Recruitment, index) in paginatedRecruitment"
                 :key="Recruitment.viTriTuyenDung || index"
-                @click="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
+                @dblclick="$router.push(`/admin/recruitment/${Recruitment.tenViTri}`)"
                 style="cursor: pointer"
             >
                 <div class="card h-100 p-0">
@@ -26,7 +26,12 @@
                         <div class="recruitment-info px-3 py-0 flex-grow-1">
                             <div class="d-flex justify-content-between align-items-start mt-2">
                                 <h5 class="card-title">{{ Recruitment.tenViTri }}</h5>
-                                <span class="status-indicator" :class="getStatusClass(Recruitment.trangThai)"></span>
+                                <span v-if="Recruitment.soLuongUngTuyen >= Recruitment.soLuongTuyen" class="badge bg-danger">
+                                    Đã đầy
+                                </span>
+                                <span v-else class="badge bg-success">
+                                    Còn chỗ
+                                </span>
                             </div>
                             <p class="card-text">
                                 <i class="bi bi-people"></i> Số lượng tuyển: {{ Recruitment.soLuongTuyen }}
@@ -41,23 +46,69 @@
                 </div>
             </div>
         </div>
+        <div class="pagination d-flex justify-content-center align-items-center">
+            <button
+                class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
+                :disabled="props.currentPage === 1"
+                @click="goToPage(props.currentPage - 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
+            </button>
+            <span>Trang {{ props.currentPage }} / {{ totalPages }}</span>
+            <button
+                class="btn btn-secondary rounded-0 d-flex align-items-center"
+                :disabled="props.currentPage === totalPages"
+                @click="goToPage(props.currentPage + 1)"
+            >
+                <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
+            </button>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
     listRecruitment: Array,
+    searchQuery: {
+        type: String,
+        default: '',
+    },
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    pageSize: {
+        type: Number,
+        default: 10,
+    },
 })
 
-const getStatusClass = (status) => {
-    switch (status) {
-        case 'active':
-            return 'active'
-        case 'inactive':
-            return 'inactive'
-        default:
-            return ''
+const filteredRecruitment = computed(() => {
+    let recruitments = props.listRecruitment
+    if (props.searchQuery) {
+        recruitments = recruitments.filter((recruitment) =>
+            recruitment.tenViTri.toLowerCase().includes(props.searchQuery.toLowerCase()),
+        )
     }
+    return recruitments
+})
+
+const paginatedRecruitment = computed(() => {
+    const start = (props.currentPage - 1) * props.pageSize
+    const end = start + props.pageSize
+    return filteredRecruitment.value.slice(start, end)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(filteredRecruitment.value.length / props.pageSize)
+})
+
+const emit = defineEmits(['updatePage'])
+
+const goToPage = (page) => {
+    emit('updatePage', page)
 }
 </script>
 
@@ -93,29 +144,9 @@ const getStatusClass = (status) => {
     margin-bottom: 0.25rem;
 }
 
-.card-subtitle {
-    font-size: 0.875rem;
-    color: #6c757d;
-}
-
 .card-text {
     font-size: 0.875rem;
     margin-bottom: 0.25rem;
-}
-
-.status-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.status-indicator.active {
-    background-color: #ffc107;
-}
-
-.status-indicator.inactive {
-    background-color: #6c757d;
 }
 
 .badge {
@@ -123,5 +154,15 @@ const getStatusClass = (status) => {
     font-size: 0.75rem;
     padding: 0.25em 0.5em;
     border-radius: 1rem;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge.bg-success {
+    background-color: #28a745;
+    color: #fff;
 }
 </style>

@@ -15,6 +15,11 @@ const authStore = useAuthStore()
 const currentFeature = ref([])
 const featureAdmin = [
     {
+        path: '/admin/calendar',
+        icon: 'fa-calendar-days',
+        text: 'home.menu_item_admin.calendar',
+    },
+    {
         path: '/admin/staff',
         icon: 'fa-user',
         text: 'home.menu_item_admin.staff',
@@ -28,16 +33,6 @@ const featureAdmin = [
         path: '/admin/approve',
         icon: 'fa-person-circle-check',
         text: 'home.menu_item_admin.approve',
-    },
-    {
-        path: '/admin/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item_admin.activitive',
-    },
-    {
-        path: '/admin/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item_admin.position',
     },
     {
         path: '/admin/payroll',
@@ -55,31 +50,20 @@ const featureAdmin = [
         text: 'home.menu_item_admin.recruitment',
     },
     {
-        path: '/admin/site',
-        icon: 'fa-map-marker-alt',
-        text: 'home.menu_item_admin.site',
-    },
-    {
-        path: '/admin/document',
-        icon: 'fa-file-alt',
-        text: 'home.menu_item_admin.documentation',
-    },
+        path: '/admin/contract',
+        icon: 'fa fa-file-contract',
+        text: 'home.menu_item_admin.contract',
+    },{
+        path: '/admin/meeting',
+        icon: 'fa fa-file-contract',
+        text: 'home.menu_item_admin.meeting',
+    }
 ]
 const featureManager = [
     {
         path: '/manager/staff',
         icon: 'fa-user',
         text: 'Thông tin cá nhân',
-    },
-    {
-        path: '/manager/activity',
-        icon: 'fa-tasks',
-        text: 'home.menu_item.activity',
-    },
-    {
-        path: '/manager/position',
-        icon: 'fa-briefcase',
-        text: 'home.menu_item.position',
     },
 ]
 const featureUser = [
@@ -98,6 +82,16 @@ const featureUser = [
         icon: 'fa-tasks',
         text: 'home.menu_item_user.timeoff',
     },
+    {
+        path: '/user/rewardanddiscipline',
+        icon: 'fa-bookmark',
+        text: 'home.menu_item_user.rewar_discipline',
+    },
+    {
+        path: '/user/payroll',
+        icon: 'fa-dollar-sign',
+        text: 'home.menu_item_user.payroll',
+    },
 ]
 onMounted(() => {
     if (sessionStorage.getItem('role') === 'ADMIN') {
@@ -110,18 +104,22 @@ onMounted(() => {
 })
 </script>
 <template>
-    <aside class="position-fixed top-0 start-0" :class="{ close: !isShow }">
+    <aside class="position-fixed top-0 start-0 border-0" :class="{ close: !isShow }">
         <header class="position-relative">
             <div class="image-text d-flex align-items-center">
                 <span class="image d-flex align-items-center">
-                    <img src="@/assets/images/logo.png" alt="VitaminCode" />
+                    <img class="bg-white rounded-circle" src="@/assets/images/logo.png" alt="VanguardHRM" />
                 </span>
                 <div class="text header-text d-flex flex-column">
                     <span class="name text-white">VANGUARD</span>
                     <span class="slogan text-white">HRM - Final project</span>
                 </div>
             </div>
-            <i class="fa-solid fa-arrow-left toggle" @click="btnControlSidebar_Click"></i>
+            <i
+                class="fa-solid fa-arrow-left toggle"
+                :class="{ 'fa-rotate-180': !isShow }"
+                @click="btnControlSidebar_Click"
+            ></i>
         </header>
         <main>
             <div class="menu">
@@ -157,7 +155,6 @@ aside {
     background-color: var(--color-sidebar);
     transition: var(--tran-05);
     z-index: 100;
-    border: 1px solid var(--color-border);
 }
 
 aside .text {
@@ -291,5 +288,14 @@ aside.close main .menu ul li .router-link-active {
 
 aside.close main .menu ul li .router-link-active::before {
     width: 0rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-text {
+        display: none;
+    }
+    aside {
+        width: 85px;
+    }
 }
 </style>

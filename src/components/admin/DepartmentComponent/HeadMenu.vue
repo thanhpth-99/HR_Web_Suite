@@ -18,23 +18,6 @@
             </div>
 
             <div class="pagination d-flex justify-content-center align-items-center">
-                <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-                <button
-                    class="btn btn-secondary rounded-0 mx-1 d-flex align-items-center"
-                    :disabled="currentPage === 1"
-                    @click="$emit('prevPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_left </span>
-                </button>
-                <button
-                    class="btn btn-secondary rounded-0 d-flex align-items-center"
-                    :disabled="currentPage === totalPages"
-                    @click="$emit('nextPage')"
-                >
-                    <span class="material-symbols-outlined"> keyboard_double_arrow_right </span>
-                </button>
-            </div>
-            <div class="pagination d-flex justify-content-center align-items-center">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a
@@ -83,20 +66,12 @@ import { ref, computed } from 'vue'
 import AddDepartmentPopup from './AddDepartmentPopup.vue'
 const searchQuery = ref('')
 const showPopup = ref(false)
-const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
+const emit = defineEmits(['tab-change', 'search'])
 
 const props = defineProps({
     activeTab: {
         type: String,
         required: true,
-    },
-    currentPage: {
-        type: Number,
-        default: 1,
-    },
-    totalPages: {
-        type: Number,
-        default: 1,
     },
 })
 </script>
@@ -122,7 +97,7 @@ const props = defineProps({
     display: flex;
     justify-content: center;
     align-items: start;
-    z-index: 10;
+    z-index: 100;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;

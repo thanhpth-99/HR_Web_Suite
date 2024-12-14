@@ -3,41 +3,37 @@
 </template>
 
 <script setup>
-import { get } from '@/stores/https'
-import { ref, onMounted } from 'vue'
+import { get, put } from '@/stores/https'
+import { ref, onMounted, reactive } from 'vue'
 import OrgChart from '@balkangraph/orgchart.js'
 
 const dataChart = ref([])
-
 const tree = ref(null)
+const nhanVien = reactive({
+    maNhanVien: '',
+    quanLy: '',
+})
 
 onMounted(async () => {
     await getAllDataChart()
     renderChart()
 })
 const mapData = (data) => {
-    return data.map((item) => {
-        const mappedItem = {
-            id: item.maNhanVien,
-            tenNhanVien: item.hoTen,
-            pid: item.quanLy,
-            quanLy: item.tenTruongPhong,
-            hinhAnh: item.hinhAnh,
-            tenPhongBan: item.tenPhongBan,
-            tenChucVu: item.tenChucVu,
-        }
-        if (item.quanLy === null) {
-            mappedItem.tags = ['Management']
-        }
-
-        return mappedItem
-    })
+    return data.map((item) => ({
+        id: item.maNhanVien,
+        pid: item.quanLy,
+        tenNhanVien: item.hoTen,
+        tenQuanLy: item.tenQuanLy,
+        hinhAnh: item.hinhAnh,
+        tenPhongBan: item.tenPhongBan,
+        tenChucVu: item.tenChucVu,
+    }))
 }
 
 const getAllDataChart = async () => {
     const response = await get('/api/v1/employees/orgchart')
     dataChart.value = response.data
-    console.log(dataChart.value);
+    console.log(mapData(dataChart.value))
 }
 
 const renderChart = () => {
@@ -57,7 +53,7 @@ const renderChart = () => {
             Management: {
                 template: 'rony',
             },
-        },  
+        },
         zoom: { speed: 30, smooth: 5 },
         nodeWidth: 180,
         nodeHeight: 80,
@@ -67,11 +63,14 @@ const renderChart = () => {
         movable: OrgChart.movable.node,
         layout: OrgChart.normal,
         template: 'isla',
+        collapse: {
+            level: 2,
+        },
         editForm: {
             generateElementsFromFields: false,
             elements: [
                 { type: 'textbox', label: 'Tên nhân viên', binding: 'tenNhanVien' },
-                { type: 'textbox', label: 'Tên quản lý', binding: 'quanLy' },
+                { type: 'textbox', label: 'Tên quản lý', binding: 'tenQuanLy' },
                 { type: 'textbox', label: 'Tên phòng ban', binding: 'tenPhongBan' },
                 { type: 'textbox', label: 'Chức vụ', binding: 'tenChucVu' },
             ],
@@ -89,9 +88,18 @@ const renderChart = () => {
         },
     })
 
-    chart.onUpdated(function () {
-        console.log('Nodes updated')
+    chart.onDrop((sender) => {
+        if (sender.dragId === sender.dropId) return
+        if (sender.dropId && sender.dragId) {
+            updateQuanLy(sender.dragId, sender.dropId)
+        }
     })
+
+    const updateQuanLy = async (maNhanVien, maQuanLy) => {
+        nhanVien.maNhanVien = maNhanVien
+        nhanVien.quanLy = maQuanLy
+        const response = await put('/api/v1/employees/manager', nhanVien)
+    }
 }
 </script>
 

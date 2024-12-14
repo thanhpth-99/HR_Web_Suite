@@ -12,16 +12,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="week in calendarRows" :key="week">
-                <td v-for="(day, index) in week" :key="day" class="day-cell">
-                    <div  class="cell-content">
+            <tr v-for="(week, weekIndex) in calendarRows" :key="weekIndex">
+                <td v-for="(day, index) in week" :key="index" :class="{
+                    'bg-primary text-white': isToday(day),
+                    'weekend': index >= 5,
+                }" class="day-cell" @click="handleDayClick(day)">
+                    <div class="cell-content">
                         <div class="d-flex justify-content-between align-items-center">
                             <b>{{ day }}</b>
-                            <i v-if="index < 6 && day" class="fa-solid fa-user-check text-success"></i>                         
+                            <i v-if="getCheckInOut(day).day" class="fa-solid fa-user-check text-success"></i>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center text-success" v-if="index < 6 && day">
-                            <span>In: 8:30</span>
-                            <span>Out: 17:30</span>
+                        <div class="d-flex justify-content-between align-items-center text-success"
+                            v-if="getCheckInOut(day).day">
+                            <span>In: {{ getCheckInOut(day).checkIn }}</span>
+                            <span>Out: {{ getCheckInOut(day).checkOut }}</span>
                         </div>
                     </div>
                 </td>
@@ -31,14 +35,30 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-const props = defineProps(['month', 'year']);
+import { computed, onMounted, ref } from "vue";
+import { get } from "@/stores/https";
+
+const props = defineProps(["month", "year"]);
+const tasks = ref([])
+const emit = defineEmits(['updateTodayTask']);
+
+const getChamCong = async () => {
+    const response = await get(`/api/v1/attendances/employess/${sessionStorage.getItem('maNhanVien')}`);
+    tasks.value = response.data
+
+    const todayDate = new Date();
+    const todayTask = tasks.value.find(task =>
+        task.ngayChamCong === `${todayDate.getFullYear()}-${String(todayDate.getMonth() + 1).padStart(2, '0')}-${String(todayDate.getDate()).padStart(2, '0')}`
+    );
+    emit('updateTodayTask', todayTask || null);
+}
+
 const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 const firstDayOfMonth = computed(() => new Date(props.year, props.month - 1, 1).getDay());
 const calendarRows = computed(() => {
     const days = [];
     const totalDays = daysInMonth(props.month, props.year);
-    let week = new Array(firstDayOfMonth.value === 0 ? 6 : firstDayOfMonth.value - 1).fill('');
+    let week = new Array(firstDayOfMonth.value === 0 ? 6 : firstDayOfMonth.value - 1).fill("");
     for (let day = 1; day <= totalDays; day++) {
         week.push(day);
         if (week.length === 7) {
@@ -48,21 +68,49 @@ const calendarRows = computed(() => {
     }
     if (week.length > 0) {
         while (week.length < 7) {
-            week.push('');
+            week.push("");
         }
         days.push(week);
     }
     return days;
 });
+
+const isToday = (day) => {
+    const today = new Date();
+    return (
+        day &&
+        today.getDate() === day &&
+        today.getMonth() + 1 === props.month &&
+        today.getFullYear() === props.year
+    );
+};
+
+const getCheckInOut = (day) => {
+    if (!day) return { checkIn: "", checkOut: "", day: "" };
+    const task = tasks.value.find(
+        (task) => task.ngayChamCong === `${props.year}-${String(props.month).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+    );
+    if (!task?.gioRa) return task ? { checkIn: task.gioVao.slice(0, 5), checkOut: "", day: task.ngayChamCong } : { checkIn: "", checkOut: "", day: "" };
+    return task ? { checkIn: task.gioVao.slice(0, 5), checkOut: null || task.gioRa.slice(0, 5), day: task.ngayChamCong } : { checkIn: "", checkOut: "", day: "" };
+};
+
+const handleDayClick = (day) => {
+    if (!day) return;
+    console.log(`Ngày được chọn: ${day}-${props.month}-${props.year}`);
+};
+
+onMounted(async () => {
+    await getChamCong()
+})
 </script>
 
 <style scoped>
 .table-bordered {
-    border: 1px solid #dee2e6;
+    border: 2px solid black;
 }
 
 th {
-    background-color: var(--color-sidebar) !important;
+    background-color: #343a40;
     color: white;
 }
 
@@ -71,6 +119,8 @@ td.day-cell {
     height: 100px;
     vertical-align: top;
     padding: 8px 12px;
+    cursor: pointer;
+    border: 2px solid black;
 }
 
 .cell-content {
@@ -80,7 +130,23 @@ td.day-cell {
     justify-content: space-between;
 }
 
-span, .fa-solid {
+.weekend {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 2px solid #dc3545;
+    /* Viền đậm hơn */
+}
+
+.bg-primary {
+    background-color: lightskyblue !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+span,
+.fa-solid {
     font-size: 14px;
 }
 </style>

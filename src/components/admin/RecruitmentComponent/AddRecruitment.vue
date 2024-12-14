@@ -88,7 +88,7 @@ const getAllPhongBan = async () => {
 
 const saveRecruitment = async () => {
     try {
-        const response = await post('/api/v1/vi-tri-tuyen-dung', info)
+        const response = await post('/api/v1/recruitment-positions', info)
         if (response) {
             Swal.fire({
                 title: 'Thành công',

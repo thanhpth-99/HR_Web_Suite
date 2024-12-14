@@ -1,10 +1,35 @@
 <template>
     <div class="container-fluid mt-3" style="overflow-x: auto">
-        <HeadMenu @tab-change="setActiveTab" :activeTab="activeTab" />
-        <div class="row p-0">
+        <HeadMenu
+            @tab-change="setActiveTab"
+            @search="handleSearch"
+            @filterDate="handleFilterDate"
+            @filterStatus="handleFilterStatus"
+            :activeTab="activeTab"
+        />
+        <div class="row p-0" style="overflow-x: auto">
             <div>
-                <Card @setTrangThaiApprove="setApproveInfo" :listApprove="listApprove" v-if="activeTab === 'card'" />
-                <Table @setTrangThaiApprove="setApproveInfo" :listApprove="listApprove" v-if="activeTab === 'table'" />
+                <Card
+                    @setTrangThaiApprove="setApproveInfo"
+                    :searchQuery="searchQuery"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :listApprove="listApprove"
+                    :statusSelected="statusSelected"
+                    @updatePage="currentPage = $event"
+                    v-if="activeTab === 'card'"
+                />
+                <Table
+                    @setTrangThaiApprove="setApproveInfo"
+                    :searchQuery="searchQuery"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :statusSelected="statusSelected"
+                    :filterDate="filterDate"
+                    @updatePage="currentPage = $event"
+                    :listApprove="listApprove"
+                    v-if="activeTab === 'table'"
+                />
             </div>
         </div>
     </div>
@@ -20,6 +45,25 @@ import Table from './Table.vue'
 const activeTab = ref('table')
 const userLogin = ref({})
 const listApprove = ref([])
+const currentPage = ref(1)
+const pageSize = ref(10)
+const searchQuery = ref('')
+const statusSelected = ref('')
+const filterDate = ref(null)
+const handleSearch = (query) => {
+    searchQuery.value = query
+}
+
+const handleFilterDate = (data) => {
+    filterDate.value = data
+    console.log(filterDate.value)
+    console.log(data)
+}
+
+const handleFilterStatus = (status) => {
+    statusSelected.value = status
+}
+
 const approveInfo = reactive({
     maDon: '',
     maNhanVien: '',
@@ -60,6 +104,7 @@ const updateApprove = async () => {
 
 const setActiveTab = (tab) => {
     activeTab.value = tab
+    currentPage.value = 1
 }
 
 onMounted(async () => {

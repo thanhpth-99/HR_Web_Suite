@@ -7,7 +7,7 @@
                     type="text"
                     :class="{ 'is-invalid': error.hoTen }"
                     v-model="props.staff.hoTen"
-                    placeholder="Tên nhân viên"
+                    :placeholder="$t('staffManagement.items.full_name')"
                 />
                 <div class="invalid-feedback" v-if="error.hoTen">Tên không được để trống</div>
                 <br />
@@ -18,10 +18,10 @@
 
         <div class="row mt-4">
             <div class="col-md-6">
-                <h5 class="section-title">Thông tin liên hệ</h5>
+                <h5 class="section-title">{{ $t('staffManagement.header.personal_infomation') }}</h5>
                 <!-- Work Mobile -->
                 <div class="row mb-3">
-                    <label for="phone" class="col-sm-4 col-form-label">Số điện thoại</label>
+                    <label for="phone" class="col-sm-4 col-form-label">{{ $t('staffManagement.items.phone') }}</label>
                     <div class="col-sm-8">
                         <input
                             type="text"
@@ -35,7 +35,9 @@
                 </div>
                 <!-- Work Address -->
                 <div class="row mb-3">
-                    <label for="address" class="col-sm-4 col-form-label">Địa chỉ</label>
+                    <label for="address" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.address')
+                    }}</label>
                     <div class="col-sm-8">
                         <input
                             type="text"
@@ -48,7 +50,7 @@
                 </div>
                 <!-- Work Email -->
                 <div class="row mb-3">
-                    <label for="email" class="col-sm-4 col-form-label">Email công việc</label>
+                    <label for="email" class="col-sm-4 col-form-label">{{ $t('staffManagement.items.email') }}</label>
                     <div class="col-sm-8">
                         <input
                             type="email"
@@ -64,16 +66,17 @@
             </div>
 
             <div class="col-md-6">
-                <h5 class="section-title">Thông tin công việc</h5>
+                <h5 class="section-title">{{ $t('staffManagement.header.job_infomation') }}</h5>
                 <!-- Department -->
                 <div class="row mb-3">
-                    <label for="department" class="col-sm-4 col-form-label">Phòng ban</label>
+                    <label for="department" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.department')
+                    }}</label>
                     <div class="col-sm-8">
                         <select
                             id="phongBanSelect"
                             v-model="props.staff.maPhongBan"
                             :class="{ 'is-invalid': error.maPhongBan }"
-                            @change="setTruongPhongByMaPhongBan(props.staff.maPhongBan)"
                             class="form-select"
                         >
                             <option value="">Chọn phòng ban</option>
@@ -90,7 +93,9 @@
                 </div>
                 <!-- Job Position -->
                 <div class="row mb-3">
-                    <label for="viTriSelect" class="col-sm-4 col-form-label">Vị trí</label>
+                    <label for="viTriSelect" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.position')
+                    }}</label>
                     <div class="col-sm-8">
                         <select
                             id="viTriSelect"
@@ -106,17 +111,23 @@
                         <div class="invalid-feedback" v-if="error.maChucVu">Chức vụ không được để trống</div>
                     </div>
                 </div>
-                <!-- Manager -->
                 <div class="row mb-3">
-                    <label for="manager" class="col-sm-4 col-form-label">Quản lý</label>
+                    <label for="quanLySelect" class="col-sm-4 col-form-label">{{
+                        $t('staffManagement.items.manager')
+                    }}</label>
                     <div class="col-sm-8">
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="props.staff.tenTruongPhong"
-                            id="manager"
-                            readonly
-                        />
+                        <select
+                            id="quanLySelect"
+                            v-model="props.staff.quanLy"
+                            :class="{ 'is-invalid': error.quanLy }"
+                            class="slim-select"
+                        >
+                            <option value="">Chọn Quản lý</option>
+                            <option v-for="quanLy in listStaff" :key="quanLy.maNhanVien" :value="quanLy.maNhanVien">
+                                {{ quanLy.hoTen }}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback" v-if="error.maChucVu">Chức vụ không được để trống</div>
                     </div>
                 </div>
             </div>
@@ -125,29 +136,37 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { get } from '@/stores/https'
-
+import SlimSelect from 'slim-select'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 const listPhongBan = ref([])
 const listViTri = ref([])
-
+const listStaff = ref([])
+const slimSelectInstance = ref('')
 const props = defineProps({
     staff: Object,
     error: Object,
 })
 
 onMounted(async () => {
+    await getAllStaff()
     await getAllPhongBan()
     await getAllViTri()
+    await createSlimSelect()
 })
 
-const setTruongPhongByMaPhongBan = (maPhongBan) => {
-    const selectedObject = listPhongBan.value.find((phongBan) => phongBan.maPhongBan === maPhongBan)
-    if (selectedObject) {
-        props.staff.tenTruongPhong = selectedObject.truongPhong // Lưu thông tin trưởng phòng
-    } else {
-        props.staff.tenTruongPhong = ''
-    }
+const createSlimSelect = () => {
+    slimSelectInstance.value = new SlimSelect({
+        select: '#quanLySelect',
+        closeOnSelect: false,
+    })
+}
+
+const getAllStaff = async () => {
+    const response = await get('/api/v1/employees')
+    listStaff.value = response.data.filter((staff) => staff.maNhanVien !== props.staff.maNhanVien)
 }
 
 const getAllPhongBan = async () => {
@@ -156,7 +175,11 @@ const getAllPhongBan = async () => {
 }
 
 const getAllViTri = async () => {
-    const response = await get('/api/v1/chuc-vu')
+    const response = await get('/api/v1/positions')
     listViTri.value = response.data
 }
 </script>
+
+<style scope>
+@import url('https://cdn.jsdelivr.net/npm/slim-select@latest/dist/slimselect.min.css');
+</style>

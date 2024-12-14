@@ -14,13 +14,41 @@
                     v-model="searchQuery"
                 />
             </div>
+            <div class="form-group me-2">
+                <DatePicker
+                    v-model="dateSelected"
+                    :range="{ partialRange: false }"
+                    placeholder="Chọn khoảng ngày"
+                    auto-apply
+                    :teleport="true"
+                    :auto-position="true"
+                    :enable-time-picker="false"
+                    format="dd/MM/yyyy"
+                    @update:model-value="$emit('filterDate', dateSelected)"
+                />
+            </div>
+
+            <div class="form-group me-2">
+                <select
+                    id="status-filter"
+                    class="form-select"
+                    v-model="selectedStatus"
+                    @change="$emit('filterStatus', selectedStatus)"
+                >
+                    <option value="">Trạng thái</option>
+                    <option value="1">Chờ duyệt</option>
+                    <option value="2">Đã duyệt</option>
+                    <option value="3">Từ chối</option>
+                </select>
+            </div>
+
             <div class="pagination d-flex justify-content-center align-items-center">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a
                             class="nav-link"
                             :class="{
-                                'active text-primary': activeTab === 'table',
+                                active: activeTab === 'table',
                                 'text-dark': activeTab !== 'table',
                             }"
                             @click.prevent="$emit('tab-change', 'table')"
@@ -32,7 +60,7 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            :class="{ 'active text-primary': activeTab === 'card', 'text-dark': activeTab !== 'card' }"
+                            :class="{ active: activeTab === 'card', 'text-dark': activeTab !== 'card' }"
                             @click.prevent="$emit('tab-change', 'card')"
                             href="#"
                         >
@@ -47,11 +75,23 @@
 
 <script setup>
 import { ref } from 'vue'
+const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search', 'filterDate', 'filterStatus'])
 const searchQuery = ref('')
-const emit = defineEmits(['tab-change', 'prevPage', 'nextPage', 'search'])
+const selectedStatus = ref('')
+const dateSelected = ref([])
+import DatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps({
     activeTab: String,
+    currentPage: {
+        type: Number,
+        default: 1,
+    },
+    totalPages: {
+        type: Number,
+        default: 1,
+    },
 })
 </script>
 
