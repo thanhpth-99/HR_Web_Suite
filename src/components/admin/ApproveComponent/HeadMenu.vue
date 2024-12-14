@@ -96,7 +96,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-/* @import url('vue3-datepicker/dist/main.css'); */
 .head-menu {
     padding: 0.88rem 1rem;
     width: 100%;
