@@ -82,6 +82,11 @@ const featureUser = [
         icon: 'fa-bookmark',
         text: 'home.menu_item_user.rewar_discipline',
     },
+    {
+        path: '/user/payroll',
+        icon: 'fa-dollar-sign',
+        text: 'home.menu_item_user.payroll',
+    },
 ]
 onMounted(() => {
     if (sessionStorage.getItem('role') === 'ADMIN') {
@@ -94,7 +99,7 @@ onMounted(() => {
 })
 </script>
 <template>
-    <aside class="position-fixed top-0 start-0" :class="{ close: !isShow }">
+    <aside class="position-fixed top-0 start-0 border-0" :class="{ close: !isShow }">
         <header class="position-relative">
             <div class="image-text d-flex align-items-center">
                 <span class="image d-flex align-items-center">
